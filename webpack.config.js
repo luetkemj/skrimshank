@@ -1,10 +1,7 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const GitRevisionPlugin = require("git-revision-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
-
-const gitRevisionPlugin = new GitRevisionPlugin();
 
 const mode = () => {
   if (process.env.NODE_ENV === "development") {
@@ -34,7 +31,7 @@ const devServer = () => {
   if (process.env.NODE_ENV === "development") {
     return {
       devServer: {
-        contentBase: "./dist",
+        static: "./dist",
         open: false,
       },
     };
@@ -68,7 +65,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "jsrlt",
       template: "index.html",
-      version: gitRevisionPlugin.commithash().slice(0, 7),
     }),
   ],
   output: {
