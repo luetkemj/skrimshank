@@ -1,9 +1,29 @@
 <html>
   <head>
-    <meta charset="utf-8" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: black;
+        color: white;
+      }
+  
+      canvas {
+        image-rendering: -moz-crisp-edges;
+        image-rendering: -webkit-crisp-edges;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+    </style>
   </head>
   <body>
-    <p>Hello World</p>
+    <noscript>Please enable JavaScript in your web browser to play this game.</noscript>
+    <div id="pixi-content"><canvas id="pixi-canvas" /></div>
   </body>
 </html>

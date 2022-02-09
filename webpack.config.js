@@ -1,6 +1,8 @@
+const webpack = require("webpack");
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 const mode = () => {
@@ -63,8 +65,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
-      title: "skrimshank",
+      title: "Skrimshank",
       template: "index.html",
+    }),
+    new CopyPlugin({
+      patterns: [{ from: "static", to: "static" }],
+    }),
+    new webpack.DefinePlugin({
+      "process.env.GIT_REV": JSON.stringify(process.env.GIT_REV),
     }),
   ],
   output: {
@@ -95,6 +103,10 @@ module.exports = {
             ],
           },
         },
+      },
+      {
+        test: /\.json$/,
+        loader: "json-loader",
       },
     ],
   },
