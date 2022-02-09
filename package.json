@@ -1,5 +1,5 @@
 {
-  "name": "jsrlt-starter",
+  "name": "skrimshank",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -23,7 +23,7 @@
     "clean-webpack-plugin": "4.0.0",
     "gh-pages": "3.2.3",
     "html-webpack-plugin": "5.5.0",
-    "http-server": "14.1.0",
+    "http-server": "13.0.2",
     "jest": "27.5.1",
     "prettier": "2.5.1",
     "terser-webpack-plugin": "5.3.1",

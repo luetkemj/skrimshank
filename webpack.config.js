@@ -63,7 +63,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
-      title: "jsrlt",
+      title: "skrimshank",
       template: "index.html",
     }),
   ],
