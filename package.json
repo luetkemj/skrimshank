@@ -7,15 +7,20 @@
     "node": ">=12.20"
   },
   "scripts": {
-    "build": "NODE_ENV='production' webpack",
+    "build": "NODE_ENV='production' GIT_REV=$(git rev-parse --short HEAD) webpack",
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build",
     "preprod": "rm -rf ./dist && npm run build && npx http-server ./dist -o -p 1234",
-    "start": "NODE_ENV='development' webpack-dev-server",
+    "start": "NODE_ENV='development' GIT_REV=$(git rev-parse --short HEAD) webpack-dev-server",
     "test": "jest"
   },
   "author": "",
   "license": "ISC",
+  "dependencies": {
+    "lodash": "4.17.21",
+    "pixi.js-legacy": "6.1.2",
+    "wrap-ansi": "7.0.0"
+  },
   "devDependencies": {
     "@babel/core": "7.17.0",
     "@babel/plugin-proposal-class-properties": "7.16.7",
