@@ -1,1 +1,0 @@
-{"version":3,"file":"main.7265f521b14ac68bc3b8.js","mappings":"AAAAA,QAAQC,IAAI","sources":["webpack://skrimshank/./src/index.js"],"sourcesContent":["console.log(\"Hello World!\");\n"],"names":["console","log"],"sourceRoot":""}
