@@ -1,50 +1,15 @@
 import _ from "lodash";
 
 import { processUserInput } from "./lib/userInput";
+import { render } from "./ecs/systems/render";
 
-import { loadSprites, initUi, printRow } from "./lib/canvas";
+import { loadTextures, initUi, printRow } from "./lib/canvas";
 
-const loader = loadSprites(initGame);
+const loader = loadTextures(initGame);
 
 const state = {
-  ambientLog: [],
-  debug: false,
-  dijkstra: {
-    player: {
-      goals: [],
-      map: {},
-    },
-  },
-  eAtPos: {},
-  floors: {},
   fps: 0,
-  inventory: {
-    columnIndex: 0,
-    inventoryListIndex: 0,
-    inReachListIndex: 0,
-    selectedInventoryItemEid: "",
-    selectedInReachItemEid: "",
-    selectedApplierItemEid: "",
-  },
-  log: {
-    log: [],
-    rowIndex: 0,
-  },
-  looking: null,
-  maps: {
-    zoom: "local",
-    mapId: "0,0,0",
-    local: {},
-  },
-  mode: "GAME",
-  debugMode: "",
-  pcEnts: [],
-  tick: 0,
-  turn: "",
   userInput: "",
-  withinReachPreview: [[], [], []],
-  world: {},
-  z: 0,
 };
 
 window.state = state;
@@ -65,6 +30,9 @@ function initGame() {
 
   function gameLoop() {
     requestAnimationFrame(gameLoop);
+
+    // stystems
+    render();
 
     // calculate FPS
     {
