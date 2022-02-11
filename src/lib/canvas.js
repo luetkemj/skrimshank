@@ -56,11 +56,10 @@ const initPixiContainerRow = ({ container, row }) => {
   const func = container.halfWidth ? getFontTexture : getAsciTexture;
 
   _.times(width, (i) => {
-    const sprite = new PIXI.Sprite(func({ char: gfx.chars.default }));
+    const sprite = new PIXI.Sprite(func({ char: " " }));
     const spriteWidth = container.halfWidth ? cellHfW : cellW;
     const spriteHeight = cellH;
 
-    sprite.tint = gfx.colors.default;
     sprite.width = spriteWidth;
     sprite.height = spriteHeight;
     sprite.x = i * spriteWidth;
