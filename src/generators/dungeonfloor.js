@@ -24,4 +24,6 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
       world.createPrefab("Floor", { position: { x, y, z } });
     }
   });
+
+  return dungeon;
 };
