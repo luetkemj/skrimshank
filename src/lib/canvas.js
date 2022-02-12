@@ -1,7 +1,6 @@
 import _ from "lodash";
 import * as PIXI from "pixi.js-legacy";
 import { grid } from "./grid";
-import * as gfx from "./graphics";
 import { menloBoldAlphaMap } from "../../static/fonts/menlo-bold.map";
 import { menloBoldHalfAlphaMap } from "../../static/fonts/menlo-bold-half.map";
 

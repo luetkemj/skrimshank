@@ -4,14 +4,14 @@ export const grid = {
   width: 100,
   height: 44,
 
-  legend: {
-    name: "legend",
-    width: 12,
-    height: 41,
-    x: 0,
-    y: 0,
-    halfWidth: true,
-  },
+  // legend: {
+  //   name: "legend",
+  //   width: 12,
+  //   height: 41,
+  //   x: 0,
+  //   y: 0,
+  //   halfWidth: true,
+  // },
 
   fps: {
     name: "fps",
@@ -40,59 +40,59 @@ export const grid = {
     halfWidth: false,
   },
 
-  withinReach: {
-    name: "withinReach",
-    width: 3,
-    height: 3,
-    x: 97,
-    y: 0,
-    halfWidth: false,
-  },
+  // withinReach: {
+  //   name: "withinReach",
+  //   width: 3,
+  //   height: 3,
+  //   x: 97,
+  //   y: 0,
+  //   halfWidth: false,
+  // },
 
-  withinReachBelow: {
-    name: "withinReachBelow",
-    width: 3,
-    height: 3,
-    x: 97,
-    y: 0,
-    halfWidth: false,
-  },
+  // withinReachBelow: {
+  //   name: "withinReachBelow",
+  //   width: 3,
+  //   height: 3,
+  //   x: 97,
+  //   y: 0,
+  //   halfWidth: false,
+  // },
 
-  overlay: {
-    name: "overlay",
-    width: 87,
-    height: 40,
-    x: 13,
-    y: 3,
-    halfWidth: false,
-  },
+  // overlay: {
+  //   name: "overlay",
+  //   width: 87,
+  //   height: 40,
+  //   x: 13,
+  //   y: 3,
+  //   halfWidth: false,
+  // },
 
-  adventureLog: {
-    name: "adventureLog",
-    width: 84,
-    height: 3,
-    x: 13,
-    y: 0,
-    halfWidth: true,
-  },
+  // adventureLog: {
+  //   name: "adventureLog",
+  //   width: 84,
+  //   height: 3,
+  //   x: 13,
+  //   y: 0,
+  //   halfWidth: true,
+  // },
 
-  ambiance: {
-    name: "ambiance",
-    width: 87,
-    height: 1,
-    x: 13,
-    y: 43,
-    halfWidth: true,
-  },
+  // ambiance: {
+  //   name: "ambiance",
+  //   width: 87,
+  //   height: 1,
+  //   x: 13,
+  //   y: 43,
+  //   halfWidth: true,
+  // },
 
-  menu: {
-    name: "menu",
-    width: 87,
-    height: 41,
-    x: 13,
-    y: 3,
-    halfWidth: true,
-  },
+  // menu: {
+  //   name: "menu",
+  //   width: 87,
+  //   height: 41,
+  //   x: 13,
+  //   y: 3,
+  //   halfWidth: true,
+  // },
 };
 
 export const CARDINAL = [

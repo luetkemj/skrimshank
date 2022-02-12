@@ -1,14 +1,16 @@
 import _ from "lodash";
-
-import { processUserInput } from "./lib/userInput";
-import { render } from "./ecs/systems/render";
-
 import { loadTextures, initUi, printRow } from "./lib/canvas";
+import { renderSystem } from "./ecs/systems/render.system";
+import { userInputSystem } from "./ecs/systems/userInput.system";
+import { movementSystem } from "./ecs/systems/movement.system";
 
 const loader = loadTextures(initGame);
 
 const state = {
   fps: 0,
+  mode: "GAME",
+  tick: 0,
+  turn: "PLAYER",
   userInput: "",
 };
 
@@ -32,7 +34,14 @@ function initGame() {
     requestAnimationFrame(gameLoop);
 
     // stystems
-    render();
+    if (getState().userInput && getState().turn === "PLAYER") {
+      setState((state) => {
+        state.tick = state.tick + 1;
+      });
+      userInputSystem();
+      movementSystem();
+      renderSystem();
+    }
 
     // calculate FPS
     {
