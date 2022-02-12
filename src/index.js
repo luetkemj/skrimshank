@@ -10,7 +10,7 @@ const state = {
   fps: 0,
   mode: "GAME",
   tick: 0,
-  turn: "PLAYER",
+  turn: "WORLD",
   userInput: "",
 };
 
@@ -24,6 +24,7 @@ export const getState = () => state;
 
 function initGame() {
   initUi(loader);
+  renderSystem();
 
   // setup FPS
   let fps = 0;
@@ -33,7 +34,7 @@ function initGame() {
   function gameLoop() {
     requestAnimationFrame(gameLoop);
 
-    // stystems
+    // systems
     if (getState().userInput && getState().turn === "PLAYER") {
       setState((state) => {
         state.tick = state.tick + 1;
@@ -41,6 +42,11 @@ function initGame() {
       userInputSystem();
       movementSystem();
       renderSystem();
+      setState(state => state.turn = 'WORLD')
+    }
+
+    if (getState().turn === "WORLD") {
+      setState(state => state.turn = 'PLAYER')
     }
 
     // calculate FPS
