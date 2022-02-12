@@ -4,6 +4,7 @@ import Appearance from "./components/Appearance.component";
 import MoveTo from "./components/MoveTo.component";
 import PC from "./components/PC.component";
 import Position from "./components/Position.component";
+import ZIndex from "./components/ZIndex.component";
 
 import { Being } from "./prefabs/Being.prefab";
 import { Floor } from "./prefabs/Floor.prefab";
@@ -18,6 +19,7 @@ engine.registerComponent(Appearance);
 engine.registerComponent(MoveTo);
 engine.registerComponent(PC);
 engine.registerComponent(Position);
+engine.registerComponent(ZIndex);
 
 // register prefabs
 engine.registerPrefab(Being);

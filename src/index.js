@@ -42,8 +42,8 @@ function initGame() {
   initMap("0,0,0");
 
   // testing:
-  generateDungeonFloor({ world });
   const hero = world.createPrefab("Player");
+  generateDungeonFloor({ world });
 
   renderSystem();
 
