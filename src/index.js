@@ -8,6 +8,7 @@ import { userInputSystem } from "./ecs/systems/userInput.system";
 import { movementSystem } from "./ecs/systems/movement.system";
 
 import { generateDungeonFloor } from "./generators/dungeonfloor";
+import { grid } from "./lib/grid";
 
 const loader = loadTextures(initGame);
 
@@ -17,6 +18,8 @@ const state = {
   tick: 0,
   turn: "WORLD",
   userInput: "",
+  currentMapId: "0,0,0",
+  maps: { "0,0,0": [] },
 };
 
 window.state = state;
@@ -30,6 +33,13 @@ export const getState = () => state;
 
 function initGame() {
   initUi(loader);
+
+  const initMap = (mapId) => {
+    setState((state) => {
+      state.maps[mapId] = _.times(grid.map.height, (i) => []);
+    });
+  };
+  initMap("0,0,0");
 
   // testing:
   generateDungeonFloor({ world });

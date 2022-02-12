@@ -18,7 +18,7 @@ export const movementSystem = () => {
     }
 
     if (canMove) {
-      entity.position = { x, y, z };
+      entity.fireEvent("update-position", { x, y, z });
     }
   });
 };
