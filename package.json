@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "geotic": "4.1.6",
     "lodash": "4.17.21",
     "pixi.js-legacy": "6.1.2",
     "wrap-ansi": "7.0.0"
