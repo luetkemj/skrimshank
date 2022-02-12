@@ -1,8 +1,13 @@
 import _ from "lodash";
 import { loadTextures, initUi, printRow } from "./lib/canvas";
+
+import { world } from "./ecs/index";
+
 import { renderSystem } from "./ecs/systems/render.system";
 import { userInputSystem } from "./ecs/systems/userInput.system";
 import { movementSystem } from "./ecs/systems/movement.system";
+
+import { generateDungeonFloor } from "./generators/dungeonfloor";
 
 const loader = loadTextures(initGame);
 
@@ -15,6 +20,7 @@ const state = {
 };
 
 window.state = state;
+window.world = world;
 
 export const setState = (callback) => {
   callback(state);
@@ -24,6 +30,11 @@ export const getState = () => state;
 
 function initGame() {
   initUi(loader);
+
+  // testing:
+  generateDungeonFloor({ world });
+  const hero = world.createPrefab("Player");
+
   renderSystem();
 
   // setup FPS
@@ -42,11 +53,11 @@ function initGame() {
       userInputSystem();
       movementSystem();
       renderSystem();
-      setState(state => state.turn = 'WORLD')
+      setState((state) => (state.turn = "WORLD"));
     }
 
     if (getState().turn === "WORLD") {
-      setState(state => state.turn = 'PLAYER')
+      setState((state) => (state.turn = "PLAYER"));
     }
 
     // calculate FPS

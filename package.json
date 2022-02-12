@@ -11,7 +11,7 @@
     "deploy": "gh-pages -d dist",
     "predeploy": "npm run build",
     "preprod": "rm -rf ./dist && npm run build && npx http-server ./dist -o -p 1234",
-    "start": "NODE_ENV='development' GIT_REV=$(git rev-parse --short HEAD) webpack-dev-server",
+    "start": "NODE_ENV='development' GIT_REV=$(git rev-parse --short HEAD) webpack-dev-server --progress",
     "test": "jest"
   },
   "author": "",
