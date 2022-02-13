@@ -14,6 +14,7 @@ import { grid } from "./lib/grid";
 const loader = loadTextures(initGame);
 
 const state = {
+  FOV: { fov: new Set() },
   fps: 0,
   mode: "GAME",
   tick: 0,

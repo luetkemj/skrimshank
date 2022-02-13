@@ -5,7 +5,7 @@ import Revealed from "../components/Revealed.component";
 import { grid } from "../../lib/grid";
 import { createFOV } from "../../lib/fov";
 import { getEAtPos } from "../../lib/ecsHelpers";
-import { getState } from "../../index";
+import { getState, setState } from "../../index";
 import { world } from "../index";
 
 const pcQuery = world.createQuery({ all: [PC] });
@@ -35,26 +35,28 @@ export const fovSystem = () => {
   });
 
   // clear out and unrender stale fov
-  fovQuery.get().forEach((entity) => {
-    entity.remove(entity.inFov);
-  });
+  // fovQuery.get().forEach((entity) => {
+  //   entity.remove(entity.inFov);
+  // });
 
-  FOV.fov.forEach((locId) => {
-    const [x, y] = locId.split(",");
-    const eAtPos = getEAtPos({ x, y });
+  setState((state) => (state.FOV = FOV));
 
-    if (eAtPos) {
-      eAtPos.forEach((eid) => {
-        const entity = world.getEntity(eid);
-        entity.add(InFov);
-        entity.add(Revealed);
-        // addComponent(world, FovDistance, eidAtPos);
-        // addComponent(world, InFov, eidAtPos);
-        // if (hasComponent(world, Lux, eidAtPos)) {
-        //   addComponent(world, Revealed, eidAtPos);
-        // }
-        // FovDistance.dist[eidAtPos] = FOV.distance[locId];
-      });
-    }
-  });
+  // FOV.fov.forEach((locId) => {
+  //   const [x, y] = locId.split(",");
+  //   const eAtPos = getEAtPos({ x, y });
+
+  //   if (eAtPos) {
+  //     eAtPos.forEach((eid) => {
+  //       const entity = world.getEntity(eid);
+  //       entity.add(InFov);
+  //       entity.add(Revealed);
+  //       // addComponent(world, FovDistance, eidAtPos);
+  //       // addComponent(world, InFov, eidAtPos);
+  //       // if (hasComponent(world, Lux, eidAtPos)) {
+  //       //   addComponent(world, Revealed, eidAtPos);
+  //       // }
+  //       // FovDistance.dist[eidAtPos] = FOV.distance[locId];
+  //     });
+  //   }
+  // });
 };

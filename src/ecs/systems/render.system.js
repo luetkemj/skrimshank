@@ -14,6 +14,10 @@ const visibleQuery = world.createQuery({
   all: [Appearance, InFov, Position],
 });
 
+const appearanceQuery = world.createQuery({
+  all: [Appearance, Position],
+});
+
 const isOnTop = (eid, eAtPos) => {
   let zIndex = 0;
   let eidOnTop = eid;
@@ -42,18 +46,53 @@ const renderIfOnTop = (entity) => {
 export const renderSystem = () => {
   // don't do this!
   // you don't have to clear the entire map each time.
-  clearContainer("map");
+  // clearContainer("map");
+  // don't clear the map - instead store FOV in state and iterate over all entities with Appearance and Position...
+  // move the problem to the FOV alg instead of geotic...
+  // if that still doesn't work, try making sprites interactive
+  // if that still doesn't work, try removing and adding the FOV component another way
+  // or more simply - try modifying a value on it
+  // trying to determine if the issue is with geotic add/remove or the fov alg or pixi
+  // visibleQuery.get().forEach((entity) => {
+  //   entity.appearance.alpha = 1;
+  //   renderIfOnTop(entity);
+  // });
+  // revealedQuery.get().forEach((entity) => {
+  //   entity.appearance.alpha = 0.2;
+  //   renderIfOnTop(entity);
+  // });
+  // const fov = [getState().FOV.fov];
+  appearanceQuery.get().forEach((entity) => {
+    const locId = `${entity.position.x},${entity.position.y}`;
+    const isRevealed = entity.has(Revealed);
+    const isInFov = getState().FOV.fov.has(locId);
 
-  visibleQuery.get().forEach((entity) => {
-    entity.appearance.alpha = 1;
-    renderIfOnTop(entity);
-  });
-
-  revealedQuery.get().forEach((entity) => {
-    if (entity.inFov) {
-      console.log("i have inFov - wtf?");
+    // if revealed
+    if (isRevealed) {
+      entity.appearance.alpha = 0.2;
+      renderIfOnTop(entity);
     }
-    entity.appearance.alpha = 0.2;
-    renderIfOnTop(entity);
+
+    if (isInFov) {
+      entity.add(Revealed);
+      entity.appearance.alpha = 1;
+      renderIfOnTop(entity);
+    }
+
+    // if (!isRevealed && !isInFov) {
+    //   renderIfOnTop
+    // }
+
+    // if in FOV
+
+    // // if !revealed and !in FOV
+    // if (getState().FOV.fov.has(locId)) {
+    //   entity.add(Revealed);
+    //   entity.appearance.alpha = 1;
+    //   renderIfOnTop(entity);
+    // } else {
+    //   entity.appearance.alpha = 0;
+    //   renderIfOnTop(entity);
+    // }
   });
 };
