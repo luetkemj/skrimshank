@@ -3,9 +3,10 @@ import { loadTextures, initUi, printRow } from "./lib/canvas";
 
 import { world } from "./ecs/index";
 
+import { fovSystem } from "./ecs/systems/fov.system";
+import { movementSystem } from "./ecs/systems/movement.system";
 import { renderSystem } from "./ecs/systems/render.system";
 import { userInputSystem } from "./ecs/systems/userInput.system";
-import { movementSystem } from "./ecs/systems/movement.system";
 
 import { generateDungeonFloor } from "./generators/dungeonfloor";
 import { grid } from "./lib/grid";
@@ -63,6 +64,7 @@ function initGame() {
       });
       userInputSystem();
       movementSystem();
+      fovSystem();
       renderSystem();
       setState((state) => (state.turn = "WORLD"));
     }
