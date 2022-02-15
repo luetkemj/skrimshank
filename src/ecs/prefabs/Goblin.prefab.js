@@ -1,13 +1,12 @@
 import { chars, colors } from "../../lib/graphics";
 
-export const Player = {
-  name: "Player",
+export const Goblin = {
+  name: "Goblin",
   inherit: ["Being"],
   components: [
-    { type: "PC" },
     {
       type: "Appearance",
-      properties: { char: chars.player, color: colors.player },
+      properties: { char: chars.goblin, color: colors.goblin },
     },
     {
       type: "LightSource",

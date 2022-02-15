@@ -1,11 +1,11 @@
 import InFov from "../components/InFov.component";
+import Lux from "../components/Lux.component";
 import Shadowcaster from "../components/Shadowcaster.component";
 import PC from "../components/PC.component";
 import Revealed from "../components/Revealed.component";
 import { grid } from "../../lib/grid";
 import { createFOV } from "../../lib/fov";
 import { getEAtPos } from "../../lib/ecsHelpers";
-import { getState } from "../../index";
 import { world } from "../index";
 
 const pcQuery = world.createQuery({ all: [PC] });
@@ -18,7 +18,7 @@ export const fovSystem = () => {
   // Create FOV schema
   const { width, height } = grid.map;
   const origin = { x: playerEntity.position.x, y: playerEntity.position.y };
-  const radius = 10; // this should come from a component!
+  const radius = grid.map.width; // this should come from a component!
   const blockingLocations = new Set();
 
   shadowcasterQuery.get().forEach((entity) => {
@@ -50,13 +50,10 @@ export const fovSystem = () => {
       eAtPos.forEach((eid) => {
         const entity = world.getEntity(eid);
         entity.add(InFov);
-        entity.add(Revealed);
-        // addComponent(world, FovDistance, eidAtPos);
-        // addComponent(world, InFov, eidAtPos);
-        // if (hasComponent(world, Lux, eidAtPos)) {
-        //   addComponent(world, Revealed, eidAtPos);
-        // }
-        // FovDistance.dist[eidAtPos] = FOV.distance[locId];
+
+        if (entity.has(Lux)) {
+          entity.add(Revealed);
+        }
       });
     }
   });

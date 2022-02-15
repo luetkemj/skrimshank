@@ -4,6 +4,7 @@ import { loadTextures, initUi, printRow } from "./lib/canvas";
 import { world } from "./ecs/index";
 
 import { fovSystem } from "./ecs/systems/fov.system";
+import { lightingSystem } from "./ecs/systems/lighting.system";
 import { movementSystem } from "./ecs/systems/movement.system";
 import { renderSystem } from "./ecs/systems/render.system";
 import { userInputSystem } from "./ecs/systems/userInput.system";
@@ -44,10 +45,13 @@ function initGame() {
 
   // testing:
   const hero = world.createPrefab("Player");
+  const goblin = world.createPrefab("Goblin");
   const dungeon = generateDungeonFloor({ world });
   hero.fireEvent("update-position", dungeon.rooms[0].center);
+  goblin.fireEvent("update-position", dungeon.rooms[1].center);
 
   // run systems to render initial frame
+  lightingSystem();
   fovSystem();
   renderSystem();
 
@@ -66,6 +70,7 @@ function initGame() {
       });
       userInputSystem();
       movementSystem();
+      lightingSystem();
       fovSystem();
       renderSystem();
       setState((state) => (state.turn = "WORLD"));

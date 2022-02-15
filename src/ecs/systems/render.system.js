@@ -1,9 +1,10 @@
 import Appearance from "../components/Appearance.component";
 import InFov from "../components/InFov.component";
+import Lux from "../components/Lux.component";
 import Position from "../components/Position.component";
 import Revealed from "../components/Revealed.component";
 import { world } from "../index";
-import { clearContainer, printCell } from "../../lib/canvas";
+import { printCell } from "../../lib/canvas";
 import { getState } from "../../index";
 
 const revealedQuery = world.createQuery({
@@ -13,6 +14,8 @@ const revealedQuery = world.createQuery({
 const visibleQuery = world.createQuery({
   all: [Appearance, InFov, Position],
 });
+
+const minAlpha = 0.1;
 
 const isOnTop = (eid, eAtPos) => {
   let zIndex = 0;
@@ -40,20 +43,15 @@ const renderIfOnTop = (entity) => {
 };
 
 export const renderSystem = () => {
-  // don't do this!
-  // you don't have to clear the entire map each time.
-  clearContainer("map");
-
   visibleQuery.get().forEach((entity) => {
-    entity.appearance.alpha = 1;
+    if (entity.has(Lux)) {
+      entity.appearance.alpha = Math.max(minAlpha, entity.lux.current / 100);
+    }
     renderIfOnTop(entity);
   });
 
   revealedQuery.get().forEach((entity) => {
-    if (entity.inFov) {
-      console.log("i have inFov - wtf?");
-    }
-    entity.appearance.alpha = 0.2;
+    entity.appearance.alpha = minAlpha;
     renderIfOnTop(entity);
   });
 };
