@@ -17,7 +17,7 @@ const state = {
   fps: 0,
   mode: "GAME",
   tick: 0,
-  turn: "WORLD",
+  turn: "PLAYER",
   userInput: "",
   currentMapId: "0,0,0",
   maps: { "0,0,0": [] },
@@ -47,6 +47,8 @@ function initGame() {
   const dungeon = generateDungeonFloor({ world });
   hero.fireEvent("update-position", dungeon.rooms[0].center);
 
+  // run systems to render initial frame
+  fovSystem();
   renderSystem();
 
   // setup FPS
