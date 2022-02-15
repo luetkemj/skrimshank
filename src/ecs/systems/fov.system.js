@@ -1,5 +1,5 @@
 import InFov from "../components/InFov.component";
-import Opaque from "../components/Opaque.component";
+import Shadowcaster from "../components/Shadowcaster.component";
 import PC from "../components/PC.component";
 import Revealed from "../components/Revealed.component";
 import { grid } from "../../lib/grid";
@@ -9,7 +9,7 @@ import { getState } from "../../index";
 import { world } from "../index";
 
 const pcQuery = world.createQuery({ all: [PC] });
-const opaqueQuery = world.createQuery({ all: [Opaque] });
+const shadowcasterQuery = world.createQuery({ all: [Shadowcaster] });
 const fovQuery = world.createQuery({ all: [InFov] });
 
 export const fovSystem = () => {
@@ -21,7 +21,7 @@ export const fovSystem = () => {
   const radius = 10; // this should come from a component!
   const blockingLocations = new Set();
 
-  opaqueQuery.get().forEach((entity) => {
+  shadowcasterQuery.get().forEach((entity) => {
     blockingLocations.add(`${entity.position.x},${entity.position.y}`);
   });
 

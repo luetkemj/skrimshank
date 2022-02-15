@@ -23,7 +23,7 @@ export function createFOV({
 }) {
   const visible = new Set();
 
-  const isOpaque = (x, y) => {
+  const isShadowcaster = (x, y) => {
     const locId = `${x},${y}`;
     return !!blockingLocations.has(locId);
   };
@@ -65,7 +65,7 @@ export function createFOV({
         }
 
         if (blocked) {
-          if (isOpaque(currentX, currentY)) {
+          if (isShadowcaster(currentX, currentY)) {
             newStart = rightSlope;
             continue;
           } else {
@@ -73,7 +73,7 @@ export function createFOV({
             start = newStart;
           }
         } else {
-          if (isOpaque(currentX, currentY) && distance < radius) {
+          if (isShadowcaster(currentX, currentY) && distance < radius) {
             blocked = true;
             castShadows(
               originX,

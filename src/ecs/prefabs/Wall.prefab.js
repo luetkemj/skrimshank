@@ -5,7 +5,7 @@ export const Wall = {
   inherit: ["Tile"],
   components: [
     { type: "Blocking" },
-    { type: "Opaque" },
+    { type: "Shadowcaster" },
     {
       type: "Appearance",
       properties: { char: chars.wall, color: colors.wall },
