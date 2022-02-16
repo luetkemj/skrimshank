@@ -1,6 +1,7 @@
 import { world } from "../index";
 import Lux from "../components/Lux.component";
 import LightSource from "../components/LightSource.component";
+import PC from "../components/PC.component";
 import Shadowcaster from "../components/Shadowcaster.component";
 import { grid } from "../../lib/grid";
 import { createFOV } from "../../lib/fov";
@@ -17,16 +18,17 @@ const lightSourceQuery = world.createQuery({ all: [LightSource] });
 const shadowcasterQuery = world.createQuery({ all: [Shadowcaster] });
 
 export const lightingSystem = () => {
-  // clear out and unrender stale lux
-  // todo: remove this hack
-  // hack: spreading the query to get past a caching bug in geotic
-  [...luxQuery.get()].forEach((entity) => {
-    // fovQuery.get().forEach((entity) => {
-    entity.remove(entity.lux);
+  // reset current lux
+  luxQuery.get().forEach((entity) => {
+    entity.lux.current = 0;
   });
 
   // calculate lighting for each lightsource (FOV with beam range)
   lightSourceQuery.get().forEach((entity) => {
+    if (entity.lightSource.stationary && !entity.lightSource.recalc) {
+      return;
+    }
+
     // Create FOV schema
     const { width, height } = grid.map;
     const origin = { x: entity.position.x, y: entity.position.y };
@@ -58,10 +60,16 @@ export const lightingSystem = () => {
           if (lux) {
             if (!ent.has(Lux)) ent.add(Lux);
 
-            ent.lux.current += lux;
+            if (entity.lightSource.stationary) {
+              ent.lux.ambient += lux;
+            } else {
+              ent.lux.current += lux;
+            }
           }
         }
       );
     });
+
+    entity.lightSource.recalc = false;
   });
 };

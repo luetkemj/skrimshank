@@ -1,5 +1,6 @@
 import { Component } from "geotic";
 import { setState } from "../../index";
+import LightSource from "./LightSource.component";
 
 export default class Position extends Component {
   static properties = {
@@ -29,6 +30,11 @@ export default class Position extends Component {
     this.x = evt.data.x;
     this.y = evt.data.y;
     this.z = evt.data.z;
+
+    // if entity is a lightsource, set flag to recalc
+    if (this.entity.has(LightSource)) {
+      this.entity.lightSource.recalc = true;
+    }
 
     evt.handle();
 

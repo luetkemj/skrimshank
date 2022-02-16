@@ -45,7 +45,10 @@ const renderIfOnTop = (entity) => {
 export const renderSystem = () => {
   visibleQuery.get().forEach((entity) => {
     if (entity.has(Lux)) {
-      entity.appearance.alpha = Math.max(minAlpha, entity.lux.current / 100);
+      entity.appearance.alpha = Math.max(
+        minAlpha,
+        entity.lux.ambient + entity.lux.current / 100
+      );
     }
     renderIfOnTop(entity);
   });

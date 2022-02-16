@@ -1,7 +1,8 @@
 export const colors = {
   blood: 0xb91906,
   default: 0xff0077,
-  fire: 0xffd00e,
+  // fire: 0xffd00e,
+  fire: 0xfffdcc,
   floor: 0x555555,
   goblin: 0x81a842,
   player: 0xffffff,
