@@ -3,6 +3,7 @@ import Discoverable from "../components/Discoverable.component";
 import Shadowcaster from "../components/Shadowcaster.component";
 import InFov from "../components/InFov.component";
 import Lux from "../components/Lux.component";
+import PC from "../components/PC.component";
 import Position from "../components/Position.component";
 import Revealed from "../components/Revealed.component";
 import { world } from "../index";
@@ -10,6 +11,9 @@ import { printCell } from "../../lib/canvas";
 import { getState } from "../../index";
 import { getNeighborEntities } from "../../lib/ecsHelpers";
 
+const pcQuery = world.createQuery({
+  all: [PC],
+});
 const appearanceQuery = world.createQuery({
   all: [Appearance],
 });
@@ -52,15 +56,28 @@ const renderIfOnTop = (entity) => {
 };
 
 export const renderSystem = () => {
+  // always reset player to minAlpha with the assumption they will get relit by their own light source
+  // or by neighoring entities like shadowcasters
+  pcQuery.get().forEach((entity) => {
+    entity.appearance.alpha = minAlpha;
+  });
+
   // reset shadowcaster alpha
   shadowcasterQuery.get().forEach((entity) => {
+    // Currently Revealed is only ever ADDED to an entity
+    // if an entity has been revealed, reset it's alpha to the minAlpha
     if (entity.has(Revealed)) {
       entity.appearance.alpha = minAlpha;
     }
     renderIfOnTop(entity);
   });
 
-  visibleQuery.get().forEach((entity) => {
+  const visibleEnts = [...pcQuery.get(), ...visibleQuery.get()];
+
+  visibleEnts.forEach((entity) => {
+    // The Lux component stores ambient and current lux
+    // ambient and current lux are combined to determine the final alpha of a rendered sprite
+    // (see lighting system for more details)
     if (entity.has(Lux)) {
       entity.appearance.alpha = Math.max(
         minAlpha,
@@ -68,13 +85,18 @@ export const renderSystem = () => {
       );
     }
 
-    if (entity.has(Shadowcaster)) {
+    // The player entity is treated similar to shadowcasters
+    // Shadowcasters are opaque entitites that block light and cast shadows
+    // Shadowcasters get their light from neighboring tiles within player FOV
+    // This is because a lightsource outside of FOV on the other side of a wall will light said wall making it appear translucent
+    // To solve this problem we set a shadowcasters lux to that of it's brightest neighbor with FOV
+    if (entity.has(Shadowcaster) || entity.has(PC)) {
       // look at neighbors with InFOV use brightest lux
       const { x, y } = entity.position;
       let lux = 0;
 
       getNeighborEntities({ x, y }).forEach((ent) => {
-        if (ent.has(Lux)) {
+        if (ent.has(Lux) && ent.has(InFov) && !ent.has(PC)) {
           const candidate = ent.lux.ambient + ent.lux.current;
           if (lux < candidate) lux = candidate;
         }
@@ -83,6 +105,7 @@ export const renderSystem = () => {
         entity.appearance.alpha = lux / 100;
       }
 
+      // if an entity has been lit, it has been revealed
       if (lux) {
         entity.add(Revealed);
       }
@@ -96,7 +119,8 @@ export const renderSystem = () => {
     renderIfOnTop(entity);
   });
 
-  // for omniscience only
+  // DEBUG:
+  // Uncomment to render everything at 100% alpha.
   // appearanceQuery.get().forEach((entity) => {
   //   entity.appearance.alpha = 1;
   //   renderIfOnTop(entity);
