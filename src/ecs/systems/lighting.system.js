@@ -1,7 +1,6 @@
 import { world } from "../index";
 import Lux from "../components/Lux.component";
 import LightSource from "../components/LightSource.component";
-import PC from "../components/PC.component";
 import Shadowcaster from "../components/Shadowcaster.component";
 import { grid } from "../../lib/grid";
 import { createFOV } from "../../lib/fov";
@@ -53,6 +52,11 @@ export const lightingSystem = () => {
       getEAtPos({ x: locId.split(",")[0], y: locId.split(",")[1] }).forEach(
         (eId) => {
           const ent = world.getEntity(eId);
+
+          // Shadowcaster ents share the lux of their neighbors.
+          // if ent is Shadowcaster return
+          if (ent.has(Shadowcaster)) return;
+
           const dist = FOV.distance[locId];
           const { beam, lumens } = entity.lightSource;
           const lux = getLux({ dist, beam, lumens });

@@ -28,8 +28,6 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
     }
   });
 
-  console.log(dungeon);
-
   // add light sources
   dungeon.rooms.forEach((room) => {
     const { x1, x2, y1, y2 } = room;
@@ -47,8 +45,6 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
 
         entity.appearance.color = gfx.colors.fire;
         entity.add(LightSource, { lumens: 100, beam: 5 });
-
-        // console.log(entity);
       });
     });
   });
