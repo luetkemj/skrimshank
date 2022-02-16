@@ -8,5 +8,6 @@ export const Floor = {
       type: "Appearance",
       properties: { char: chars.floor, color: colors.floor },
     },
+    { type: "Discoverable" },
   ],
 };

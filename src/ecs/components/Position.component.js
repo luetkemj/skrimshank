@@ -1,5 +1,6 @@
 import { Component } from "geotic";
 import { setState } from "../../index";
+import LightSource from "./LightSource.component";
 
 export default class Position extends Component {
   static properties = {
@@ -30,11 +31,23 @@ export default class Position extends Component {
     this.y = evt.data.y;
     this.z = evt.data.z;
 
+    // if entity is a lightsource, set flag to recalc
+    if (this.entity.has(LightSource)) {
+      this.entity.lightSource.recalc = true;
+    }
+
     evt.handle();
 
     // add entity to new location in maps eAtLoc tracker
     setState((state) => {
       state.maps[state.currentMapId][this.y][this.x].add(this.entity.id);
+    });
+  }
+
+  onDestroyed() {
+    // remove entity from old location in maps eAtLoc tracker
+    setState((state) => {
+      state.maps[state.currentMapId][this.y][this.x].delete(this.entity.id);
     });
   }
 }

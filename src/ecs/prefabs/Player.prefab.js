@@ -14,6 +14,7 @@ export const Player = {
       properties: {
         lumens: 100,
         beam: 5,
+        stationary: false,
       },
     },
   ],

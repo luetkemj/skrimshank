@@ -8,12 +8,5 @@ export const Goblin = {
       type: "Appearance",
       properties: { char: chars.goblin, color: colors.goblin },
     },
-    {
-      type: "LightSource",
-      properties: {
-        lumens: 100,
-        beam: 5,
-      },
-    },
   ],
 };
