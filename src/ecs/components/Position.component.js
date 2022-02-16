@@ -43,4 +43,11 @@ export default class Position extends Component {
       state.maps[state.currentMapId][this.y][this.x].add(this.entity.id);
     });
   }
+
+  onDestroyed() {
+    // remove entity from old location in maps eAtLoc tracker
+    setState((state) => {
+      state.maps[state.currentMapId][this.y][this.x].delete(this.entity.id);
+    });
+  }
 }

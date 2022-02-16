@@ -1,4 +1,5 @@
 import Appearance from "../components/Appearance.component";
+import Discoverable from "../components/Discoverable.component";
 import Shadowcaster from "../components/Shadowcaster.component";
 import InFov from "../components/InFov.component";
 import Lux from "../components/Lux.component";
@@ -9,12 +10,15 @@ import { printCell } from "../../lib/canvas";
 import { getState } from "../../index";
 import { getNeighborEntities } from "../../lib/ecsHelpers";
 
+const appearanceQuery = world.createQuery({
+  all: [Appearance],
+});
 const revealedQuery = world.createQuery({
   all: [Revealed],
   none: [InFov],
 });
 const shadowcasterQuery = world.createQuery({
-  all: [Shadowcaster],
+  all: [Discoverable, Shadowcaster],
 });
 const visibleQuery = world.createQuery({
   all: [Appearance, InFov, Position],
@@ -48,12 +52,10 @@ const renderIfOnTop = (entity) => {
 };
 
 export const renderSystem = () => {
-  // todp: perf - filter out undiscoverable entities from this query
+  // reset shadowcaster alpha
   shadowcasterQuery.get().forEach((entity) => {
     if (entity.has(Revealed)) {
       entity.appearance.alpha = minAlpha;
-    } else {
-      entity.appearance.alpha = 0;
     }
     renderIfOnTop(entity);
   });
@@ -62,7 +64,7 @@ export const renderSystem = () => {
     if (entity.has(Lux)) {
       entity.appearance.alpha = Math.max(
         minAlpha,
-        entity.lux.ambient + entity.lux.current / 100
+        (entity.lux.ambient + entity.lux.current) / 100
       );
     }
 
@@ -77,7 +79,13 @@ export const renderSystem = () => {
           if (lux < candidate) lux = candidate;
         }
       });
-      entity.appearance.alpha = Math.max(minAlpha, lux / 100);
+      if (lux > minAlpha) {
+        entity.appearance.alpha = lux / 100;
+      }
+
+      if (lux) {
+        entity.add(Revealed);
+      }
     }
 
     renderIfOnTop(entity);
@@ -87,4 +95,10 @@ export const renderSystem = () => {
     entity.appearance.alpha = minAlpha;
     renderIfOnTop(entity);
   });
+
+  // for omniscience only
+  // appearanceQuery.get().forEach((entity) => {
+  //   entity.appearance.alpha = 1;
+  //   renderIfOnTop(entity);
+  // });
 };

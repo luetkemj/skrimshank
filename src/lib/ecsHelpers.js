@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { getState } from "../index";
 import { getNeighborIds, toCell } from "./grid";
 import { world } from "../ecs/index";
@@ -5,7 +6,7 @@ import { world } from "../ecs/index";
 export const getEAtPos = (cellOrPosId) => {
   const { x, y } = toCell(cellOrPosId);
   const { maps, currentMapId } = getState();
-  const eAtPos = maps[currentMapId][y][x];
+  const eAtPos = _.get(maps, `${currentMapId}[${y}][${x}]`, []);
   return [...eAtPos];
 };
 

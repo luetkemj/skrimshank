@@ -2,6 +2,7 @@ import { Engine } from "geotic";
 
 import Appearance from "./components/Appearance.component";
 import Blocking from "./components/Blocking.component";
+import Discoverable from "./components/Discoverable.component";
 import InFov from "./components/InFov.component";
 import LightSource from "./components/LightSource.component";
 import Lux from "./components/Lux.component";
@@ -24,6 +25,7 @@ export const engine = new Engine();
 // register components
 engine.registerComponent(Appearance);
 engine.registerComponent(Blocking);
+engine.registerComponent(Discoverable);
 engine.registerComponent(InFov);
 engine.registerComponent(LightSource);
 engine.registerComponent(Lux);
