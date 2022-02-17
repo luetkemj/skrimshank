@@ -6,6 +6,25 @@ describe("grid", () => {
   });
 });
 
+describe("line", () => {
+  it("should work with locIds", () => {
+    expect(grid.line("0,0", "0,3")).toEqual([
+      { x: 0, y: 0 },
+      { x: 0, y: 1 },
+      { x: 0, y: 2 },
+      { x: 0, y: 3 },
+    ]);
+  });
+  it("should work with cells", () => {
+    expect(grid.line({ x: 0, y: 0 }, { x: 0, y: 3 })).toEqual([
+      { x: 0, y: 0 },
+      { x: 0, y: 1 },
+      { x: 0, y: 2 },
+      { x: 0, y: 3 },
+    ]);
+  });
+});
+
 describe("toCell", () => {
   it("should work with locIds", () => {
     expect(grid.toCell("1,2,3")).toEqual({ x: 1, y: 2, z: 3 });
