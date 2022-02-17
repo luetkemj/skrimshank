@@ -115,9 +115,8 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
     });
 
     if (isDoor) {
-      getEAtPos(pos).forEach((eid) => {
-        const entity = world.getEntity(eid);
-        entity.appearance.color = gfx.colors.default;
+      world.createPrefab("Door", {
+        position: { x: tile.x, y: tile.y, z },
       });
     }
   });

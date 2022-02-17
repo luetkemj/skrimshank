@@ -1,6 +1,7 @@
 export const colors = {
   blood: 0xb91906,
   default: 0xff0077,
+  door: 0x71331e,
   // fire: 0xffd00e,
   fire: 0xfffdcc,
   floor: 0x555555,
@@ -17,6 +18,8 @@ export const colors = {
 
 export const chars = {
   default: "?",
+  doorOpen: "'",
+  doorClosed: "+",
   floor: "•",
   goblin: "g",
   player: "@",
