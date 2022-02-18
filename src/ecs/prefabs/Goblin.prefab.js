@@ -6,7 +6,11 @@ export const Goblin = {
   components: [
     {
       type: "Appearance",
-      properties: { char: chars.goblin, color: colors.goblin },
+      properties: {
+        char: chars.goblin,
+        color: colors.goblin,
+        baseColor: colors.goblin,
+      },
     },
   ],
 };

@@ -8,6 +8,7 @@ export const colors = {
   goblin: 0x81a842,
   player: 0xffffff,
   potion: 0xdaa520,
+  revealed: 0x00dcff,
   stairs: 0xaaaaaa,
   tool: 0xdaa520,
   torchUnlit: 0x71331e,

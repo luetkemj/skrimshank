@@ -8,7 +8,11 @@ export const Wall = {
     { type: "Shadowcaster" },
     {
       type: "Appearance",
-      properties: { char: chars.wall, color: colors.wall },
+      properties: {
+        char: chars.wall,
+        color: colors.wall,
+        baseColor: colors.wall,
+      },
     },
   ],
 };

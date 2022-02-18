@@ -6,7 +6,11 @@ export const Floor = {
   components: [
     {
       type: "Appearance",
-      properties: { char: chars.floor, color: colors.floor },
+      properties: {
+        char: chars.floor,
+        color: colors.floor,
+        baseColor: colors.floor,
+      },
     },
     { type: "Discoverable" },
   ],

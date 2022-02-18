@@ -6,7 +6,11 @@ export const Door = {
   components: [
     {
       type: "Appearance",
-      properties: { char: chars.doorClosed, color: colors.door },
+      properties: {
+        char: chars.doorClosed,
+        color: colors.door,
+        baseColor: colors.door,
+      },
     },
     { type: "Discoverable" },
     { type: "Blocking" },

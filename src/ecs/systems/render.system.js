@@ -1,3 +1,4 @@
+import * as gfx from "../../lib/graphics";
 import Shadowcaster from "../components/Shadowcaster.component";
 import InFov from "../components/InFov.component";
 import Lux from "../components/Lux.component";
@@ -16,7 +17,7 @@ import {
   visibleQuery,
 } from "../queries";
 
-const minAlpha = 0.1;
+const minAlpha = 0.2;
 
 const isOnTopEntity = (entity, entitiesAtPos) => {
   let zIndex = 0;
@@ -45,15 +46,26 @@ const isOnTop = (eid, eAtPos) => {
   return eidOnTop === eid;
 };
 
-const renderIfOnTop = (entity) => {
+const renderIfOnTop = (entity, revealed = false) => {
   const { x, y } = entity.position;
   const { maps, currentMapId } = getState();
   const entitiesAtPosition = maps[currentMapId][y][x];
   const shouldRender = isOnTop(entity.id, [...entitiesAtPosition]);
 
   if (shouldRender) {
-    const { char, color, alpha } = entity.appearance;
-    printCell({ container: "map", x, y, char, color, alpha });
+    const { char, baseColor, alpha } = entity.appearance;
+
+    const currentColor = revealed ? gfx.colors.revealed : baseColor;
+    const currentAlpha = revealed ? 0.1 : alpha;
+
+    printCell({
+      container: "map",
+      x,
+      y,
+      char,
+      color: currentColor,
+      alpha: currentAlpha,
+    });
   }
 };
 
@@ -122,7 +134,7 @@ export const renderSystem = () => {
 
   revealedQuery.get().forEach((entity) => {
     entity.appearance.alpha = minAlpha;
-    renderIfOnTop(entity);
+    renderIfOnTop(entity, true);
   });
 
   // DEBUG:

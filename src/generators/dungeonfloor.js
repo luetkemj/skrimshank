@@ -65,6 +65,8 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
           const entity = world.getEntity(eid);
 
           entity.appearance.color = gfx.colors.fire;
+          entity.appearance.baseColor = gfx.colors.fire;
+
           entity.add(LightSource, { lumens: 100, beam: 10 });
         });
       }

@@ -5,6 +5,7 @@ export default class Appearance extends Component {
   static properties = {
     char: gfx.chars.default,
     color: gfx.colors.default,
+    baseColor: gfx.colors.default,
     alpha: 0,
   };
 }

@@ -7,7 +7,11 @@ export const Player = {
     { type: "PC" },
     {
       type: "Appearance",
-      properties: { char: chars.player, color: colors.player },
+      properties: {
+        char: chars.player,
+        color: colors.player,
+        baseColor: colors.player,
+      },
     },
     {
       type: "LightSource",
