@@ -1,11 +1,7 @@
 import { getState, setState } from "../../index";
-import PC from "../components/PC.component";
 import MoveTo from "../components/MoveTo.component";
-import { world } from "../index";
 
-const pcQuery = world.createQuery({
-  all: [PC],
-});
+import { pcQuery } from "../queries";
 
 export const userInputSystem = () => {
   const { userInput } = getState();

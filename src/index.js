@@ -22,6 +22,7 @@ const state = {
   userInput: "",
   currentMapId: "0,0,0",
   maps: { "0,0,0": [] },
+  recalcLighting: false,
 };
 
 window.state = state;

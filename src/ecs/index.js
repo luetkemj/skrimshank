@@ -23,6 +23,7 @@ import { Tile } from "./prefabs/Tile.prefab";
 import { Wall } from "./prefabs/Wall.prefab";
 
 export const engine = new Engine();
+export const world = engine.createWorld();
 
 // register components
 engine.registerComponent(Appearance);
@@ -48,6 +49,3 @@ engine.registerPrefab(Floor);
 engine.registerPrefab(Goblin);
 engine.registerPrefab(Player);
 engine.registerPrefab(Wall);
-
-// create world
-export const world = engine.createWorld();
