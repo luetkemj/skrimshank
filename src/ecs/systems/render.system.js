@@ -6,7 +6,7 @@ import Revealed from "../components/Revealed.component";
 import { world } from "../index";
 import { printCell } from "../../lib/canvas";
 import { getState } from "../../index";
-import { getNeighborEntities } from "../../lib/ecsHelpers";
+import { getEntitiesAtPos, getNeighborEntities } from "../../lib/ecsHelpers";
 
 import {
   pcQuery,
@@ -17,6 +17,20 @@ import {
 } from "../queries";
 
 const minAlpha = 0.1;
+
+const isOnTopEntity = (entity, entitiesAtPos) => {
+  let zIndex = 0;
+  let entityOnTop = entity;
+
+  entitiesAtPos.forEach((entity) => {
+    const candidate = entity.zIndex.z;
+    if (candidate > zIndex) {
+      zIndex = candidate;
+      entityOnTop = entity;
+    }
+  });
+  return entityOnTop.id === entity.id;
+};
 
 const isOnTop = (eid, eAtPos) => {
   let zIndex = 0;
@@ -82,9 +96,13 @@ export const renderSystem = () => {
       // look at neighbors with InFOV use brightest lux
       const { x, y } = entity.position;
       let lux = 0;
-
       getNeighborEntities({ x, y }).forEach((ent) => {
-        if (ent.has(Lux) && ent.has(InFov) && !ent.has(PC)) {
+        // Only get lux from neighboring entities that are on top, have lux, are in fov, and NOT shadowcasters
+        const onTopEntity = isOnTopEntity(
+          ent,
+          getEntitiesAtPos(ent.position).filter((e) => e.has(Shadowcaster))
+        );
+        if (onTopEntity && ent.has(Lux) && ent.has(InFov)) {
           const candidate = ent.lux.ambient + ent.lux.current;
           if (lux < candidate) lux = candidate;
         }

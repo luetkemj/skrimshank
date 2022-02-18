@@ -3,6 +3,7 @@ import * as PIXI from "pixi.js-legacy";
 import { grid } from "./grid";
 import { menloBoldAlphaMap } from "../../static/fonts/menlo-bold.map";
 import { menloBoldHalfAlphaMap } from "../../static/fonts/menlo-bold-half.map";
+import { getEntitiesAtPos } from "./ecsHelpers";
 
 // add PIXI to the window so the devtools work
 window.PIXI = PIXI;
@@ -63,6 +64,12 @@ const initPixiContainerRow = ({ container, row }) => {
     sprite.height = spriteHeight;
     sprite.x = i * spriteWidth;
     sprite.y = row * spriteHeight;
+    sprite.debug = { container, x: i, y: row };
+
+    sprite.interactive = true;
+    sprite.on("click", () => {
+      console.log({ sprite, ents: getEntitiesAtPos({ x: i, y: row }) });
+    });
 
     container.sprites[row][i] = sprite;
     container.container.addChild(sprite);

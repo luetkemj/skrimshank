@@ -10,6 +10,10 @@ export const getEAtPos = (cellOrPosId) => {
   return [...eAtPos];
 };
 
+export const getEntitiesAtPos = (cellOrPosid) => {
+  return getEAtPos(cellOrPosid).map((eid) => world.getEntity(eid));
+};
+
 export const getNeighborEntities = ({ x, y, direction = "CARDINAL" }) => {
   const { currentMapId } = getState();
   const z = currentMapId.split(",")[2];
