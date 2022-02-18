@@ -1,32 +1,20 @@
-import Appearance from "../components/Appearance.component";
-import Discoverable from "../components/Discoverable.component";
 import Shadowcaster from "../components/Shadowcaster.component";
 import InFov from "../components/InFov.component";
 import Lux from "../components/Lux.component";
 import PC from "../components/PC.component";
-import Position from "../components/Position.component";
 import Revealed from "../components/Revealed.component";
 import { world } from "../index";
 import { printCell } from "../../lib/canvas";
 import { getState } from "../../index";
 import { getNeighborEntities } from "../../lib/ecsHelpers";
 
-const pcQuery = world.createQuery({
-  all: [PC],
-});
-const appearanceQuery = world.createQuery({
-  all: [Appearance],
-});
-const revealedQuery = world.createQuery({
-  all: [Revealed],
-  none: [InFov],
-});
-const shadowcasterQuery = world.createQuery({
-  all: [Discoverable, Shadowcaster],
-});
-const visibleQuery = world.createQuery({
-  all: [Appearance, InFov, Position],
-});
+import {
+  pcQuery,
+  appearanceQuery,
+  revealedQuery,
+  shadowcasterQuery,
+  visibleQuery,
+} from "../queries";
 
 const minAlpha = 0.1;
 

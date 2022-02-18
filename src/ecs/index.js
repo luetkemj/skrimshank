@@ -3,6 +3,7 @@ import { Engine } from "geotic";
 import Appearance from "./components/Appearance.component";
 import Blocking from "./components/Blocking.component";
 import Discoverable from "./components/Discoverable.component";
+import Door from "./components/Door.component";
 import InFov from "./components/InFov.component";
 import LightSource from "./components/LightSource.component";
 import Lux from "./components/Lux.component";
@@ -14,6 +15,7 @@ import Shadowcaster from "./components/Shadowcaster.component";
 import ZIndex from "./components/ZIndex.component";
 
 import { Being } from "./prefabs/Being.prefab";
+import { Door as DoorPrefab } from "./prefabs/Door.prefab";
 import { Floor } from "./prefabs/Floor.prefab";
 import { Goblin } from "./prefabs/Goblin.prefab";
 import { Player } from "./prefabs/Player.prefab";
@@ -21,11 +23,13 @@ import { Tile } from "./prefabs/Tile.prefab";
 import { Wall } from "./prefabs/Wall.prefab";
 
 export const engine = new Engine();
+export const world = engine.createWorld();
 
 // register components
 engine.registerComponent(Appearance);
 engine.registerComponent(Blocking);
 engine.registerComponent(Discoverable);
+engine.registerComponent(Door);
 engine.registerComponent(InFov);
 engine.registerComponent(LightSource);
 engine.registerComponent(Lux);
@@ -40,10 +44,8 @@ engine.registerComponent(ZIndex);
 engine.registerPrefab(Being);
 engine.registerPrefab(Tile);
 
+engine.registerPrefab(DoorPrefab);
 engine.registerPrefab(Floor);
 engine.registerPrefab(Goblin);
 engine.registerPrefab(Player);
 engine.registerPrefab(Wall);
-
-// create world
-export const world = engine.createWorld();

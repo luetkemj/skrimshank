@@ -154,6 +154,37 @@ export const circle = (center, radius) => {
   return locsIds;
 };
 
+const lerp = (start, end, t) => {
+  return start + t * (end - start);
+};
+
+const lerpPoint = (p0, p1, t) => {
+  return { x: lerp(p0.x, p1.x, t), y: lerp(p0.y, p1.y, t) };
+};
+
+const diagonalDistance = (p0, p1) => {
+  const dx = p1.x - p0.x;
+  const dy = p1.y - p0.y;
+  return Math.max(Math.abs(dx), Math.abs(dy));
+};
+
+const roundPoint = (p) => {
+  return { x: Math.round(p.x), y: Math.round(p.y) };
+};
+
+export const line = (cellOrId1, cellOrId2) => {
+  const p0 = toCell(cellOrId1);
+  const p1 = toCell(cellOrId2);
+
+  let points = [];
+  let N = diagonalDistance(p0, p1);
+  for (let step = 0; step <= N; step++) {
+    let t = N === 0 ? 0.0 : step / N;
+    points.push(roundPoint(lerpPoint(p0, p1, t)));
+  }
+  return points;
+};
+
 export const rectangle = ({ x, y, width, height, hasWalls }, tileProps) => {
   const tiles = {};
 

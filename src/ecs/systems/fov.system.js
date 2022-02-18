@@ -1,16 +1,12 @@
 import InFov from "../components/InFov.component";
 import Lux from "../components/Lux.component";
-import Shadowcaster from "../components/Shadowcaster.component";
-import PC from "../components/PC.component";
 import Revealed from "../components/Revealed.component";
 import { grid } from "../../lib/grid";
 import { createFOV } from "../../lib/fov";
 import { getEAtPos } from "../../lib/ecsHelpers";
 import { world } from "../index";
 
-const pcQuery = world.createQuery({ all: [PC] });
-const shadowcasterQuery = world.createQuery({ all: [Shadowcaster] });
-const fovQuery = world.createQuery({ all: [InFov] });
+import { pcQuery, shadowcasterQuery, fovQuery } from "../queries";
 
 export const fovSystem = () => {
   const playerEntity = pcQuery.get()[0];

@@ -7,4 +7,8 @@ export default class LightSource extends Component {
     stationary: true,
     recalc: true,
   };
+
+  onRecalcLight() {
+    this.recalc = true;
+  }
 }

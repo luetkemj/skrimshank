@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { grid } from "../lib/grid";
+import { grid, getNeighborIds } from "../lib/grid";
 import { buildDungeon } from "../procgen/dungeon";
 import { getEAtPos, getNeighborEntities } from "../lib/ecsHelpers";
 import * as gfx from "../lib/graphics";
@@ -69,6 +69,56 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
         });
       }
     });
+  });
+
+  // get perimeter walls
+  // const perimeterTiles = _.filter(dungeon.dTiles, (val) =>
+  //   val.tags.includes("PERIMETER")
+  // ).forEach((tile) => {
+  //   const pos = `${tile.x},${tile.y}`;
+  //   getEAtPos(pos).forEach((eid) => {
+  //     const entity = world.getEntity(eid);
+  //     entity.appearance.color = gfx.colors.goblin;
+  //   });
+  // });
+
+  // const passageTiles = _.filter(dungeon.dTiles, (val) =>
+  //   val.tags.includes("PASSAGE")
+  // ).forEach((tile) => {
+  //   const pos = `${tile.x},${tile.y}`;
+  //   getEAtPos(pos).forEach((eid) => {
+  //     const entity = world.getEntity(eid);
+  //     entity.appearance.color = gfx.colors.blood;
+  //   });
+  // });
+
+  const maybeDoorTiles = _.filter(
+    dungeon.dTiles,
+    (val) => val.tags.includes("PASSAGE") && val.tags.includes("PERIMETER")
+  );
+
+  const maybeDoorTilePosids = _.keyBy(
+    maybeDoorTiles,
+    (tile) => `${tile.x},${tile.y}`
+  );
+
+  maybeDoorTiles.forEach((tile) => {
+    const pos = `${tile.x},${tile.y}`;
+    // check neighbors
+    // a door cannot have neighbor doors
+    const neids = getNeighborIds(pos).map((neid) => {
+      const coords = neid.split(",");
+      return `${coords[0]},${coords[1]}`;
+    });
+    const isDoor = !_.some(neids, (posid) => {
+      return maybeDoorTilePosids[posid];
+    });
+
+    if (isDoor) {
+      world.createPrefab("Door", {
+        position: { x: tile.x, y: tile.y, z },
+      });
+    }
   });
 
   return dungeon;

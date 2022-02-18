@@ -1,11 +1,12 @@
+import { getState, setState } from "../../index";
 import { world } from "../index";
 import Lux from "../components/Lux.component";
-import LightSource from "../components/LightSource.component";
 import PC from "../components/PC.component";
 import Shadowcaster from "../components/Shadowcaster.component";
 import { grid } from "../../lib/grid";
 import { createFOV } from "../../lib/fov";
 import { getEAtPos } from "../../lib/ecsHelpers";
+import { luxQuery, lightSourceQuery, shadowcasterQuery } from "../queries";
 
 export const getLux = ({ dist, beam, lumens }) => {
   const lm = lumens;
@@ -13,11 +14,18 @@ export const getLux = ({ dist, beam, lumens }) => {
   return lm - dist * step;
 };
 
-const luxQuery = world.createQuery({ all: [Lux] });
-const lightSourceQuery = world.createQuery({ all: [LightSource] });
-const shadowcasterQuery = world.createQuery({ any: [Shadowcaster] });
-
 export const lightingSystem = () => {
+  // some events like open/closing doors require stationary lights to be recalulated
+  // these events will set a flag in game state. We check that here and if it's true
+  // fire events to all lightsource entities to trigger the recalc flag
+  if (getState().recalcLighting) {
+    lightSourceQuery.get().forEach((entity) => {
+      entity.fireEvent("recalc-light");
+    });
+
+    setState((state) => (state.recalcLighting = false));
+  }
+
   // The Lux component tracks the current and ambient lux on given cell
   // Ambient lux is calculated from stationary lightsources that don't need to be recalculated
   // Current lux is calculated from non stationary lightsources

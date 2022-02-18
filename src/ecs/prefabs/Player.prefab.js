@@ -17,5 +17,6 @@ export const Player = {
         stationary: false,
       },
     },
+    { type: "ZIndex", properties: { z: 310 } },
   ],
 };
