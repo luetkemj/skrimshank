@@ -31,6 +31,7 @@ export const chars = {
   torch: "~",
   wall: "#",
   weapon: ")",
+  brazier: "^",
 };
 
 // defaultBGColor: 0x000,

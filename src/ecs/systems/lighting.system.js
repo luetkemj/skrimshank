@@ -22,6 +22,10 @@ export const lightingSystem = () => {
     lightSourceQuery.get().forEach((entity) => {
       entity.fireEvent("recalc-light");
     });
+    // ambient light is additive so we need to reset it at the start of recalc
+    luxQuery.get().forEach((entity) => {
+      entity.fireEvent("recalc-light");
+    });
 
     setState((state) => (state.recalcLighting = false));
   }

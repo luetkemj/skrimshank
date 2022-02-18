@@ -17,7 +17,7 @@ import {
   visibleQuery,
 } from "../queries";
 
-const minAlpha = 0.2;
+const minAlpha = 0.1;
 
 const isOnTopEntity = (entity, entitiesAtPos) => {
   let zIndex = 0;
@@ -55,8 +55,16 @@ const renderIfOnTop = (entity, revealed = false) => {
   if (shouldRender) {
     const { char, baseColor, alpha } = entity.appearance;
 
-    const currentColor = revealed ? gfx.colors.revealed : baseColor;
-    const currentAlpha = revealed ? 0.1 : alpha;
+    // if entity is not in FOV or alpha is <= minAlpha use the revealed color
+    let currentColor = baseColor;
+    let currentAlpha = alpha;
+    if (revealed) {
+      currentColor = gfx.colors.revealed;
+      currentAlpha = 0.08;
+    } else if (alpha <= minAlpha && alpha > 0) {
+      currentColor = gfx.colors.revealed;
+      currentAlpha = 0.08;
+    }
 
     printCell({
       container: "map",

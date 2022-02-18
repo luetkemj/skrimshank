@@ -5,4 +5,8 @@ export default class Lux extends Component {
     current: 0,
     ambient: 0,
   };
+
+  onRecalcLight() {
+    this.ambient = 0;
+  }
 }
