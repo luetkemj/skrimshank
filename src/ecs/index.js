@@ -14,13 +14,14 @@ import Revealed from "./components/Revealed.component";
 import Shadowcaster from "./components/Shadowcaster.component";
 import ZIndex from "./components/ZIndex.component";
 
-import { Being } from "./prefabs/Being.prefab";
+import { Being as BeingPrefab } from "./prefabs/Being.prefab";
+import { Brazier as BrazierPrefab } from "./prefabs/Brazier.prefab";
 import { Door as DoorPrefab } from "./prefabs/Door.prefab";
-import { Floor } from "./prefabs/Floor.prefab";
-import { Goblin } from "./prefabs/Goblin.prefab";
-import { Player } from "./prefabs/Player.prefab";
-import { Tile } from "./prefabs/Tile.prefab";
-import { Wall } from "./prefabs/Wall.prefab";
+import { Floor as FloorPrefab } from "./prefabs/Floor.prefab";
+import { Goblin as GoblinPrefab } from "./prefabs/Goblin.prefab";
+import { Player as PlayerPrefab } from "./prefabs/Player.prefab";
+import { Tile as TilePrefab } from "./prefabs/Tile.prefab";
+import { Wall as WallPrefab } from "./prefabs/Wall.prefab";
 
 export const engine = new Engine();
 export const world = engine.createWorld();
@@ -41,11 +42,13 @@ engine.registerComponent(Shadowcaster);
 engine.registerComponent(ZIndex);
 
 // register prefabs
-engine.registerPrefab(Being);
-engine.registerPrefab(Tile);
+// INHERITABLE PREFABS
+engine.registerPrefab(BeingPrefab);
+engine.registerPrefab(TilePrefab);
 
+engine.registerPrefab(BrazierPrefab);
 engine.registerPrefab(DoorPrefab);
-engine.registerPrefab(Floor);
-engine.registerPrefab(Goblin);
-engine.registerPrefab(Player);
-engine.registerPrefab(Wall);
+engine.registerPrefab(FloorPrefab);
+engine.registerPrefab(GoblinPrefab);
+engine.registerPrefab(PlayerPrefab);
+engine.registerPrefab(WallPrefab);

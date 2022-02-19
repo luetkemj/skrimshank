@@ -51,25 +51,18 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
   dungeon.rooms.forEach((room) => {
     const { x1, x2, y1, y2 } = room;
 
-    const torchPositions = [
+    const brazierPositions = [
       { x: x1 + 1, y: y1 + 1 },
       { x: x2 - 2, y: y1 + 1 },
       { x: x1 + 1, y: y2 - 2 },
       { x: x2 - 2, y: y2 - 2 },
     ];
 
-    torchPositions.forEach((pos) => {
+    brazierPositions.forEach((pos) => {
       const roll = _.random(0, 10);
       if (roll > 5) {
-        getEAtPos(pos).forEach((eid) => {
-          const entity = world.getEntity(eid);
-
-          entity.appearance.char = gfx.chars.brazier;
-          entity.appearance.color = gfx.colors.fire;
-          entity.appearance.baseColor = gfx.colors.fire;
-
-          entity.add(LightSource, { lumens: 100, beam: 5 });
-        });
+        const { x, y } = pos;
+        world.createPrefab("Brazier", { position: { x, y, z } });
       }
     });
   });

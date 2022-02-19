@@ -17,7 +17,7 @@ export const getLux = ({ dist, beam, lumens }) => {
 export const lightingSystem = () => {
   // some events like open/closing doors require stationary lights to be recalulated
   // these events will set a flag in game state. We check that here and if it's true
-  // fire events to all lightsource entities to trigger the recalc flag
+  // fire events to all lightsource entities to trigger the recalculation
   if (getState().recalcLighting) {
     lightSourceQuery.get().forEach((entity) => {
       entity.fireEvent("recalc-light");
@@ -30,7 +30,7 @@ export const lightingSystem = () => {
     setState((state) => (state.recalcLighting = false));
   }
 
-  // The Lux component tracks the current and ambient lux on given cell
+  // The Lux component tracks the current and ambient lux on a given cell
   // Ambient lux is calculated from stationary lightsources that don't need to be recalculated
   // Current lux is calculated from non stationary lightsources
   // Both are added together in the render system to determe the alpha of a rendered sprite
