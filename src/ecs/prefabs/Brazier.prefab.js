@@ -13,15 +13,8 @@ export const Brazier = {
       },
     },
     { type: "Blocking" },
+    { type: "Combustible" },
     { type: "Discoverable" },
-    {
-      type: "LightSource",
-      properties: {
-        lumens: 100,
-        beam: 5,
-        stationary: true,
-      },
-    },
     { type: "ZIndex", properties: { z: 200 } },
   ],
 };

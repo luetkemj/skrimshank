@@ -1,18 +1,20 @@
 import { Engine } from "geotic";
 
-import Appearance from "./components/Appearance.component";
-import Blocking from "./components/Blocking.component";
-import Discoverable from "./components/Discoverable.component";
-import Door from "./components/Door.component";
-import InFov from "./components/InFov.component";
-import LightSource from "./components/LightSource.component";
-import Lux from "./components/Lux.component";
-import MoveTo from "./components/MoveTo.component";
-import PC from "./components/PC.component";
-import Position from "./components/Position.component";
-import Revealed from "./components/Revealed.component";
-import Shadowcaster from "./components/Shadowcaster.component";
-import ZIndex from "./components/ZIndex.component";
+import AppearanceComponent from "./components/Appearance.component";
+import BlockingComponent from "./components/Blocking.component";
+import CombustibleComponent from "./components/Combustible.component";
+import DiscoverableComponent from "./components/Discoverable.component";
+import DoorComponent from "./components/Door.component";
+import FireComponent from "./components/Fire.component";
+import InFovComponent from "./components/InFov.component";
+import LightSourceComponent from "./components/LightSource.component";
+import LuxComponent from "./components/Lux.component";
+import MoveToComponent from "./components/MoveTo.component";
+import PCComponent from "./components/PC.component";
+import PositionComponent from "./components/Position.component";
+import RevealedComponent from "./components/Revealed.component";
+import ShadowcasterComponent from "./components/Shadowcaster.component";
+import ZIndexComponent from "./components/ZIndex.component";
 
 import { Being as BeingPrefab } from "./prefabs/Being.prefab";
 import { Brazier as BrazierPrefab } from "./prefabs/Brazier.prefab";
@@ -27,19 +29,21 @@ export const engine = new Engine();
 export const world = engine.createWorld();
 
 // register components
-engine.registerComponent(Appearance);
-engine.registerComponent(Blocking);
-engine.registerComponent(Discoverable);
-engine.registerComponent(Door);
-engine.registerComponent(InFov);
-engine.registerComponent(LightSource);
-engine.registerComponent(Lux);
-engine.registerComponent(MoveTo);
-engine.registerComponent(PC);
-engine.registerComponent(Position);
-engine.registerComponent(Revealed);
-engine.registerComponent(Shadowcaster);
-engine.registerComponent(ZIndex);
+engine.registerComponent(AppearanceComponent);
+engine.registerComponent(BlockingComponent);
+engine.registerComponent(CombustibleComponent);
+engine.registerComponent(DiscoverableComponent);
+engine.registerComponent(DoorComponent);
+engine.registerComponent(FireComponent);
+engine.registerComponent(InFovComponent);
+engine.registerComponent(LightSourceComponent);
+engine.registerComponent(LuxComponent);
+engine.registerComponent(MoveToComponent);
+engine.registerComponent(PCComponent);
+engine.registerComponent(PositionComponent);
+engine.registerComponent(RevealedComponent);
+engine.registerComponent(ShadowcasterComponent);
+engine.registerComponent(ZIndexComponent);
 
 // register prefabs
 // INHERITABLE PREFABS
