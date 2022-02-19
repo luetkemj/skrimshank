@@ -13,5 +13,6 @@ export const Floor = {
       },
     },
     { type: "Discoverable" },
+    { type: "Display", properties: { name: "Floor" } },
   ],
 };

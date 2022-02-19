@@ -6,8 +6,9 @@ import PC from "../components/PC.component";
 import Revealed from "../components/Revealed.component";
 import { world } from "../index";
 import { printCell } from "../../lib/canvas";
-import { getState } from "../../index";
+import { getState, setState } from "../../index";
 import { getEntitiesAtPos, getNeighborEntities } from "../../lib/ecsHelpers";
+import { renderAmbiance } from "../../ui/ambiance";
 
 import {
   pcQuery,
@@ -144,6 +145,22 @@ export const renderSystem = () => {
     entity.appearance.alpha = minAlpha;
     renderIfOnTop(entity, true);
   });
+
+  const playerEnt = pcQuery.get()[0];
+  {
+    // check location of player and set the ambient log render
+    // this should eventually be its own system so it can be more interesting
+    // for now just render what is directly below the players feet
+    const eAtPos = getEntitiesAtPos(playerEnt.position);
+    const stack = _.orderBy([...eAtPos], (entity) => entity.zIndex.z, "desc");
+    setState(
+      (state) =>
+        (state.ambiance = [{ str: stack[1].display.detailed || "msg" }])
+    );
+  }
+
+  // RENDER UI THINGS
+  renderAmbiance(world);
 
   // DEBUG:
   // Uncomment to render everything at 100% alpha.

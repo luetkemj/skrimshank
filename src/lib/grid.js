@@ -34,7 +34,7 @@ export const grid = {
   map: {
     name: "map",
     width: 87,
-    height: 40,
+    height: 39,
     x: 13,
     y: 3,
     halfWidth: false,
@@ -76,14 +76,14 @@ export const grid = {
   //   halfWidth: true,
   // },
 
-  // ambiance: {
-  //   name: "ambiance",
-  //   width: 87,
-  //   height: 1,
-  //   x: 13,
-  //   y: 43,
-  //   halfWidth: true,
-  // },
+  ambiance: {
+    name: "ambiance",
+    width: 87,
+    height: 1,
+    x: 13,
+    y: 42,
+    halfWidth: true,
+  },
 
   // menu: {
   //   name: "menu",

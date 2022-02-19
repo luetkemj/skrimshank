@@ -14,6 +14,10 @@ export default class Door extends Component {
     return this.isOpen ? this.charOpen : this.charClosed;
   }
 
+  get display() {
+    return this.isOpen ? "[open]" : "[closed]";
+  }
+
   openDoor() {
     if (this.isOpen) {
       return false;

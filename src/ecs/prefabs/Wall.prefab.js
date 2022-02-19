@@ -14,5 +14,6 @@ export const Wall = {
         baseColor: colors.wall,
       },
     },
+    { type: "Display", properties: { name: "Wall" } },
   ],
 };

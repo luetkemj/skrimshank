@@ -23,6 +23,7 @@ const state = {
   currentMapId: "0,0,0",
   maps: { "0,0,0": [] },
   recalcLighting: false,
+  ambiance: [],
 };
 
 window.state = state;

@@ -15,6 +15,7 @@ export const Brazier = {
     { type: "Blocking" },
     { type: "Combustible" },
     { type: "Discoverable" },
+    { type: "Display", properties: { name: "Brazier" } },
     { type: "ZIndex", properties: { z: 200 } },
   ],
 };
