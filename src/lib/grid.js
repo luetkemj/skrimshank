@@ -31,10 +31,19 @@ export const grid = {
     halfWidth: true,
   },
 
+  mapOverlay: {
+    name: "mapOverlay",
+    width: 87,
+    height: 39,
+    x: 13,
+    y: 3,
+    halfWidth: false,
+  },
+
   map: {
     name: "map",
     width: 87,
-    height: 40,
+    height: 39,
     x: 13,
     y: 3,
     halfWidth: false,
@@ -58,15 +67,6 @@ export const grid = {
   //   halfWidth: false,
   // },
 
-  // overlay: {
-  //   name: "overlay",
-  //   width: 87,
-  //   height: 40,
-  //   x: 13,
-  //   y: 3,
-  //   halfWidth: false,
-  // },
-
   // adventureLog: {
   //   name: "adventureLog",
   //   width: 84,
@@ -76,14 +76,23 @@ export const grid = {
   //   halfWidth: true,
   // },
 
-  // ambiance: {
-  //   name: "ambiance",
-  //   width: 87,
-  //   height: 1,
-  //   x: 13,
-  //   y: 43,
-  //   halfWidth: true,
-  // },
+  ambiance: {
+    name: "ambiance",
+    width: 87,
+    height: 1,
+    x: 13,
+    y: 42,
+    halfWidth: true,
+  },
+
+  contextMenu: {
+    name: "contextMenu",
+    width: 87,
+    height: 1,
+    x: 13,
+    y: 43,
+    halfWidth: true,
+  },
 
   // menu: {
   //   name: "menu",

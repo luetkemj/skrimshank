@@ -12,5 +12,6 @@ export const Goblin = {
         baseColor: colors.goblin,
       },
     },
+    { type: "Display", properties: { name: "Goblin" } },
   ],
 };

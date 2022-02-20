@@ -4,5 +4,6 @@ export const Tile = {
     { type: "Appearance" },
     { type: "Position" },
     { type: "ZIndex", properties: { z: 100 } },
+    { type: "Display" },
   ],
 };
