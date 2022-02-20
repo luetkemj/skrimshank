@@ -1,6 +1,6 @@
 import { Component } from "geotic";
 import Blocking from "./Blocking.component";
-import Shadowcaster from "./Blocking.component";
+import Shadowcaster from "./Shadowcaster.component";
 import { setState } from "../../index";
 
 export default class Door extends Component {
@@ -20,7 +20,6 @@ export default class Door extends Component {
     }
 
     this.isOpen = true;
-    // todo: check for these components first?
     this.entity.appearance.char = this.char;
     this.entity.blocking.destroy();
     this.entity.shadowcaster.destroy();
@@ -33,7 +32,6 @@ export default class Door extends Component {
     }
 
     this.isOpen = false;
-    // todo: check for these components first?
     this.entity.appearance.char = this.char;
     this.entity.add(Blocking);
     this.entity.add(Shadowcaster);

@@ -19,14 +19,14 @@ export default class Fire extends Component {
 
   onGetBumpInteractions(evt) {
     evt.data.interactions.push({
-      name: "Ignite",
+      name: "Extinguish",
       evt: "try-extinguish",
     });
   }
 
   onGetInteractions(evt) {
     evt.data.interactions.push({
-      name: "Ignite",
+      name: "Extinguish",
       evt: "try-extinguish",
     });
   }
