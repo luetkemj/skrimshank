@@ -5,7 +5,7 @@ import Lux from "../components/Lux.component";
 import PC from "../components/PC.component";
 import Revealed from "../components/Revealed.component";
 import { world } from "../index";
-import { printCell } from "../../lib/canvas";
+import { clearContainer, printCell, printTile } from "../../lib/canvas";
 import { getState, setState } from "../../index";
 import { getEntitiesAtPos, getNeighborEntities } from "../../lib/ecsHelpers";
 import { renderAmbiance } from "../../ui/ambiance";
@@ -18,7 +18,7 @@ import {
   visibleQuery,
 } from "../queries";
 
-const minAlpha = 0.1;
+export const minAlpha = 0.1;
 
 const isOnTopEntity = (entity, entitiesAtPos) => {
   let zIndex = 0;
@@ -79,6 +79,18 @@ const renderIfOnTop = (entity, revealed = false) => {
 };
 
 export const renderSystem = () => {
+  // printOverlay under the map  (maybe it should've been called an underlay...)
+  // RENDER MAP OVERLAY
+  if (getState().mode === "LOOKING") {
+    clearContainer("mapOverlay");
+    printTile({
+      container: "mapOverlay",
+      color: gfx.colors.default,
+      ...getState().cursor,
+      alpha: 1,
+    });
+  }
+
   // always reset player to minAlpha with the assumption they will get relit by their own light source
   // or by neighoring entities like shadowcasters
   pcQuery.get().forEach((entity) => {
@@ -145,19 +157,6 @@ export const renderSystem = () => {
     entity.appearance.alpha = minAlpha;
     renderIfOnTop(entity, true);
   });
-
-  const playerEnt = pcQuery.get()[0];
-  {
-    // check location of player and set the ambient log render
-    // this should eventually be its own system so it can be more interesting
-    // for now just render what is directly below the players feet
-    const eAtPos = getEntitiesAtPos(playerEnt.position);
-    const stack = _.orderBy([...eAtPos], (entity) => entity.zIndex.z, "desc");
-    setState(
-      (state) =>
-        (state.ambiance = [{ str: stack[1].display.detailed || "msg" }])
-    );
-  }
 
   // RENDER UI THINGS
   renderAmbiance(world);

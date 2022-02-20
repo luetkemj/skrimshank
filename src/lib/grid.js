@@ -31,6 +31,15 @@ export const grid = {
     halfWidth: true,
   },
 
+  mapOverlay: {
+    name: "mapOverlay",
+    width: 87,
+    height: 39,
+    x: 13,
+    y: 3,
+    halfWidth: false,
+  },
+
   map: {
     name: "map",
     width: 87,
@@ -55,15 +64,6 @@ export const grid = {
   //   height: 3,
   //   x: 97,
   //   y: 0,
-  //   halfWidth: false,
-  // },
-
-  // overlay: {
-  //   name: "overlay",
-  //   width: 87,
-  //   height: 40,
-  //   x: 13,
-  //   y: 3,
   //   halfWidth: false,
   // },
 
