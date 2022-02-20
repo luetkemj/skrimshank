@@ -85,6 +85,15 @@ export const grid = {
     halfWidth: true,
   },
 
+  contextMenu: {
+    name: "contextMenu",
+    width: 87,
+    height: 1,
+    x: 13,
+    y: 43,
+    halfWidth: true,
+  },
+
   // menu: {
   //   name: "menu",
   //   width: 87,

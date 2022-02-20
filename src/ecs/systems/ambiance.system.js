@@ -3,7 +3,6 @@ import { getState, setState } from "../../index";
 import { getEntitiesAtPos } from "../../lib/ecsHelpers";
 import { pcQuery } from "../queries";
 import { minAlpha } from "./render.system";
-import { renderAmbiance } from "../../ui/ambiance";
 
 // get ambiance text
 export const ambianceSystem = () => {
@@ -68,6 +67,4 @@ export const ambianceSystem = () => {
       ]);
     }
   }
-
-  // renderAmbiance(world);
 };

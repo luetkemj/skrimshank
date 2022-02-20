@@ -9,6 +9,7 @@ import { clearContainer, printCell, printTile } from "../../lib/canvas";
 import { getState, setState } from "../../index";
 import { getEntitiesAtPos, getNeighborEntities } from "../../lib/ecsHelpers";
 import { renderAmbiance } from "../../ui/ambiance";
+import { renderContextMenu } from "../../ui/contextMenu";
 
 import {
   pcQuery,
@@ -159,7 +160,8 @@ export const renderSystem = () => {
   });
 
   // RENDER UI THINGS
-  renderAmbiance(world);
+  renderAmbiance();
+  renderContextMenu();
 
   // DEBUG:
   // Uncomment to render everything at 100% alpha.

@@ -15,7 +15,7 @@ export const userInputSystem = () => {
   const { mode } = getState();
 
   if (mode === "GAME") {
-    if (key === "L") {
+    if (key === "l") {
       setState((state) => (state.mode = "LOOKING"));
       setState((state) => (state.cursor = player.position));
     }
