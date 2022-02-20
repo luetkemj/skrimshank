@@ -23,4 +23,11 @@ export default class Fire extends Component {
       evt: "try-extinguish",
     });
   }
+
+  onGetInteractions(evt) {
+    evt.data.interactions.push({
+      name: "Ignite",
+      evt: "try-extinguish",
+    });
+  }
 }

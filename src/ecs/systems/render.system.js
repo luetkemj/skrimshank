@@ -88,7 +88,17 @@ export const renderSystem = () => {
       container: "mapOverlay",
       color: gfx.colors.default,
       ...getState().cursor,
-      alpha: 1,
+      alpha: 0.35,
+    });
+  }
+
+  if (getState().mode === "INTERACTING") {
+    clearContainer("mapOverlay");
+    printTile({
+      container: "mapOverlay",
+      color: gfx.colors.revealed,
+      ...getState().cursor,
+      alpha: 0.35,
     });
   }
 

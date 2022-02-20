@@ -18,4 +18,13 @@ export default class Combustible extends Component {
       });
     }
   }
+
+  onGetInteractions(evt) {
+    if (!this.isOnFire) {
+      evt.data.interactions.push({
+        name: "Ignite",
+        evt: "try-ignite",
+      });
+    }
+  }
 }

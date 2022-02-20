@@ -68,4 +68,18 @@ export default class Door extends Component {
       });
     }
   }
+
+  onGetInteractions(evt) {
+    if (this.isOpen) {
+      evt.data.interactions.push({
+        name: "Close door",
+        evt: "try-close-door",
+      });
+    } else {
+      evt.data.interactions.push({
+        name: "Open door",
+        evt: "try-open-door",
+      });
+    }
+  }
 }

@@ -5,6 +5,7 @@ import { world } from "./ecs/index";
 
 import { ambianceSystem } from "./ecs/systems/ambiance.system";
 import { fovSystem } from "./ecs/systems/fov.system";
+import { interactingSystem } from "./ecs/systems/interacting.system";
 import { lightingSystem } from "./ecs/systems/lighting.system";
 import { movementSystem } from "./ecs/systems/movement.system";
 import { renderSystem } from "./ecs/systems/render.system";
@@ -17,7 +18,7 @@ const loader = loadTextures(initGame);
 
 const state = {
   fps: 0,
-  mode: "GAME", // GAME || LOOKING
+  mode: "GAME", // GAME || LOOKING || INTERACTING
   tick: 0,
   turn: "PLAYER",
   userInput: "",
@@ -26,6 +27,9 @@ const state = {
   recalcLighting: false,
   ambiance: [],
   cursor: { x: 0, y: 0 },
+  interactions: [],
+  interactee: null,
+  interactor: null,
 };
 
 window.state = state;
@@ -78,6 +82,7 @@ function initGame() {
       lightingSystem();
       fovSystem();
       ambianceSystem();
+      interactingSystem();
       renderSystem();
       setState((state) => (state.turn = "WORLD"));
     }
