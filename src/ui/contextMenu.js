@@ -1,13 +1,20 @@
 import _ from "lodash";
-import { clearContainer, printTemplate } from "../lib/canvas";
+import {
+  clearContainer,
+  printTemplate,
+  showFloat,
+  hideFloat,
+} from "../lib/canvas";
 import { getState } from "../index";
 import { interactionKeys } from "../ecs/systems/interacting.system";
 
 const container = "contextMenu";
-export const renderContextMenu = () => {
+export const renderContextMenu = (position) => {
   clearContainer(container);
 
   if (getState().mode === "GAME") {
+    hideFloat("float");
+
     printTemplate({
       container,
       template: [
@@ -31,14 +38,12 @@ export const renderContextMenu = () => {
       bindings += `(${interactionKeys[index]})${interaction.name} `;
     });
 
-    printTemplate({
-      container,
-      template: [
-        {
-          str: `(esc)Back (arrow keys)Move ${bindings}`,
-          color: 0x666666,
-        },
-      ],
+    const templates = interactions.map((interaction, index) => {
+      return {
+        str: `(${interactionKeys[index]})${interaction.name}`,
+        color: 0x666666,
+      };
     });
+    showFloat("float", position, templates);
   }
 };

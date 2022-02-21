@@ -171,7 +171,7 @@ export const renderSystem = () => {
 
   // RENDER UI THINGS
   renderAmbiance();
-  renderContextMenu();
+  renderContextMenu(pcQuery.get()[0].position);
 
   // DEBUG:
   // Uncomment to render everything at 100% alpha.
