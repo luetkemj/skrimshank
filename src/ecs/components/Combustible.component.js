@@ -10,15 +10,6 @@ export default class Combustible extends Component {
     this.entity.add(Fire);
   }
 
-  onGetBumpInteractions(evt) {
-    if (!this.isOnFire) {
-      evt.data.interactions.push({
-        name: "Ignite",
-        evt: "try-ignite",
-      });
-    }
-  }
-
   onGetInteractions(evt) {
     if (!this.isOnFire) {
       evt.data.interactions.push({
