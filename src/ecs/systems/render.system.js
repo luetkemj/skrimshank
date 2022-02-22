@@ -55,10 +55,10 @@ const renderIfOnTop = (entity, revealed = false) => {
   const shouldRender = isOnTop(entity.id, [...entitiesAtPosition]);
 
   if (shouldRender) {
-    const { char, baseColor, alpha } = entity.appearance;
+    const { char, color, alpha } = entity.appearance;
 
     // if entity is not in FOV or alpha is <= minAlpha use the revealed color
-    let currentColor = baseColor;
+    let currentColor = color;
     let currentAlpha = alpha;
     if (revealed) {
       currentColor = gfx.colors.revealed;

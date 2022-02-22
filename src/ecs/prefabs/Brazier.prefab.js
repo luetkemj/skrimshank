@@ -8,8 +8,8 @@ export const Brazier = {
       type: "Appearance",
       properties: {
         char: chars.brazier,
-        color: colors.fire,
-        baseColor: colors.fire,
+        color: colors.metal,
+        baseColor: colors.metal,
       },
     },
     { type: "Blocking" },
