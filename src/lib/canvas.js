@@ -4,6 +4,7 @@ import { grid } from "./grid";
 import { menloBoldAlphaMap } from "../../static/fonts/menlo-bold.map";
 import { menloBoldHalfAlphaMap } from "../../static/fonts/menlo-bold-half.map";
 import { getEntitiesAtPos } from "./ecsHelpers";
+import * as gfx from "./graphics";
 
 // add PIXI to the window so the devtools work
 window.PIXI = PIXI;
@@ -229,7 +230,12 @@ export const hideFloat = (container) => {
   containers[container].container.visible = false;
 };
 
-export const showFloat = (container, position, templates) => {
+export const showFloat = (
+  container,
+  position,
+  templates,
+  bgColor = gfx.colors.default
+) => {
   if (!templates.length) return hideFloat(container);
 
   // TODO: this position should be sorted later, need to get full width, height and then make sure it's visible and not covering player
@@ -240,13 +246,9 @@ export const showFloat = (container, position, templates) => {
     (position.y + offset + grid.map.y) * cellW;
 
   const height = templates.length;
-  // longest template.str / 2 round up
-  console.log(templates);
-
   const width = _.maxBy(templates, (t) => t.str.length).str.length / 2;
 
-  console.log(width);
-
+  containers[container].bg.tint = bgColor;
   containers[container].bg.width = width * cellW;
   containers[container].bg.height = height * cellW;
 

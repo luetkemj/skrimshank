@@ -42,7 +42,7 @@ export const grid = {
 
   map: {
     name: "map",
-    width: 40,
+    width: 87,
     height: 39,
     x: 13,
     y: 3,
@@ -96,7 +96,7 @@ export const grid = {
 
   float: {
     name: "float",
-    width: 87,
+    width: 40,
     height: 39,
     x: 13,
     y: 3,

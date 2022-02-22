@@ -86,9 +86,8 @@ export const renderSystem = () => {
     clearContainer("mapOverlay");
     printTile({
       container: "mapOverlay",
-      color: gfx.colors.default,
+      color: gfx.colors.uiLooking,
       ...getState().cursor,
-      alpha: 0.35,
     });
   }
 
@@ -96,9 +95,8 @@ export const renderSystem = () => {
     clearContainer("mapOverlay");
     printTile({
       container: "mapOverlay",
-      color: gfx.colors.revealed,
+      color: gfx.colors.uiInteraction,
       ...getState().cursor,
-      alpha: 0.35,
     });
   }
 

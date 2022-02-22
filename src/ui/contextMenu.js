@@ -31,6 +31,12 @@ export const renderContextMenu = (position) => {
   }
 
   if (getState().mode === "INTERACTING") {
+    printTemplate({
+      container,
+      template: [{ str: "(esc)Back (arrow keys)Move", color: 0x666666 }],
+    });
+
+    // all the rest relating to the float menu can probably go somewhere else. but for now...
     const { interactions } = getState();
     let bindings = "";
 
@@ -41,9 +47,8 @@ export const renderContextMenu = (position) => {
     const templates = interactions.map((interaction, index) => {
       return {
         str: `(${interactionKeys[index]})${interaction.name}`,
-        color: 0x666666,
       };
     });
-    showFloat("float", position, templates);
+    showFloat("float", position, templates, 0x0c444e);
   }
 };

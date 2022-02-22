@@ -13,8 +13,14 @@ export const colors = {
   tool: 0xdaa520,
   torchUnlit: 0x71331e,
   uiStatus: 0xb478ed,
+  uiInteraction: 0x0c444e,
+  uiLooking: 0x430025,
   wall: 0xaaaaaa,
   weapon: 0xdaa520,
+
+  // 0x30c146
+  // 0xfbb43f
+  // 0xfb5551
 };
 
 export const chars = {
