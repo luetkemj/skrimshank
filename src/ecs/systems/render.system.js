@@ -55,10 +55,10 @@ const renderIfOnTop = (entity, revealed = false) => {
   const shouldRender = isOnTop(entity.id, [...entitiesAtPosition]);
 
   if (shouldRender) {
-    const { char, baseColor, alpha } = entity.appearance;
+    const { char, color, alpha } = entity.appearance;
 
     // if entity is not in FOV or alpha is <= minAlpha use the revealed color
-    let currentColor = baseColor;
+    let currentColor = color;
     let currentAlpha = alpha;
     if (revealed) {
       currentColor = gfx.colors.revealed;
@@ -86,9 +86,8 @@ export const renderSystem = () => {
     clearContainer("mapOverlay");
     printTile({
       container: "mapOverlay",
-      color: gfx.colors.default,
+      color: gfx.colors.uiLooking,
       ...getState().cursor,
-      alpha: 0.35,
     });
   }
 
@@ -96,9 +95,8 @@ export const renderSystem = () => {
     clearContainer("mapOverlay");
     printTile({
       container: "mapOverlay",
-      color: gfx.colors.revealed,
+      color: gfx.colors.uiInteraction,
       ...getState().cursor,
-      alpha: 0.35,
     });
   }
 
@@ -171,7 +169,7 @@ export const renderSystem = () => {
 
   // RENDER UI THINGS
   renderAmbiance();
-  renderContextMenu();
+  renderContextMenu(pcQuery.get()[0].position);
 
   // DEBUG:
   // Uncomment to render everything at 100% alpha.

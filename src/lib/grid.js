@@ -94,6 +94,15 @@ export const grid = {
     halfWidth: true,
   },
 
+  float: {
+    name: "float",
+    width: 40,
+    height: 39,
+    x: 13,
+    y: 3,
+    halfWidth: true,
+  },
+
   // menu: {
   //   name: "menu",
   //   width: 87,

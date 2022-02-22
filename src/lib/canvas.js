@@ -4,6 +4,7 @@ import { grid } from "./grid";
 import { menloBoldAlphaMap } from "../../static/fonts/menlo-bold.map";
 import { menloBoldHalfAlphaMap } from "../../static/fonts/menlo-bold-half.map";
 import { getEntitiesAtPos } from "./ecsHelpers";
+import * as gfx from "./graphics";
 
 // add PIXI to the window so the devtools work
 window.PIXI = PIXI;
@@ -88,23 +89,24 @@ const initPixiContainer = (container) => {
   const x = container.x * cellW;
   const y = container.y * cellW;
 
-  let graphics;
-
-  if (container.name === "menu") {
-    graphics = new PIXI.Graphics();
-    graphics.beginFill(0x000000);
-    graphics.drawRect(0, 0, width, height);
-    graphics.endFill();
-  }
-
   container.container = new PIXI.Container();
   container.container.width = width;
   container.container.height = height;
   container.container.x = x;
   container.container.y = y;
 
+  if (container.name === "float") {
+    container.bg = new PIXI.Sprite(getTileTexture());
+    container.bg.width = width;
+    container.bg.height = height;
+    container.bg.x = 0;
+    container.bg.y = 0;
+    container.bg.tint = 0x333333;
+    container.bg.alpha = 1;
+    container.container.addChild(container.bg);
+  }
+
   app.stage.addChild(container.container);
-  graphics && container.container.addChild(graphics);
 };
 
 let containers;
@@ -220,5 +222,44 @@ export const hideContainer = (container) => {
 };
 
 export const showContainer = (container) => {
+  containers[container].container.visible = true;
+};
+
+export const hideFloat = (container) => {
+  clearContainer(container);
+  containers[container].container.visible = false;
+};
+
+export const showFloat = (
+  container,
+  position,
+  templates,
+  bgColor = gfx.colors.default
+) => {
+  if (!templates.length) return hideFloat(container);
+
+  // TODO: this position should be sorted later, need to get full width, height and then make sure it's visible and not covering player
+  const offset = 1;
+  containers[container].container.x =
+    (position.x + offset + grid.map.x) * cellW;
+  containers[container].container.y =
+    (position.y + offset + grid.map.y) * cellW;
+
+  const height = templates.length;
+  const width = _.maxBy(templates, (t) => t.str.length).str.length / 2;
+
+  containers[container].bg.tint = bgColor;
+  containers[container].bg.width = width * cellW;
+  containers[container].bg.height = height * cellW;
+
+  templates.forEach((t, i) => {
+    printTemplate({
+      container,
+      x: 0,
+      y: 0 + i,
+      template: [t],
+    });
+  });
+
   containers[container].container.visible = true;
 };

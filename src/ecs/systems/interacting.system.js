@@ -2,7 +2,6 @@ import _ from "lodash";
 import { getState, setState } from "../../index";
 import { getEntitiesAtPos } from "../../lib/ecsHelpers";
 import { pcQuery } from "../queries";
-import { minAlpha } from "./render.system";
 
 export const interactionKeys = [
   "a",

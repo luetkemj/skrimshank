@@ -52,14 +52,9 @@ export const userInputSystem = () => {
   }
 
   if (mode === "LOOKING") {
-    if (key === "Escape" || key === "l") {
+    if (key === "Escape") {
       clearContainer("mapOverlay");
       return setState((state) => (state.mode = "GAME"));
-    }
-
-    if (key === "i") {
-      setState((state) => (state.mode = "INTERACTING"));
-      setState((state) => (state.cursor = initialInteractingPos));
     }
 
     const maybeNewPosition = { ...getState().cursor };
@@ -86,7 +81,7 @@ export const userInputSystem = () => {
   }
 
   if (mode === "INTERACTING") {
-    if (key === "Escape" || key === "i") {
+    if (key === "Escape") {
       clearContainer("mapOverlay");
       return setState((state) => (state.mode = "GAME"));
     }

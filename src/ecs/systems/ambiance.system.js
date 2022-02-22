@@ -3,6 +3,7 @@ import { getState, setState } from "../../index";
 import { getEntitiesAtPos } from "../../lib/ecsHelpers";
 import { pcQuery } from "../queries";
 import { minAlpha } from "./render.system";
+import * as gfx from "../../lib/graphics";
 
 // get ambiance text
 export const ambianceSystem = () => {
@@ -40,6 +41,7 @@ export const ambianceSystem = () => {
         return (state.ambiance = [
           {
             str: `You're pretty sure there is ${stack[index].display.detailed} in the darkness`,
+            color: gfx.colors.default,
           },
         ]);
       }
@@ -48,13 +50,17 @@ export const ambianceSystem = () => {
         return (state.ambiance = [
           {
             str: `You see ${stack[index].display.detailed}`,
+            color: gfx.colors.default,
           },
         ]);
       }
 
       if (isRevealed && !isInFov) {
         return (state.ambiance = [
-          { str: `You recall seeing ${stack[index].display.detailed} here` },
+          {
+            str: `You recall seeing ${stack[index].display.detailed} here`,
+            color: gfx.colors.default,
+          },
         ]);
       }
     });
