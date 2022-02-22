@@ -1,5 +1,6 @@
 import { Component } from "geotic";
 import Blocking from "./Blocking.component";
+import Lock from "./Lock.component";
 import Shadowcaster from "./Shadowcaster.component";
 import { setState } from "../../index";
 
@@ -17,6 +18,14 @@ export default class Door extends Component {
   openDoor() {
     if (this.isOpen) {
       return false;
+    }
+
+    // check if locked
+    if (this.entity.has(Lock)) {
+      if (this.entity.lock.isLocked) {
+        console.log("the door is locked");
+        return false;
+      }
     }
 
     this.isOpen = true;
