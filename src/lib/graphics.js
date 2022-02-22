@@ -2,8 +2,7 @@ export const colors = {
   blood: 0xb91906,
   default: 0xff0077,
   door: 0x71331e,
-  // fire: 0xffd00e,
-  fire: 0xfffdcc,
+  fire: 0xffd00e,
   floor: 0x555555,
   goblin: 0x81a842,
   player: 0xffffff,
@@ -17,6 +16,7 @@ export const colors = {
   uiLooking: 0x430025,
   wall: 0xaaaaaa,
   weapon: 0xdaa520,
+  metal: 0x708090,
 
   // 0x30c146
   // 0xfbb43f
