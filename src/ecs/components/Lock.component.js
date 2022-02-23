@@ -1,7 +1,4 @@
 import { Component } from "geotic";
-import Blocking from "./Blocking.component";
-import Shadowcaster from "./Shadowcaster.component";
-import { setState } from "../../index";
 
 export default class Lock extends Component {
   static properties = {

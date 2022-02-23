@@ -65,3 +65,12 @@ if is locked
 
 if has key
 try unlock
+
+---
+
+For item use events
+Item is the interactor
+door is the interactee
+
+Gonna have to split these somehow in the UI or in the code
+User events are different.

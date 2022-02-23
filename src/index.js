@@ -6,6 +6,7 @@ import { world } from "./ecs/index";
 import { ambianceSystem } from "./ecs/systems/ambiance.system";
 import { fovSystem } from "./ecs/systems/fov.system";
 import { interactingSystem } from "./ecs/systems/interacting.system";
+import { applyingSystem } from "./ecs/systems/applying.system";
 import { lightingSystem } from "./ecs/systems/lighting.system";
 import { movementSystem } from "./ecs/systems/movement.system";
 import { renderSystem } from "./ecs/systems/render.system";
@@ -83,6 +84,7 @@ function initGame() {
       fovSystem();
       ambianceSystem();
       interactingSystem();
+      applyingSystem();
       renderSystem();
       setState((state) => (state.turn = "WORLD"));
     }

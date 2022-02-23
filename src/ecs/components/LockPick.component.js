@@ -6,11 +6,13 @@ export default class LockPick extends Component {
     interactee.fireEvent("try-unlock");
   }
 
-  onGetInteractions(evt) {
-    if (this.entity.lock && this.entity.lock.isLocked) {
+  onGetApplications(evt) {
+    const { interactee } = evt.data;
+    if (interactee.lock && interactee.lock.isLocked) {
       evt.data.interactions.push({
         name: "Pick Lock",
         evt: "try-pick-lock",
+        interactee: this.entity,
       });
     }
   }

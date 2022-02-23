@@ -15,7 +15,9 @@ export const appearanceQuery = world.createQuery({
 
 export const fovQuery = world.createQuery({ all: [InFov] });
 
-export const lightSourceQuery = world.createQuery({ all: [LightSource] });
+export const lightSourceQuery = world.createQuery({
+  all: [LightSource, Position],
+});
 
 export const luxQuery = world.createQuery({ all: [Lux] });
 

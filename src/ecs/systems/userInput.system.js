@@ -109,9 +109,11 @@ export const userInputSystem = () => {
       const index = _.findIndex(interactionKeys, (k) => k === key);
       const { interactions, interactor, interactee } = getState();
       const interaction = interactions[index];
+      // if interaction has an interactee use that (cause it's an item) else use the interactee in state
+      const caller = interaction.interactee || interactee;
 
       if (interaction && interactee) {
-        interactee.fireEvent(interaction.evt, {
+        caller.fireEvent(interaction.evt, {
           interaction,
           interactor,
           interactee,
