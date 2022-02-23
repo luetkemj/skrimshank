@@ -2,7 +2,7 @@ import { chars, colors } from "../../lib/graphics";
 
 export const Brazier = {
   name: "Brazier",
-  inherit: ["Tile"],
+  inherit: ["Item"],
   components: [
     {
       type: "Appearance",

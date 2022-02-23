@@ -26,6 +26,8 @@ import { Brazier as BrazierPrefab } from "./prefabs/Brazier.prefab";
 import { Door as DoorPrefab } from "./prefabs/Door.prefab";
 import { Floor as FloorPrefab } from "./prefabs/Floor.prefab";
 import { Goblin as GoblinPrefab } from "./prefabs/Goblin.prefab";
+import { Item as ItemPrefab } from "./prefabs/Item.prefab";
+import { Lockpick as LockpickPrefab } from "./prefabs/Lockpick.prefab";
 import { Player as PlayerPrefab } from "./prefabs/Player.prefab";
 import { Tile as TilePrefab } from "./prefabs/Tile.prefab";
 import { Wall as WallPrefab } from "./prefabs/Wall.prefab";
@@ -58,11 +60,13 @@ engine.registerComponent(ZIndexComponent);
 // register prefabs
 // INHERITABLE PREFABS
 engine.registerPrefab(BeingPrefab);
+engine.registerPrefab(ItemPrefab);
 engine.registerPrefab(TilePrefab);
 
 engine.registerPrefab(BrazierPrefab);
 engine.registerPrefab(DoorPrefab);
 engine.registerPrefab(FloorPrefab);
 engine.registerPrefab(GoblinPrefab);
+engine.registerPrefab(LockpickPrefab);
 engine.registerPrefab(PlayerPrefab);
 engine.registerPrefab(WallPrefab);
