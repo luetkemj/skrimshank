@@ -49,5 +49,8 @@ export default class Position extends Component {
     setState((state) => {
       state.maps[state.currentMapId][this.y][this.x].delete(this.entity.id);
     });
+    if (this.entity.revealed) {
+      this.entity.remove(this.entity.revealed);
+    }
   }
 }

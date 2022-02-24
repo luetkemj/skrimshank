@@ -45,5 +45,7 @@ export const movementSystem = () => {
     if (canMove) {
       entity.fireEvent("update-position", { x, y, z });
     }
+
+    entity.remove(entity.moveTo);
   });
 };

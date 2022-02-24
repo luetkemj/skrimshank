@@ -60,9 +60,11 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
 
     brazierPositions.forEach((pos) => {
       const roll = _.random(0, 10);
+      const { x, y } = pos;
       if (roll > 5) {
-        const { x, y } = pos;
         world.createPrefab("Brazier", { position: { x, y, z } });
+      } else {
+        world.createPrefab("Lockpick", { position: { x, y, z } });
       }
     });
   });

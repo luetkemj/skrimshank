@@ -15,6 +15,7 @@ export const Door = {
     { type: "Discoverable" },
     { type: "Blocking" },
     { type: "Combustible" },
+    { type: "Lock" },
     { type: "Shadowcaster" },
     { type: "ZIndex", properties: { z: 200 } },
     { type: "Door" },
