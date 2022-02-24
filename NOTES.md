@@ -1,3 +1,13 @@
+220224
+events:
+bumpInteractions - possible interactions with component on bump
+interactions - possible interactions from component in interact
+applications - possible applications of an item in inventory with component
+
+playere bumps into door. Door component contains all the logic for bump interactions. On bump the door sends out an event that is called by the bumper
+interactions - on moving the cursor over an entity get all possible interaction eveents - for a door, it knows that it can opened or closed in interaction.
+applications - a lockpick can be used to open a lock and contains all the logic needed within it to communicate that.
+
 Inversion of control.
 
 door is a component.
