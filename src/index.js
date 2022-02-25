@@ -18,19 +18,25 @@ import { grid } from "./lib/grid";
 const loader = loadTextures(initGame);
 
 const state = {
-  fps: 0,
-  mode: "GAME", // GAME || LOOKING || INTERACTING
-  tick: 0,
-  turn: "PLAYER",
-  userInput: "",
-  currentMapId: "0,0,0",
-  maps: { "0,0,0": [] },
-  recalcLighting: false,
+  adventureLog: [
+    { log: [{ str: "Welcome to Skrimshank" }], tick: 0 },
+    { log: [{ str: "*********************" }], tick: 0 },
+    { log: [{ str: "Your adventure begins" }], tick: 0 },
+  ],
+  logsToProcess: [],
   ambiance: [],
+  currentMapId: "0,0,0",
   cursor: { x: 0, y: 0 },
+  fps: 0,
   interactions: [],
   interactee: null,
   interactor: null,
+  maps: { "0,0,0": [] },
+  mode: "GAME", // GAME || LOOKING || INTERACTING
+  recalcLighting: false,
+  tick: 0,
+  turn: "PLAYER",
+  userInput: "",
 };
 
 window.state = state;

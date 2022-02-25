@@ -8,6 +8,7 @@ import { world } from "../index";
 import { clearContainer, printCell, printTile } from "../../lib/canvas";
 import { getState, setState } from "../../index";
 import { getEntitiesAtPos, getNeighborEntities } from "../../lib/ecsHelpers";
+import { renderAdventureLog } from "../../ui/adventureLog";
 import { renderAmbiance } from "../../ui/ambiance";
 import { renderContextMenu } from "../../ui/contextMenu";
 
@@ -168,6 +169,7 @@ export const renderSystem = () => {
   });
 
   // RENDER UI THINGS
+  renderAdventureLog();
   renderAmbiance();
   renderContextMenu(pcQuery.get()[0].position);
 

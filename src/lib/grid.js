@@ -67,14 +67,14 @@ export const grid = {
   //   halfWidth: false,
   // },
 
-  // adventureLog: {
-  //   name: "adventureLog",
-  //   width: 84,
-  //   height: 3,
-  //   x: 13,
-  //   y: 0,
-  //   halfWidth: true,
-  // },
+  adventureLog: {
+    name: "adventureLog",
+    width: 84,
+    height: 3,
+    x: 13,
+    y: 0,
+    halfWidth: true,
+  },
 
   ambiance: {
     name: "ambiance",

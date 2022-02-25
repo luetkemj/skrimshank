@@ -8,6 +8,20 @@ playere bumps into door. Door component contains all the logic for bump interact
 interactions - on moving the cursor over an entity get all possible interaction eveents - for a door, it knows that it can opened or closed in interaction.
 applications - a lockpick can be used to open a lock and contains all the logic needed within it to communicate that.
 
+---
+
+addLog should take into account if a thing is iwithin fov or not.
+things not in fov could controbute to ambiance as noises...
+
+      addLog([{ str: `You bump into the {{NAME}}` }]);
+
+{{SUBJECT}} {{VERB}} {{OBJECT}}
+You bump into the door
+
+---
+
+Earlier
+
 Inversion of control.
 
 door is a component.

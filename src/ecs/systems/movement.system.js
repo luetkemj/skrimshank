@@ -32,6 +32,8 @@ export const movementSystem = () => {
 
     // check if location is blocking
     if (blockingEnt) {
+      blockingEnt.fireEvent("bump");
+
       const evt = blockingEnt.fireEvent("get-bump-interactions", {
         interactor: entity,
         interactions: [],
