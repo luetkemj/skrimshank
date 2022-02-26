@@ -3,7 +3,7 @@ import Blocking from "./Blocking.component";
 import Lock from "./Lock.component";
 import Shadowcaster from "./Shadowcaster.component";
 import { setState } from "../../index";
-import { addLog } from "../../lib/logger";
+import { log } from "../../lib/logger";
 
 export default class Door extends Component {
   static properties = {
@@ -51,10 +51,7 @@ export default class Door extends Component {
   onTryCloseDoor(evt) {
     if (this.closeDoor()) {
       setState((state) => (state.recalcLighting = true));
-
-      if (this.entity.display) {
-        addLog([{ str: `You close ${this.entity.display.simple}` }]);
-      }
+      log({ data: evt, source: this.entity });
     }
     evt.handle();
   }
@@ -62,10 +59,7 @@ export default class Door extends Component {
   onTryOpenDoor(evt) {
     if (this.openDoor()) {
       setState((state) => (state.recalcLighting = true));
-
-      if (this.entity.display) {
-        addLog([{ str: `You open the ${this.entity.display.simple}` }]);
-      }
+      log({ data: evt, source: this.entity });
     }
     evt.handle();
   }

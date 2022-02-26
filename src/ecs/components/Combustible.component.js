@@ -1,5 +1,5 @@
 import { Component } from "geotic";
-import { addLog } from "../../lib/logger";
+import { log } from "../../lib/logger";
 import Fire from "./Fire.component";
 
 export default class Combustible extends Component {
@@ -9,9 +9,7 @@ export default class Combustible extends Component {
 
   onTryIgnite(evt) {
     this.entity.add(Fire);
-    if (this.entity.display) {
-      addLog([{ str: `The ${this.entity.display.simple} in on fire` }]);
-    }
+    log({ data: evt, source: this.entity });
   }
 
   onGetInteractions(evt) {
