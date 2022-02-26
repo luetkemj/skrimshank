@@ -2,6 +2,7 @@ import { Component } from "geotic";
 import { setState } from "../../index";
 import * as gfx from "../../lib/graphics";
 import LightSource from "./LightSource.component";
+import { log } from "../../lib/logger";
 
 export default class Fire extends Component {
   onAttached() {
@@ -17,6 +18,7 @@ export default class Fire extends Component {
   }
 
   onTryExtinguish(evt) {
+    log({ data: evt, source: this.entity });
     this.destroy();
   }
 

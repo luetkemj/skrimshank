@@ -37,7 +37,9 @@ export const movementSystem = () => {
         interactions: [],
       });
 
-      evt.data.interactions.forEach((e) => blockingEnt.fireEvent(e.evt));
+      evt.data.interactions.forEach((e) =>
+        blockingEnt.fireEvent(e.evt, { interactor: entity })
+      );
 
       canMove = false;
     }

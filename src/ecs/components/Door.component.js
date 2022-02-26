@@ -3,6 +3,7 @@ import Blocking from "./Blocking.component";
 import Lock from "./Lock.component";
 import Shadowcaster from "./Shadowcaster.component";
 import { setState } from "../../index";
+import { log } from "../../lib/logger";
 
 export default class Door extends Component {
   static properties = {
@@ -50,6 +51,7 @@ export default class Door extends Component {
   onTryCloseDoor(evt) {
     if (this.closeDoor()) {
       setState((state) => (state.recalcLighting = true));
+      log({ data: evt, source: this.entity });
     }
     evt.handle();
   }
@@ -57,8 +59,8 @@ export default class Door extends Component {
   onTryOpenDoor(evt) {
     if (this.openDoor()) {
       setState((state) => (state.recalcLighting = true));
+      log({ data: evt, source: this.entity });
     }
-
     evt.handle();
   }
 

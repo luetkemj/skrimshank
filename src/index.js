@@ -8,6 +8,7 @@ import { fovSystem } from "./ecs/systems/fov.system";
 import { interactingSystem } from "./ecs/systems/interacting.system";
 import { applyingSystem } from "./ecs/systems/applying.system";
 import { lightingSystem } from "./ecs/systems/lighting.system";
+import { loggerSystem } from "./ecs/systems/logger.system";
 import { movementSystem } from "./ecs/systems/movement.system";
 import { renderSystem } from "./ecs/systems/render.system";
 import { userInputSystem } from "./ecs/systems/userInput.system";
@@ -18,19 +19,25 @@ import { grid } from "./lib/grid";
 const loader = loadTextures(initGame);
 
 const state = {
-  fps: 0,
-  mode: "GAME", // GAME || LOOKING || INTERACTING
-  tick: 0,
-  turn: "PLAYER",
-  userInput: "",
-  currentMapId: "0,0,0",
-  maps: { "0,0,0": [] },
-  recalcLighting: false,
+  adventureLog: [
+    { log: [{ str: "Welcome to Skrimshank" }], tick: 0 },
+    { log: [{ str: "*********************" }], tick: 0 },
+    { log: [{ str: "Your adventure begins" }], tick: 0 },
+  ],
+  logsToProcess: [],
   ambiance: [],
+  currentMapId: "0,0,0",
   cursor: { x: 0, y: 0 },
+  fps: 0,
   interactions: [],
   interactee: null,
   interactor: null,
+  maps: { "0,0,0": [] },
+  mode: "GAME", // GAME || LOOKING || INTERACTING
+  recalcLighting: false,
+  tick: 0,
+  turn: "PLAYER",
+  userInput: "",
 };
 
 window.state = state;
@@ -85,6 +92,7 @@ function initGame() {
       ambianceSystem();
       interactingSystem();
       applyingSystem();
+      loggerSystem();
       renderSystem();
       setState((state) => (state.turn = "WORLD"));
     }

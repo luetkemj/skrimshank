@@ -1,5 +1,6 @@
 import { Component } from "geotic";
 import Inventory from "./Inventory.component";
+import { log } from "../../lib/logger";
 
 export default class Loot extends Component {
   take(newOwner) {
@@ -15,13 +16,16 @@ export default class Loot extends Component {
     }
 
     evt.data.interactions.push({
-      name: "Pickup",
+      name: "Pick up",
       evt: "try-pick-up",
     });
   }
 
   onTryPickUp(evt) {
     this.take(evt.data.interactor);
+
+    log({ data: evt, source: this.entity });
+
     evt.handle();
   }
 }

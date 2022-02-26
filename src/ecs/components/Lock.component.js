@@ -1,4 +1,5 @@
 import { Component } from "geotic";
+import { log } from "../../lib/logger";
 
 export default class Lock extends Component {
   static properties = {
@@ -26,12 +27,16 @@ export default class Lock extends Component {
   onTryLock(evt) {
     if (this.lock()) {
       console.log("this lock is locked");
+    } else {
+      log({ data: evt, source: this.entity });
     }
   }
 
   onTryUnlock(evt) {
     if (this.unlock()) {
       console.log("the lock is unlocked");
+    } else {
+      log({ data: evt, source: this.entity });
     }
   }
 
