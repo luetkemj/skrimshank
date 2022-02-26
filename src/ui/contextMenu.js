@@ -37,6 +37,7 @@ export const renderContextMenu = (position) => {
     });
 
     // all the rest relating to the float menu can probably go somewhere else. but for now...
+    clearContainer("float");
     const { interactions } = getState();
     let bindings = "";
 

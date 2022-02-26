@@ -1,6 +1,8 @@
+import _ from "lodash";
 import { getState, setState } from "../../index";
 import MoveTo from "../components/MoveTo.component";
-import { grid } from "../../lib/grid";
+import { grid, getDirection, getNeighbors } from "../../lib/grid";
+import { getEntitiesAtPos } from "../../lib/ecsHelpers";
 import { clearContainer } from "../../lib/canvas";
 import { interactionKeys } from "./interacting.system";
 
@@ -15,11 +17,6 @@ export const userInputSystem = () => {
 
   const { mode } = getState();
 
-  const initialInteractingPos = {
-    x: player.position.x,
-    y: player.position.y - 1,
-  };
-
   if (mode === "GAME") {
     if (key === "l") {
       setState((state) => (state.mode = "LOOKING"));
@@ -28,7 +25,38 @@ export const userInputSystem = () => {
 
     if (key === "i") {
       setState((state) => (state.mode = "INTERACTING"));
-      setState((state) => (state.cursor = initialInteractingPos));
+
+      const positions = { N: null, S: null, E: null, W: null };
+
+      // get neighbors (cardinal)
+      const neighborPos = getNeighbors(player.position);
+      // for each, get interactions
+      neighborPos.forEach((pos) => {
+        const eAtPos = getEntitiesAtPos(pos);
+        const stack = _.orderBy(
+          [...eAtPos],
+          (entity) => entity.zIndex.z,
+          "desc"
+        );
+        const entity = stack[0];
+
+        const evt = entity.fireEvent("get-interactions", {
+          interactor: player,
+          interactions: [],
+        });
+
+        if (evt.data.interactions.length) {
+          const direction = getDirection(entity.position, player.position);
+          positions[direction.dir] = entity.position;
+        }
+      });
+      const cursorPosition = _.find(positions, (position) => position);
+      if (cursorPosition) {
+        setState((state) => (state.cursor = cursorPosition));
+      } else {
+        console.log("there is nothing nearby to interact with");
+        setState((state) => (state.mode = "GAME"));
+      }
     }
 
     pcQuery.get().forEach((entity) => {
