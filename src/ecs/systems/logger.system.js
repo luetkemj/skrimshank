@@ -4,11 +4,7 @@ import { getState, setState } from "../../index";
 export const loggerSystem = () => {
   const { logsToProcess } = getState();
 
-  console.log(logsToProcess);
-
   logsToProcess.forEach((log) => {
-    console.log(log);
-
     const interactor = log.data.data.interactor;
     if (!interactor) return false;
 

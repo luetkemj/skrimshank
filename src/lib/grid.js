@@ -350,9 +350,9 @@ export const getNeighbor = (cellOrId, dir) => {
   };
 };
 
-export const getDirection = (a, b) => {
-  const cellA = toCell(a);
-  const cellB = toCell(b);
+export const getDirection = (to, from) => {
+  const cellA = toCell(to);
+  const cellB = toCell(from);
 
   const { x: ax, y: ay } = cellA;
   const { x: bx, y: by } = cellB;
