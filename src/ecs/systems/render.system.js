@@ -11,10 +11,12 @@ import { getEntitiesAtPos, getNeighborEntities } from "../../lib/ecsHelpers";
 import { renderAdventureLog } from "../../ui/adventureLog";
 import { renderAmbiance } from "../../ui/ambiance";
 import { renderContextMenu } from "../../ui/contextMenu";
+import { renderLegend } from "../../ui/legend";
 
 import {
   pcQuery,
   appearanceQuery,
+  legendableQuery,
   revealedQuery,
   shadowcasterQuery,
   visibleQuery,
@@ -169,6 +171,7 @@ export const renderSystem = () => {
   });
 
   // RENDER UI THINGS
+  renderLegend(legendableQuery.get());
   renderAdventureLog();
   renderAmbiance();
   renderContextMenu(pcQuery.get()[0].position);

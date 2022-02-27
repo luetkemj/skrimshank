@@ -20,5 +20,6 @@ export const Door = {
     { type: "ZIndex", properties: { z: 200 } },
     { type: "Door" },
     { type: "Display", properties: { name: "Door" } },
+    { type: "Legend" },
   ],
 };

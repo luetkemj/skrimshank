@@ -4,14 +4,14 @@ export const grid = {
   width: 100,
   height: 44,
 
-  // legend: {
-  //   name: "legend",
-  //   width: 12,
-  //   height: 41,
-  //   x: 0,
-  //   y: 0,
-  //   halfWidth: true,
-  // },
+  legend: {
+    name: "legend",
+    width: 12,
+    height: 41,
+    x: 0,
+    y: 0,
+    halfWidth: true,
+  },
 
   fps: {
     name: "fps",

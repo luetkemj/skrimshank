@@ -2,6 +2,7 @@ import { world } from "./index";
 import Appearance from "./components/Appearance.component";
 import Discoverable from "./components/Discoverable.component";
 import InFov from "./components/InFov.component";
+import Legend from "./components/Legend.component";
 import LightSource from "./components/LightSource.component";
 import Lux from "./components/Lux.component";
 import Shadowcaster from "./components/Shadowcaster.component";
@@ -14,6 +15,8 @@ export const appearanceQuery = world.createQuery({
 });
 
 export const fovQuery = world.createQuery({ all: [InFov] });
+
+export const legendableQuery = world.createQuery({ all: [InFov, Legend] });
 
 export const lightSourceQuery = world.createQuery({
   all: [LightSource, Position],
