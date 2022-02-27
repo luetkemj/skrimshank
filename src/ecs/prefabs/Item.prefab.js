@@ -6,5 +6,6 @@ export const Item = {
     { type: "ZIndex", properties: { z: 200 } },
     { type: "Display" },
     { type: "Loot" },
+    { type: "Legend" },
   ],
 };
