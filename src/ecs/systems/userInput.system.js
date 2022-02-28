@@ -82,29 +82,59 @@ export const userInputSystem = () => {
   if (mode === "LOOKING") {
     if (key === "Escape") {
       clearContainer("mapOverlay");
-      return setState((state) => (state.mode = "GAME"));
+      return setState((state) => {
+        state.mode = "GAME";
+        state.cursor = { x: 0, y: 0 };
+      });
     }
 
-    const maybeNewPosition = { ...getState().cursor };
-    const increment = shiftKey ? 5 : 1;
+    // shift and arrows cycle through items in legend
+    if (shiftKey) {
+      const { legendPositions, legendPositionsIndex } = getState();
 
-    if (key === "ArrowUp") {
-      maybeNewPosition.y -= increment;
-    }
-    if (key === "ArrowRight") {
-      maybeNewPosition.x += increment;
-    }
-    if (key === "ArrowDown") {
-      maybeNewPosition.y += increment;
-    }
-    if (key === "ArrowLeft") {
-      maybeNewPosition.x -= increment;
-    }
+      if (key === "ArrowUp" || key === "ArrowLeft") {
+        let newIndex = legendPositionsIndex - 1;
+        if (newIndex < 0) {
+          newIndex = legendPositions.length - 1;
+        }
+        setState((state) => {
+          state.legendPositionsIndex = newIndex;
+          state.cursor = state.legendPositions[state.legendPositionsIndex];
+        });
+      }
 
-    // check if location is within bounds
-    const { x, y } = maybeNewPosition;
-    if (x >= 0 && x < grid.map.width && y >= 0 && y < grid.map.height) {
-      setState((state) => (state.cursor = maybeNewPosition));
+      if (key === "ArrowDown" || key === "ArrowRight") {
+        let newIndex = legendPositionsIndex + 1;
+        if (newIndex >= legendPositions.length) {
+          newIndex = 0;
+        }
+        setState((state) => {
+          state.legendPositionsIndex = newIndex;
+          state.cursor = state.legendPositions[state.legendPositionsIndex];
+        });
+      }
+    } else {
+      const maybeNewPosition = { ...getState().cursor };
+      const increment = 1;
+
+      if (key === "ArrowUp") {
+        maybeNewPosition.y -= increment;
+      }
+      if (key === "ArrowRight") {
+        maybeNewPosition.x += increment;
+      }
+      if (key === "ArrowDown") {
+        maybeNewPosition.y += increment;
+      }
+      if (key === "ArrowLeft") {
+        maybeNewPosition.x -= increment;
+      }
+
+      // check if location is within bounds
+      const { x, y } = maybeNewPosition;
+      if (x >= 0 && x < grid.map.width && y >= 0 && y < grid.map.height) {
+        setState((state) => (state.cursor = maybeNewPosition));
+      }
     }
   }
 

@@ -36,6 +36,5 @@ export const applyingSystem = () => {
       ...state.interactions,
       ..._.flatMap(evts, (e) => e.data.interactions),
     ];
-    console.log(state);
   });
 };

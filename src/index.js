@@ -32,6 +32,8 @@ const state = {
   interactions: [],
   interactee: null,
   interactor: null,
+  legendPositions: [],
+  legendPositionsIndex: 0,
   maps: { "0,0,0": [] },
   mode: "GAME", // GAME || LOOKING || INTERACTING
   recalcLighting: false,
