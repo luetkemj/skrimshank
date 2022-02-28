@@ -26,14 +26,24 @@ export const renderContextMenu = (position) => {
   if (getState().mode === "LOOKING") {
     printTemplate({
       container,
-      template: [{ str: "(esc)Back (arrow keys)Move", color: 0x666666 }],
+      template: [
+        {
+          str: "Looking: (esc)Back (arrow keys)Move (shift + arrow keys)Cycle",
+          color: 0x666666,
+        },
+      ],
     });
   }
 
   if (getState().mode === "INTERACTING") {
     printTemplate({
       container,
-      template: [{ str: "(esc)Back (arrow keys)Move", color: 0x666666 }],
+      template: [
+        {
+          str: "Interacting: (esc)Back (arrow keys)Move",
+          color: 0x666666,
+        },
+      ],
     });
 
     // all the rest relating to the float menu can probably go somewhere else. but for now...

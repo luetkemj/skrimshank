@@ -26,6 +26,8 @@ export const userInputSystem = () => {
     if (key === "i") {
       setState((state) => (state.mode = "INTERACTING"));
 
+      // get available interactions from neighbor tiles and set cursor to first available position
+
       const positions = { N: null, S: null, E: null, W: null };
 
       // get neighbors (cardinal)
