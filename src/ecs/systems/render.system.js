@@ -11,6 +11,7 @@ import { getEntitiesAtPos, getNeighborEntities } from "../../lib/ecsHelpers";
 import { renderAdventureLog } from "../../ui/adventureLog";
 import { renderAmbiance } from "../../ui/ambiance";
 import { renderContextMenu } from "../../ui/contextMenu";
+import { renderInventory } from "../../ui/inventory";
 import { renderLegend } from "../../ui/legend";
 
 import {
@@ -175,6 +176,7 @@ export const renderSystem = () => {
   renderAdventureLog();
   renderAmbiance();
   renderContextMenu(pcQuery.get()[0].position);
+  renderInventory(pcQuery.get()[0]);
 
   // DEBUG:
   // Uncomment to render everything at 100% alpha.

@@ -18,6 +18,10 @@ export const userInputSystem = () => {
   const { mode } = getState();
 
   if (mode === "GAME") {
+    if (key === "I") {
+      setState((state) => (state.mode = "MENU_INVENTORY"));
+    }
+
     if (key === "l") {
       setState((state) => (state.mode = "LOOKING"));
       setState((state) => (state.cursor = player.position));
@@ -79,6 +83,42 @@ export const userInputSystem = () => {
         entity.add(MoveTo, { x: x - 1, y, z });
       }
     });
+  }
+
+  if (mode === "MENU_INVENTORY") {
+    if (key === "Escape") {
+      return setState((state) => (state.mode = "GAME"));
+    }
+
+    const { inventoryIndex } = getState();
+    const inventoryLength = player.inventory.contentIds.length;
+    const selectedItemId = player.inventory.contentIds[inventoryIndex];
+    const selectedItem = world.getEntity(selectedItemId);
+
+    if (key === "ArrowUp") {
+      if (inventoryIndex - 1 < 0) {
+        setState((state) => (state.inventoryIndex = inventoryLength - 1));
+      } else {
+        setState((state) => (state.inventoryIndex -= 1));
+      }
+    }
+
+    if (key === "ArrowDown") {
+      if (inventoryIndex + 1 >= inventoryLength) {
+        setState((state) => (state.inventoryIndex = 0));
+      } else {
+        setState((state) => (state.inventoryIndex += 1));
+      }
+    }
+
+    if (key === "d") {
+      if (selectedItem) {
+        selectedItem.fireEvent("try-drop", {
+          name: "Drop",
+          interactor: player,
+        });
+      }
+    }
   }
 
   if (mode === "LOOKING") {

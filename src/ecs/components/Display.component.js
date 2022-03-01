@@ -3,6 +3,7 @@ import { Component } from "geotic";
 export default class Display extends Component {
   static properties = {
     name: "Unknown",
+    description: "You can't even know!",
   };
 
   get simple() {

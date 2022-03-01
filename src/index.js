@@ -24,7 +24,6 @@ const state = {
     { log: [{ str: "*********************" }], tick: 0 },
     { log: [{ str: "Your adventure begins" }], tick: 0 },
   ],
-  logsToProcess: [],
   ambiance: [],
   currentMapId: "0,0,0",
   cursor: { x: 0, y: 0 },
@@ -32,8 +31,10 @@ const state = {
   interactions: [],
   interactee: null,
   interactor: null,
+  inventoryIndex: 0,
   legendPositions: [],
   legendPositionsIndex: 0,
+  logsToProcess: [],
   maps: { "0,0,0": [] },
   mode: "GAME", // GAME || LOOKING || INTERACTING
   recalcLighting: false,

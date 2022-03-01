@@ -95,6 +95,16 @@ const initPixiContainer = (container) => {
   container.container.x = x;
   container.container.y = y;
 
+  // add a background graphic if configured
+  let graphics;
+  if (container.bgColor) {
+    graphics = new PIXI.Graphics();
+    graphics.beginFill(container.bgColor);
+    graphics.drawRect(0, 0, width, height);
+    graphics.endFill();
+  }
+
+  // some special sauce for the floating context menu
   if (container.name === "float") {
     container.bg = new PIXI.Sprite(getTileTexture());
     container.bg.width = width;
@@ -107,6 +117,7 @@ const initPixiContainer = (container) => {
   }
 
   app.stage.addChild(container.container);
+  graphics && container.container.addChild(graphics);
 };
 
 let containers;

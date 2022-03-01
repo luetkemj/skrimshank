@@ -3,6 +3,16 @@ import Inventory from "./Inventory.component";
 import { log } from "../../lib/logger";
 
 export default class Loot extends Component {
+  drop(oldOwner) {
+    if (!oldOwner.inventory.hasLoot(this.entity)) {
+      return false;
+    }
+
+    oldOwner.inventory.dropLoot(this.entity);
+
+    return true;
+  }
+
   take(newOwner) {
     newOwner.inventory.addLoot(this.entity);
     return true;
@@ -19,6 +29,14 @@ export default class Loot extends Component {
       name: "Pick up",
       evt: "try-pick-up",
     });
+  }
+
+  onTryDrop(evt) {
+    if (this.drop(evt.data.interactor)) {
+      log({ data: evt, source: this.entity });
+    } else {
+      console.log("You can't drop that");
+    }
   }
 
   onTryPickUp(evt) {

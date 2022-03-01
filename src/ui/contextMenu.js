@@ -12,14 +12,21 @@ const container = "contextMenu";
 export const renderContextMenu = (position) => {
   clearContainer(container);
 
+  const color = 0x666666;
+
   if (getState().mode === "GAME") {
     hideFloat("float");
 
     printTemplate({
       container,
-      template: [
-        { str: "(i)Interact (l)Look (arrow keys)Move", color: 0x666666 },
-      ],
+      template: [{ str: "(i)Interact (l)Look (arrow keys)Move", color }],
+    });
+  }
+
+  if (getState().mode === "MENU_INVENTORY") {
+    printTemplate({
+      container,
+      template: [{ str: "(esc)Back (arrow keys)Select Item", color }],
     });
   }
 
@@ -29,7 +36,7 @@ export const renderContextMenu = (position) => {
       template: [
         {
           str: "Looking: (esc)Back (arrow keys)Move (shift + arrow keys)Cycle",
-          color: 0x666666,
+          color,
         },
       ],
     });
@@ -41,7 +48,7 @@ export const renderContextMenu = (position) => {
       template: [
         {
           str: "Interacting: (esc)Back (arrow keys)Move",
-          color: 0x666666,
+          color,
         },
       ],
     });

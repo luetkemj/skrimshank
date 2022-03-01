@@ -15,7 +15,14 @@ export const Brazier = {
     { type: "Blocking" },
     { type: "Combustible" },
     { type: "Discoverable" },
-    { type: "Display", properties: { name: "Brazier" } },
+    {
+      type: "Display",
+      properties: {
+        name: "Brazier",
+        description:
+          "A container used to burn fuel for cooking, heating, cultural rituals, or light.",
+      },
+    },
     { type: "ZIndex", properties: { z: 200 } },
   ],
 };

@@ -103,14 +103,15 @@ export const grid = {
     halfWidth: true,
   },
 
-  // menu: {
-  //   name: "menu",
-  //   width: 87,
-  //   height: 41,
-  //   x: 13,
-  //   y: 3,
-  //   halfWidth: true,
-  // },
+  menu: {
+    name: "menu",
+    width: 87,
+    height: 38,
+    x: 13,
+    y: 3,
+    halfWidth: true,
+    bgColor: 0x000001,
+  },
 };
 
 export const CARDINAL = [

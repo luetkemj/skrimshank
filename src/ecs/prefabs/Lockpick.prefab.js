@@ -13,7 +13,14 @@ export const Lockpick = {
       },
     },
     { type: "Discoverable" },
-    { type: "Display", properties: { name: "Lockpick" } },
+    {
+      type: "Display",
+      properties: {
+        name: "Lockpick",
+        description:
+          "A small peice of metal useful for open locks without a key.",
+      },
+    },
     { type: "LockPick" },
   ],
 };
