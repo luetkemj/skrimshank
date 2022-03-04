@@ -13,5 +13,6 @@ export const Goblin = {
       },
     },
     { type: "Display", properties: { name: "Goblin" } },
+    { type: "Brain" },
   ],
 };

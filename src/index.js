@@ -3,10 +3,11 @@ import { loadTextures, initUi, printRow } from "./lib/canvas";
 
 import { world } from "./ecs/index";
 
+import { aiSystem } from "./ecs/systems/ai.system";
 import { ambianceSystem } from "./ecs/systems/ambiance.system";
+import { applyingSystem } from "./ecs/systems/applying.system";
 import { fovSystem } from "./ecs/systems/fov.system";
 import { interactingSystem } from "./ecs/systems/interacting.system";
-import { applyingSystem } from "./ecs/systems/applying.system";
 import { lightingSystem } from "./ecs/systems/lighting.system";
 import { loggerSystem } from "./ecs/systems/logger.system";
 import { movementSystem } from "./ecs/systems/movement.system";
@@ -69,6 +70,10 @@ function initGame() {
   hero.fireEvent("update-position", dungeon.rooms[0].center);
   goblin.fireEvent("update-position", dungeon.rooms[1].center);
 
+  // TESTING: MVP ai/goal things
+  const boredGoal = world.createPrefab("GoalBored");
+  goblin.brain.pushGoal(boredGoal);
+
   // run systems to render initial frame
   lightingSystem();
   fovSystem();
@@ -101,6 +106,16 @@ function initGame() {
     }
 
     if (getState().turn === "WORLD") {
+      aiSystem();
+      // movementSystem();
+      // lightingSystem();
+      // fovSystem();
+      // ambianceSystem();
+      // interactingSystem();
+      // applyingSystem();
+      // loggerSystem();
+      renderSystem();
+
       setState((state) => (state.turn = "PLAYER"));
     }
 

@@ -2,11 +2,13 @@ import { Engine } from "geotic";
 
 import AppearanceComponent from "./components/Appearance.component";
 import BlockingComponent from "./components/Blocking.component";
+import BrainComponent from "./components/Brain.component";
 import CombustibleComponent from "./components/Combustible.component";
 import DiscoverableComponent from "./components/Discoverable.component";
 import DisplayComponent from "./components/Display.component";
 import DoorComponent from "./components/Door.component";
 import FireComponent from "./components/Fire.component";
+import GoalComponent from "./components/Goal.component";
 import InFovComponent from "./components/InFov.component";
 import InventoryComponent from "./components/Inventory.component";
 import LegendComponent from "./components/Legend.component";
@@ -26,6 +28,7 @@ import { Being as BeingPrefab } from "./prefabs/Being.prefab";
 import { Brazier as BrazierPrefab } from "./prefabs/Brazier.prefab";
 import { Door as DoorPrefab } from "./prefabs/Door.prefab";
 import { Floor as FloorPrefab } from "./prefabs/Floor.prefab";
+import { GoalBored } from "./prefabs/GoalBored.prefab";
 import { Goblin as GoblinPrefab } from "./prefabs/Goblin.prefab";
 import { Item as ItemPrefab } from "./prefabs/Item.prefab";
 import { Lockpick as LockpickPrefab } from "./prefabs/Lockpick.prefab";
@@ -39,11 +42,13 @@ export const world = engine.createWorld();
 // register components
 engine.registerComponent(AppearanceComponent);
 engine.registerComponent(BlockingComponent);
+engine.registerComponent(BrainComponent);
 engine.registerComponent(CombustibleComponent);
 engine.registerComponent(DiscoverableComponent);
 engine.registerComponent(DisplayComponent);
 engine.registerComponent(DoorComponent);
 engine.registerComponent(FireComponent);
+engine.registerComponent(GoalComponent);
 engine.registerComponent(InFovComponent);
 engine.registerComponent(InventoryComponent);
 engine.registerComponent(LegendComponent);
@@ -72,3 +77,6 @@ engine.registerPrefab(GoblinPrefab);
 engine.registerPrefab(LockpickPrefab);
 engine.registerPrefab(PlayerPrefab);
 engine.registerPrefab(WallPrefab);
+
+// AI GOALS
+engine.registerPrefab(GoalBored);
