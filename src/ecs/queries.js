@@ -1,5 +1,6 @@
 import { world } from "./index";
 import Appearance from "./components/Appearance.component";
+import Brain from "./components/Brain.component";
 import Discoverable from "./components/Discoverable.component";
 import InFov from "./components/InFov.component";
 import Legend from "./components/Legend.component";
@@ -9,6 +10,8 @@ import Shadowcaster from "./components/Shadowcaster.component";
 import PC from "./components/PC.component";
 import Position from "./components/Position.component";
 import Revealed from "./components/Revealed.component";
+
+export const aiQuery = world.createQuery({ all: [Brain] });
 
 export const appearanceQuery = world.createQuery({
   all: [Appearance],

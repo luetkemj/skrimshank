@@ -3,6 +3,8 @@ import { getState } from "../index";
 import { getNeighborIds, toCell } from "./grid";
 import { world } from "../ecs/index";
 
+export const getEntity = (eid) => world.getEntity(eid);
+
 export const getEAtPos = (cellOrPosId) => {
   const { x, y } = toCell(cellOrPosId);
   const { maps, currentMapId } = getState();
