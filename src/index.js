@@ -15,7 +15,7 @@ import { renderSystem } from "./ecs/systems/render.system";
 import { userInputSystem } from "./ecs/systems/userInput.system";
 
 import { generateDungeonFloor } from "./generators/dungeonfloor";
-import { grid } from "./lib/grid";
+import { grid, getNeighbors } from "./lib/grid";
 
 const loader = loadTextures(initGame);
 
@@ -68,7 +68,9 @@ function initGame() {
   const goblin = world.createPrefab("Goblin");
   const dungeon = generateDungeonFloor({ world });
   hero.fireEvent("update-position", dungeon.rooms[0].center);
-  goblin.fireEvent("update-position", dungeon.rooms[1].center);
+  // get neighbor position
+  const neighbors = getNeighbors(dungeon.rooms[0].center);
+  goblin.fireEvent("update-position", neighbors[0]);
 
   // TESTING: MVP ai/goal things
   const boredGoal = world.createPrefab("GoalBored");
