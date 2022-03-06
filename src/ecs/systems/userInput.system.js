@@ -1,6 +1,5 @@
 import _ from "lodash";
 import { getState, setState } from "../../index";
-import MoveTo from "../components/MoveTo.component";
 import { grid, getDirection, getNeighbors } from "../../lib/grid";
 import { getEntitiesAtPos } from "../../lib/ecsHelpers";
 import { clearContainer } from "../../lib/canvas";
@@ -68,19 +67,19 @@ export const userInputSystem = () => {
     pcQuery.get().forEach((entity) => {
       if (key === "ArrowUp") {
         const { x, y, z } = entity.position;
-        entity.add(MoveTo, { x, y: y - 1, z });
+        entity.fireEvent("tryMove", { position: { x, y: y - 1, z } });
       }
       if (key === "ArrowRight") {
         const { x, y, z } = entity.position;
-        entity.add(MoveTo, { x: x + 1, y, z });
+        entity.fireEvent("tryMove", { position: { x: x + 1, y, z } });
       }
       if (key === "ArrowDown") {
         const { x, y, z } = entity.position;
-        entity.add(MoveTo, { x, y: y + 1, z });
+        entity.fireEvent("tryMove", { position: { x, y: y + 1, z } });
       }
       if (key === "ArrowLeft") {
         const { x, y, z } = entity.position;
-        entity.add(MoveTo, { x: x - 1, y, z });
+        entity.fireEvent("tryMove", { position: { x: x - 1, y, z } });
       }
     });
   }

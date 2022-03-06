@@ -195,6 +195,14 @@ export const renderSystem = () => {
     });
   }
 
+  // rerender cells
+  [...getState().rerender].forEach((x) => {
+    getEntitiesAtPos(x).forEach((ent) => {
+      renderIfOnTop(ent);
+    });
+  });
+  setState((state) => (state.rerender = new Set()));
+
   revealedQuery.get().forEach((entity) => {
     entity.appearance.alpha = minAlpha;
     renderIfOnTop(entity, true);

@@ -23,5 +23,6 @@ export const Player = {
     },
     { type: "ZIndex", properties: { z: 310 } },
     { type: "Display", properties: { name: "Player" } },
+    { type: "Motor" },
   ],
 };
