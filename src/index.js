@@ -10,7 +10,6 @@ import { fovSystem } from "./ecs/systems/fov.system";
 import { interactingSystem } from "./ecs/systems/interacting.system";
 import { lightingSystem } from "./ecs/systems/lighting.system";
 import { loggerSystem } from "./ecs/systems/logger.system";
-import { movementSystem } from "./ecs/systems/movement.system";
 import { renderSystem } from "./ecs/systems/render.system";
 import { userInputSystem } from "./ecs/systems/userInput.system";
 
@@ -39,9 +38,11 @@ const state = {
   maps: { "0,0,0": [] },
   mode: "GAME", // GAME || LOOKING || INTERACTING
   recalcLighting: false,
+  rerender: new Set(),
   tick: 0,
   turn: "PLAYER",
   userInput: "",
+  z: 0,
 };
 
 window.state = state;
@@ -73,8 +74,10 @@ function initGame() {
   goblin.fireEvent("update-position", neighbors[0]);
 
   // TESTING: MVP ai/goal things
-  const boredGoal = world.createPrefab("GoalBored");
-  goblin.brain.pushGoal(boredGoal);
+  // const boredGoal = world.createPrefab("GoalBored");
+  // goblin.brain.pushGoal(boredGoal);
+  // const lockPick = world.createPrefab("Lockpick");
+  // goblin.inventory.addLoot(lockPick);
 
   // run systems to render initial frame
   lightingSystem();
@@ -96,7 +99,6 @@ function initGame() {
         state.tick = state.tick + 1;
       });
       userInputSystem();
-      movementSystem();
       lightingSystem();
       fovSystem();
       ambianceSystem();
@@ -109,7 +111,6 @@ function initGame() {
 
     if (getState().turn === "WORLD") {
       aiSystem();
-      // movementSystem();
       // lightingSystem();
       // fovSystem();
       // ambianceSystem();
