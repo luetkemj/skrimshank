@@ -13,6 +13,7 @@ export const Brazier = {
       },
     },
     { type: "Blocking" },
+    { type: "Bumpable" },
     { type: "Combustible" },
     { type: "Discoverable" },
     {

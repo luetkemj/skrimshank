@@ -1,5 +1,5 @@
 import { Component } from "geotic";
-import Blocking from "./Blocking.component";
+import Bumpable from "./Bumpable.component";
 import Lock from "./Lock.component";
 import Shadowcaster from "./Shadowcaster.component";
 import { setState } from "../../index";
@@ -31,7 +31,7 @@ export default class Door extends Component {
 
     this.isOpen = true;
     this.entity.appearance.char = this.char;
-    this.entity.blocking.destroy();
+    this.entity.bumpable.destroy();
     this.entity.shadowcaster.destroy();
     return true;
   }
@@ -43,7 +43,7 @@ export default class Door extends Component {
 
     this.isOpen = false;
     this.entity.appearance.char = this.char;
-    this.entity.add(Blocking);
+    this.entity.add(Bumpable);
     this.entity.add(Shadowcaster);
     return true;
   }
