@@ -26,8 +26,8 @@ export default class Position extends Component {
     // and update the aStar graph if entity is blocking
     setState((state) => {
       state.maps[state.currentMapId][this.y][this.x].delete(this.entity.id);
-      if (this.entity.blocking && state.aStarGraphs[state.currentMapId]) {
-        state.aStarGraphs[state.currentMapId][this.y][this.x] = 0;
+      if (this.entity.blocking && state.astarGrids[state.currentMapId]) {
+        state.astarGrids[state.currentMapId][this.y][this.x] = 1;
       }
     });
 
@@ -45,8 +45,8 @@ export default class Position extends Component {
     // add entity to new location in maps eAtLoc tracker
     setState((state) => {
       state.maps[state.currentMapId][this.y][this.x].add(this.entity.id);
-      if (this.entity.blocking && state.aStarGraphs[state.currentMapId]) {
-        state.aStarGraphs[state.currentMapId][this.y][this.x] = 1;
+      if (this.entity.blocking && state.astarGrids[state.currentMapId]) {
+        state.astarGrids[state.currentMapId][this.y][this.x] = 0;
       }
     });
   }

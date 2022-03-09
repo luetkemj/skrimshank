@@ -17,7 +17,7 @@ import { generateDungeonFloor } from "./generators/dungeonfloor";
 import { grid, getNeighbors } from "./lib/grid";
 
 import { positionQuery } from "./ecs/queries";
-import { aStarBuildGraph } from "./lib/pathfinding";
+import { astarBuildGrid, aStar } from "./lib/pathfinding";
 
 const loader = loadTextures(initGame);
 
@@ -28,7 +28,7 @@ const state = {
     { log: [{ str: "Your adventure begins" }], tick: 0 },
   ],
   ambiance: [],
-  aStarGraphs: {},
+  astarGrids: {},
   currentMapId: "0,0,0",
   cursor: { x: 0, y: 0 },
   fps: 0,
@@ -79,7 +79,7 @@ function initGame() {
 
   // this shoudl go somewhere else eventually
   // likely when we get z-levels it will go there...
-  aStarBuildGraph(positionQuery.get());
+  astarBuildGrid(positionQuery.get());
 
   // run systems to render initial frame
   lightingSystem();
@@ -122,6 +122,8 @@ function initGame() {
       renderSystem();
 
       setState((state) => (state.turn = "PLAYER"));
+
+      console.log(aStar(goblin.position, hero.position));
     }
 
     // calculate FPS

@@ -16,6 +16,7 @@ export const getEntitiesAtPos = (cellOrPosid) => {
   return getEAtPos(cellOrPosid).map((eid) => world.getEntity(eid));
 };
 
+// pretty sure this works - although it is untested.
 export const isPositionBlocking = (cellOrPosid) => {
   const entities = getEntitiesAtPos(cellOrPosid);
   return find(entities, (ent) => ent.blocking);
