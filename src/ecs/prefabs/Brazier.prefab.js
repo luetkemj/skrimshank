@@ -12,7 +12,8 @@ export const Brazier = {
         baseColor: colors.metal,
       },
     },
-    { type: "Blocking" },
+    { type: "Impassable" },
+    { type: "Bumpable" },
     { type: "Combustible" },
     { type: "Discoverable" },
     {

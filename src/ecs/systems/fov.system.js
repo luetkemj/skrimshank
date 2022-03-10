@@ -15,14 +15,14 @@ export const fovSystem = () => {
   const { width, height } = grid.map;
   const origin = { x: playerEntity.position.x, y: playerEntity.position.y };
   const radius = grid.map.width; // this should come from a component!
-  const blockingLocations = new Set();
+  const impassableLocations = new Set();
 
   shadowcasterQuery.get().forEach((entity) => {
-    blockingLocations.add(`${entity.position.x},${entity.position.y}`);
+    impassableLocations.add(`${entity.position.x},${entity.position.y}`);
   });
 
   const FOV = createFOV({
-    blockingLocations,
+    impassableLocations,
     width,
     height,
     originX: origin.x,

@@ -16,6 +16,12 @@ export const getEntitiesAtPos = (cellOrPosid) => {
   return getEAtPos(cellOrPosid).map((eid) => world.getEntity(eid));
 };
 
+// pretty sure this works - although it is untested.
+export const isPositionImpassable = (cellOrPosid) => {
+  const entities = getEntitiesAtPos(cellOrPosid);
+  return find(entities, (ent) => ent.impassable);
+};
+
 export const getNeighborEntities = ({ x, y, direction = "CARDINAL" }) => {
   const { currentMapId } = getState();
   const z = currentMapId.split(",")[2];

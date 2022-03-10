@@ -29,6 +29,8 @@ export const luxQuery = world.createQuery({ all: [Lux] });
 
 export const pcQuery = world.createQuery({ all: [PC] });
 
+export const positionQuery = world.createQuery({ all: [Position] });
+
 export const revealedQuery = world.createQuery({
   all: [Revealed],
   none: [InFov],

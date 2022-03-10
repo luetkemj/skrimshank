@@ -18,6 +18,8 @@ export const renderLegend = (ents) => {
   const [player] = _.remove(lEnts, (ent) => ent.has(PC));
 
   const orderedLegend = _.orderBy(lEnts, (ent) => {
+    // bug:
+    // somehow there is a way for player to not be defined.
     return distance(player.position, ent.position);
   });
 

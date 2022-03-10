@@ -1,7 +1,7 @@
 import { Component } from "geotic";
 import { log } from "../../lib/logger";
 
-export default class Blocking extends Component {
+export default class Bumpable extends Component {
   onBump(data) {
     if (this.entity.display) {
       log({ data, source: this.entity });

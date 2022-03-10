@@ -16,6 +16,9 @@ import { userInputSystem } from "./ecs/systems/userInput.system";
 import { generateDungeonFloor } from "./generators/dungeonfloor";
 import { grid, getNeighbors } from "./lib/grid";
 
+import { positionQuery } from "./ecs/queries";
+import { astarBuildGrid, aStar } from "./lib/pathfinding";
+
 const loader = loadTextures(initGame);
 
 const state = {
@@ -25,6 +28,7 @@ const state = {
     { log: [{ str: "Your adventure begins" }], tick: 0 },
   ],
   ambiance: [],
+  astarGrids: {},
   currentMapId: "0,0,0",
   cursor: { x: 0, y: 0 },
   fps: 0,
@@ -73,11 +77,9 @@ function initGame() {
   const neighbors = getNeighbors(dungeon.rooms[0].center);
   goblin.fireEvent("update-position", neighbors[0]);
 
-  // TESTING: MVP ai/goal things
-  // const boredGoal = world.createPrefab("GoalBored");
-  // goblin.brain.pushGoal(boredGoal);
-  // const lockPick = world.createPrefab("Lockpick");
-  // goblin.inventory.addLoot(lockPick);
+  // this shoudl go somewhere else eventually
+  // likely when we get z-levels it will go there...
+  astarBuildGrid(positionQuery.get());
 
   // run systems to render initial frame
   lightingSystem();
@@ -120,6 +122,8 @@ function initGame() {
       renderSystem();
 
       setState((state) => (state.turn = "PLAYER"));
+
+      console.log(aStar(goblin.position, hero.position));
     }
 
     // calculate FPS

@@ -17,24 +17,24 @@ export default class Motor extends Component {
       canMove = true;
     }
 
-    let blockingEnt = null;
+    let bumpableEnt = null;
 
     entsAtPos.find((ent) => {
-      if (ent.blocking) {
-        blockingEnt = ent;
+      if (ent.bumpable) {
+        bumpableEnt = ent;
       }
-      return ent.blocking;
+      return ent.bumpable;
     });
 
-    // check if location is blocking
-    if (blockingEnt) {
-      const evt = blockingEnt.fireEvent("get-bump-interactions", {
+    // check if location is bumpable
+    if (bumpableEnt) {
+      const evt = bumpableEnt.fireEvent("get-bump-interactions", {
         interactor: this.entity,
         interactions: [],
       });
 
       evt.data.interactions.forEach((e) =>
-        blockingEnt.fireEvent(e.evt, { interactor: this.entity })
+        bumpableEnt.fireEvent(e.evt, { interactor: this.entity })
       );
 
       canMove = false;

@@ -1,8 +1,10 @@
 import { Engine } from "geotic";
 
 import AppearanceComponent from "./components/Appearance.component";
-import BlockingComponent from "./components/Blocking.component";
+import AstarComponent from "./components/Astar.component";
+import ImpassableComponent from "./components/Impassable.component";
 import BrainComponent from "./components/Brain.component";
+import BumpableComponent from "./components/Bumpable.component";
 import CombustibleComponent from "./components/Combustible.component";
 import DiscoverableComponent from "./components/Discoverable.component";
 import DisplayComponent from "./components/Display.component";
@@ -41,8 +43,10 @@ export const world = engine.createWorld();
 
 // register components
 engine.registerComponent(AppearanceComponent);
-engine.registerComponent(BlockingComponent);
+engine.registerComponent(AstarComponent);
+engine.registerComponent(ImpassableComponent);
 engine.registerComponent(BrainComponent);
+engine.registerComponent(BumpableComponent);
 engine.registerComponent(CombustibleComponent);
 engine.registerComponent(DiscoverableComponent);
 engine.registerComponent(DisplayComponent);
