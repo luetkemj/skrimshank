@@ -54,14 +54,14 @@ export const lightingSystem = () => {
     const { width, height } = grid.map;
     const origin = { x: entity.position.x, y: entity.position.y };
     const radius = entity.lightSource.beam;
-    const blockingLocations = new Set();
+    const impassableLocations = new Set();
 
     shadowcasterQuery.get().forEach((entity) => {
-      blockingLocations.add(`${entity.position.x},${entity.position.y}`);
+      impassableLocations.add(`${entity.position.x},${entity.position.y}`);
     });
 
     const FOV = createFOV({
-      blockingLocations,
+      impassableLocations,
       width,
       height,
       originX: origin.x,

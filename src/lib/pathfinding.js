@@ -28,7 +28,7 @@ export const astarBuildGrid = (entities) => {
   entities.forEach((entity) => {
     const { x, y } = entity.position;
     const wt = get(entity, "astar.wt", 1);
-    if (!entity.blocking) {
+    if (!entity.impassable) {
       graph[y][x] += wt;
     }
   });

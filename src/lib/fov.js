@@ -14,7 +14,7 @@ const octantTransforms = [
 // width: width of map (or visible map?)
 // height: height of map (or visible map?)
 export function createFOV({
-  blockingLocations,
+  impassableLocations,
   width,
   height,
   originX,
@@ -25,7 +25,7 @@ export function createFOV({
 
   const isShadowcaster = (x, y) => {
     const locId = `${x},${y}`;
-    return !!blockingLocations.has(locId);
+    return !!impassableLocations.has(locId);
   };
   const reveal = (x, y) => {
     return visible.add(`${x},${y}`);

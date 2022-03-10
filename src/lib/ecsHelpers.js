@@ -17,9 +17,9 @@ export const getEntitiesAtPos = (cellOrPosid) => {
 };
 
 // pretty sure this works - although it is untested.
-export const isPositionBlocking = (cellOrPosid) => {
+export const isPositionImpassable = (cellOrPosid) => {
   const entities = getEntitiesAtPos(cellOrPosid);
-  return find(entities, (ent) => ent.blocking);
+  return find(entities, (ent) => ent.impassable);
 };
 
 export const getNeighborEntities = ({ x, y, direction = "CARDINAL" }) => {
