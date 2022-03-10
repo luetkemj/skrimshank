@@ -23,12 +23,13 @@ export const walkDijkstra = (entity, dMapName) => {
 export const astarBuildGrid = (entities) => {
   const graph = [];
   const { width, height } = grid.map;
-  times(height, () => graph.push(new Array(width).fill(1)));
+  times(height, () => graph.push(new Array(width).fill(0)));
 
   entities.forEach((entity) => {
     const { x, y } = entity.position;
-    if (entity.blocking) {
-      graph[y][x] = 0;
+    const wt = get(entity, "astar.wt", 1);
+    if (!entity.blocking) {
+      graph[y][x] += wt;
     }
   });
 

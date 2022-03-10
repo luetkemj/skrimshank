@@ -1,6 +1,6 @@
 import { Component } from "geotic";
 
-export default class Position extends Component {
+export default class Astar extends Component {
   static properties = {
     wt: 1,
   };
