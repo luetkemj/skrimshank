@@ -41,6 +41,11 @@ export const astarBuildGrid = (entities) => {
 // todo: perf
 // consider how often we really need to be generating a new Graph
 // that seems to be the real slow down - not getting a new path.
+//
+// idea: only update the graph from the grid in state if a move goal fails (and is in FOV) or
+// an entity can't path and the grid is stale. (will require stale flag on the grid in state)
+//
+// Should only be using astar if an enemy is within FOV anyways. else shoudl be using dijkstra
 export const aStar = (start, end) => {
   const grid = getState().astarGrids[getState().currentMapId];
   const graph = new Graph(grid);

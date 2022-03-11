@@ -1,3 +1,21 @@
+220310
+Brain and Goals
+We have a basic brain that can process a single goal at a time. No planning ahead. We need a brain that has the capacity to plan ahead.
+
+A goal as it currently stands is a single action, just like a bump or interaction event. It's collected by the parent entity, put in a bag and a random event is pulled and fired.
+
+A goal SHOULD be, a collection of 1 or more events, in order, to achieve a single goal. Each event goes on the stack and the brain works through that stack.
+
+If a goblin is hungry, they should fire a getHungry goal types event to all components it has on it's person, in it's inventory, and knows about/can see. Every component that has an onGetHungryGoals listener will add a hungryGoal to the bag. Then the goblin will pull a random hungryGoal, run the calculations to turn that in to one or many events, and then start working through them.
+
+A goblin should look on their immediate body first.
+If no events found, look into their inventory.
+If no events found, look into what they can see.
+If no events found, look into what they know about.
+If no events found, do something else/be bored.
+
+A hungry goal may consist of the following. Path to item. Kill/butcher/cook item. Eat item.
+
 220224
 events:
 bumpInteractions - possible interactions with component on bump
