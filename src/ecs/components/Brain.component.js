@@ -1,52 +1,92 @@
-import _ from "lodash";
 import { Component } from "geotic";
 
 import { getEntity } from "../../lib/ecsHelpers";
 
-import { world } from "../../ecs/index";
+import { world } from "../index";
 
 export default class Brain extends Component {
-  // todo: add basic instincts list as properties
-  // a jelly should have fewer basic instincts/desires than a dwarf
-  // for example, a dwarf may put a lot of weight to crafting things
-  // whereas a jelly has not concept of creativity at all
-  // the spirit could contain these desires
-  // these desires could change weights/orders based on external stim
-  // the spirit could possess something else - changing it's sense of self/behaviors
+  // goals are entities with a goal component
+  // goal component is
+  // { isFinished<boolean>, takeAction<func>, originalIntent<goalEntityId> }
 
-  onTakeAction() {
-    // determine what type of goals to get
-    // const goalType = "BORED";
+  static properties = {
+    goalIds: [],
+  };
 
-    const evt = this.entity.fireEvent("get-bored-goals", {
-      interactor: this.entity,
-      goals: [],
+  onAttached() {
+    if (!this.goalIds.length) {
+      const goal = world.createPrefab("GoalBored");
+      this.pushGoal(goal);
+    }
+  }
+
+  onDestroyed() {
+    this.goalIds.forEach((eid) => {
+      getEntity(eid).destroy();
     });
+  }
 
-    const evts = [];
-
-    if (this.entity.inventory) {
-      this.entity.inventory.contentIds.forEach((eid) => {
-        const ent = world.getEntity(eid);
-
-        const evt = ent.fireEvent("get-bored-goals", {
-          interactor: this.entity,
-          goals: [],
-        });
-        if (evt) {
-          evts.push(evt);
-        }
-      });
+  onTakeAction(evt) {
+    while (
+      this.peekGoal() &&
+      this.peekGoal().goal.isFinished(this.peekGoal())
+    ) {
+      this.popGoal().destroy();
     }
 
-    const goals = [...evt.data.goals, ..._.flatMap(evts, (e) => e.data.goals)];
+    const currentGoal = this.peekGoal();
 
-    const goal = _.sample(goals);
+    if (currentGoal) {
+      currentGoal.goal.takeAction(currentGoal);
 
-    // console.log({ evt, goal });
+      // don't remove the last goal on the stack
+      // it's ok to be bored!
+      if (currentGoal.display.name !== "Bored Goal") {
+        this.removeGoal(currentGoal);
+      }
+    }
 
-    if (goal) {
-      goal.source.fireEvent(goal.evt);
+    evt.handle();
+  }
+
+  removeGoal(goal) {
+    const goalsToDestroy = [];
+
+    this.goalIds = this.goalIds.filter((gid) => {
+      const gEnt = getEntity(gid);
+
+      const isSelf = Boolean(gEnt.id === goal.id);
+      const isSiblingGoal = Boolean(
+        gEnt.goal.originalIntent &&
+          gEnt.goal.originalIntent.id === goal.goal.originalIntent.id
+      );
+
+      if (isSelf || isSiblingGoal) {
+        goalsToDestroy.push(gEnt.goal);
+        return false;
+      }
+
+      return true;
+    });
+
+    goalsToDestroy.forEach((gEnt) => gEnt.destroy());
+  }
+
+  pushGoal(goal) {
+    goal.parent = this.entity;
+    return this.goalIds.push(goal.id);
+  }
+
+  popGoal() {
+    const eid = this.goalIds.pop();
+    return getEntity(eid);
+  }
+
+  peekGoal() {
+    // if we always have a bored goal, we don't need to check for eid...
+    const eid = this.goalIds[this.goalIds.length - 1];
+    if (eid) {
+      return getEntity(eid);
     }
   }
 }

@@ -54,7 +54,5 @@ export const aStar = (start, end) => {
   const aEnd = graph.grid[end.y][end.x];
   const result = astar.search(graph, aStart, aEnd);
 
-  console.log({ grid, graph, aStart, aEnd, result, start, end });
-
   return result;
 };

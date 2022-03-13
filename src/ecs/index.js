@@ -1,3 +1,5 @@
+// todo: can I iterate over imports somehow? Sucks to have to keep repeating myself here
+
 import { Engine } from "geotic";
 
 import AppearanceComponent from "./components/Appearance.component";
@@ -31,6 +33,7 @@ import { Brazier as BrazierPrefab } from "./prefabs/Brazier.prefab";
 import { Door as DoorPrefab } from "./prefabs/Door.prefab";
 import { Floor as FloorPrefab } from "./prefabs/Floor.prefab";
 import { GoalBored } from "./prefabs/GoalBored.prefab";
+import { GoalMoveTo } from "./prefabs/GoalMoveTo.prefab";
 import { Goblin as GoblinPrefab } from "./prefabs/Goblin.prefab";
 import { Item as ItemPrefab } from "./prefabs/Item.prefab";
 import { Lockpick as LockpickPrefab } from "./prefabs/Lockpick.prefab";
@@ -84,3 +87,4 @@ engine.registerPrefab(WallPrefab);
 
 // AI GOALS
 engine.registerPrefab(GoalBored);
+engine.registerPrefab(GoalMoveTo);

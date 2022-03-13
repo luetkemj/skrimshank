@@ -1,3 +1,43 @@
+I want available actions to be obvious. The fun is in the variety of things you could do. Picking strange things should be rewarding. You shouldn't ever get "You can't do that!"
+
+GetAction types
+"BUMP"
+"INTERACT"
+"APPLY"
+
+<!-- player interactions ordered by priority! -->
+
+Open
+Ignite
+Pick with LockPick
+Attack with Hammer
+Attack with Shield
+Kick with foot
+Punch with fists
+
+Shift arrow to repeat action
+. . . .
+. @ g .
+Attack with Sword . .
+Bash with Shield . .
+
+220311 Brain and Goals
+The only purpose of a goal is to collect possible actions from relevant components/entities
+
+Not exactly... There can be very constrained goals. That know exactly what to do. Primative goals. Like move to target. It just needs to have a target and to attempt to path to it. Pathing could be along dijkstra or with astar. Doesn't really matter.
+
+Feed goal
+Is target adjacent?
+No - path to target
+Yes - is target edible
+No - goal has failed - original intent
+Yes - feed on target
+
+moveTo position
+Can move to postion?
+No - fail - original intent
+Yes - move to position
+
 220310
 Brain and Goals
 We have a basic brain that can process a single goal at a time. No planning ahead. We need a brain that has the capacity to plan ahead.

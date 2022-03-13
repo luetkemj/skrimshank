@@ -122,8 +122,6 @@ function initGame() {
       renderSystem();
 
       setState((state) => (state.turn = "PLAYER"));
-
-      console.log(aStar(goblin.position, hero.position));
     }
 
     // calculate FPS

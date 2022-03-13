@@ -7,6 +7,8 @@ import { getNeighbors, grid } from "../../lib/grid";
 export default class Motor extends Component {
   onTryMove(evt) {
     let canMove = false;
+    console.log(evt);
+
     const { position } = evt.data;
     const entsAtPos = getEntitiesAtPos(position);
 
@@ -48,6 +50,8 @@ export default class Motor extends Component {
       });
       this.entity.fireEvent("update-position", { x, y, z });
     }
+
+    evt.handle();
   }
 
   onTryWander(evt) {
