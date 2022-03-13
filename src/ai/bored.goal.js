@@ -16,6 +16,9 @@ export const isFinished = () => {
 export const takeAction = (goal) => {
   const { parent } = goal;
 
+  // detect hostiles
+  parent.fireEvent("tryDetectHostiles");
+
   // this is just a test
   // find a door on the dungeon floor
   const doors = [...world.getEntities()].filter((entity) => entity.door);

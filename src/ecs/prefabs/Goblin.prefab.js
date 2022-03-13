@@ -16,5 +16,6 @@ export const Goblin = {
     { type: "Brain" },
     { type: "Inventory" },
     { type: "Motor" },
+    { type: "Eyes" },
   ],
 };
