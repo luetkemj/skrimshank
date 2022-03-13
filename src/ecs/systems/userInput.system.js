@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { getState, setState } from "../../index";
 import { grid, getDirection, getNeighbors } from "../../lib/grid";
-import { getEntitiesAtPos } from "../../lib/ecsHelpers";
+import { getEntitiesAt } from "../../lib/ecsHelpers";
 import { clearContainer } from "../../lib/canvas";
 import { interactionKeys } from "./interacting.system";
 
@@ -37,7 +37,7 @@ export const userInputSystem = () => {
       const neighborPos = getNeighbors(player.position);
       // for each, get interactions
       neighborPos.forEach((pos) => {
-        const eAtPos = getEntitiesAtPos(pos);
+        const eAtPos = getEntitiesAt(pos);
         const stack = _.orderBy(
           [...eAtPos],
           (entity) => entity.zIndex.z,

@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { getState, setState } from "../../index";
-import { getEntitiesAtPos } from "../../lib/ecsHelpers";
+import { getEntitiesAt } from "../../lib/ecsHelpers";
 import { pcQuery } from "../queries";
 import { minAlpha } from "./render.system";
 import * as gfx from "../../lib/graphics";
@@ -22,7 +22,7 @@ export const ambianceSystem = () => {
     ambiancePos = getState().cursor;
     index = 0;
   }
-  const eAtPos = getEntitiesAtPos(ambiancePos);
+  const eAtPos = getEntitiesAt(ambiancePos);
   const stack = _.orderBy([...eAtPos], (entity) => entity.zIndex.z, "desc");
   const entity = stack[index];
 

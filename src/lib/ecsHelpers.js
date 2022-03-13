@@ -18,13 +18,13 @@ export const getEAtPos = (cellOrPosId) => {
   return [...eAtPos];
 };
 
-export const getEntitiesAtPos = (cellOrPosid) => {
+export const getEntitiesAt = (cellOrPosid) => {
   return getEAtPos(cellOrPosid).map((eid) => world.getEntity(eid));
 };
 
 // pretty sure this works - although it is untested.
 export const isPositionImpassable = (cellOrPosid) => {
-  const entities = getEntitiesAtPos(cellOrPosid);
+  const entities = getEntitiesAt(cellOrPosid);
   return find(entities, (ent) => ent.impassable);
 };
 

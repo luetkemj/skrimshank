@@ -1,6 +1,6 @@
 import { Component } from "geotic";
 import { setState } from "../../index";
-import { getEntitiesAtPos } from "../../lib/ecsHelpers";
+import { getEntitiesAt } from "../../lib/ecsHelpers";
 import { log } from "../../lib/logger";
 import { getNeighbors, grid } from "../../lib/grid";
 
@@ -9,7 +9,7 @@ export default class Motor extends Component {
     let canMove = false;
 
     const { position } = evt.data;
-    const entsAtPos = getEntitiesAtPos(position);
+    const entsAtPos = getEntitiesAt(position);
 
     const { x, y, z } = position;
 
