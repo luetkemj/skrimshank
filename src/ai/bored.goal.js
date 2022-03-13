@@ -2,6 +2,7 @@
 // If no other goal is interested in kicking off - then you can do idle actions
 // This goal is never done.
 // actionTypes: [IDLE]
+import { sample } from "lodash";
 import { world } from "../ecs/index";
 import { aStar } from "../lib/pathfinding";
 import { getState } from "../index";
@@ -13,23 +14,17 @@ export const isFinished = () => {
 export const takeAction = (goal) => {
   const { parent } = goal;
 
+  // this is just a test
   // find a door on the dungeon floor
-  const door = [...world.getEntities()].find((entity) => entity.pc);
-  // get it's position
-
-  // path to Door
-  // add move goals for each step of path
+  const doors = [...world.getEntities()].filter((entity) => entity.door);
+  const door = sample(doors);
   const path = aStar(parent.position, door.position);
 
-  console.log({ path, parent, door });
-
-  path.forEach((step) => {
+  path.reverse().forEach((step) => {
     const moveGoal = world.createPrefab("GoalMoveTo");
-    moveGoal.data = { x: step.y, y: step.x, z: getState().z };
+    moveGoal.data = { x: step[0], y: step[1], z: getState().z };
     parent.brain.pushGoal(moveGoal);
   });
-
-  // console.log(goal);
 
   parent.appearance.color =
     // https://stackoverflow.com/questions/1484506/random-color-generator

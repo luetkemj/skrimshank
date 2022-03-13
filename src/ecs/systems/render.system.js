@@ -169,10 +169,10 @@ export const renderSystem = () => {
 
     // DEBUG:
     // Uncomment to render everything at 100% alpha.
-    appearanceQuery.get().forEach((entity) => {
-      entity.appearance.alpha = 1;
-      renderIfOnTop(entity);
-    });
+    // appearanceQuery.get().forEach((entity) => {
+    //   entity.appearance.alpha = 1;
+    //   renderIfOnTop(entity);
+    // });
   }
 
   if (getState().turn === "WORLD") {

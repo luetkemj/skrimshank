@@ -18,7 +18,6 @@ export const isFinished = (goal) => {
 export const takeAction = (goal) => {
   const { parent, data } = goal;
   if (parent.has(Motor)) {
-    console.log("my goal is to move!", goal);
     parent.fireEvent("tryMove", { position: data });
   }
 };

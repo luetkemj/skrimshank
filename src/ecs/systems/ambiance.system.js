@@ -68,7 +68,7 @@ export const ambianceSystem = () => {
 
   if (isGameMode) {
     if (entity.inFov && entity) {
-      return (state.ambiance = [
+      return (getState().ambiance = [
         { str: `There is ${stack[index].display.detailed} beneath your feet` },
       ]);
     }

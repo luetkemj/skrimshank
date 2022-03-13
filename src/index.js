@@ -49,8 +49,9 @@ const state = {
   z: 0,
 };
 
-window.state = state;
-window.world = world;
+// for debugging
+// window.state = state;
+// window.world = world;
 
 export const setState = (callback) => {
   callback(state);
