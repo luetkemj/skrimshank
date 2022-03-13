@@ -25,7 +25,7 @@ export const aStar = (start, end) => {
 
   const pfGrid = new PF.Grid(grid);
   const finder = new PF.AStarFinder({
-    allowDiagonal: true,
+    allowDiagonal: false,
     dontCrossCorners: true,
   });
 

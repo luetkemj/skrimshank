@@ -8,9 +8,9 @@ export const isFinished = (goal) => {
     return true;
   }
 
-  // if (!isNeighbor(parent.position, data)) {
-  //   return true;
-  // }
+  if (!isNeighbor(parent.position, data)) {
+    return true;
+  }
 
   return false;
 };
