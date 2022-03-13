@@ -32,8 +32,7 @@ import { Being as BeingPrefab } from "./prefabs/Being.prefab";
 import { Brazier as BrazierPrefab } from "./prefabs/Brazier.prefab";
 import { Door as DoorPrefab } from "./prefabs/Door.prefab";
 import { Floor as FloorPrefab } from "./prefabs/Floor.prefab";
-import { GoalBored } from "./prefabs/GoalBored.prefab";
-import { GoalMoveTo } from "./prefabs/GoalMoveTo.prefab";
+import { Goal } from "./prefabs/Goal.prefab";
 import { Goblin as GoblinPrefab } from "./prefabs/Goblin.prefab";
 import { Item as ItemPrefab } from "./prefabs/Item.prefab";
 import { Lockpick as LockpickPrefab } from "./prefabs/Lockpick.prefab";
@@ -85,6 +84,4 @@ engine.registerPrefab(LockpickPrefab);
 engine.registerPrefab(PlayerPrefab);
 engine.registerPrefab(WallPrefab);
 
-// AI GOALS
-engine.registerPrefab(GoalBored);
-engine.registerPrefab(GoalMoveTo);
+engine.registerPrefab(Goal);

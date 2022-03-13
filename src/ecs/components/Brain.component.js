@@ -1,7 +1,6 @@
 import { Component } from "geotic";
-
-import { getEntity } from "../../lib/ecsHelpers";
-
+import { createGoal, getEntity } from "../../lib/ecsHelpers";
+import * as BoredGoal from "../../ai/bored.goal";
 import { world } from "../index";
 
 export default class Brain extends Component {
@@ -15,7 +14,7 @@ export default class Brain extends Component {
 
   onAttached() {
     if (!this.goalIds.length) {
-      const goal = world.createPrefab("GoalBored");
+      const goal = createGoal(BoredGoal, "Bored Goal");
       this.pushGoal(goal);
     }
   }

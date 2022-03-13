@@ -6,6 +6,8 @@ import { sample } from "lodash";
 import { world } from "../ecs/index";
 import { aStar } from "../lib/pathfinding";
 import { getState } from "../index";
+import { createGoal } from "../lib/ecsHelpers";
+import * as MoveToGoal from "../ai/moveTo.goal";
 
 export const isFinished = () => {
   return false;
@@ -21,9 +23,9 @@ export const takeAction = (goal) => {
   const path = aStar(parent.position, door.position);
 
   path.reverse().forEach((step) => {
-    const moveGoal = world.createPrefab("GoalMoveTo");
-    moveGoal.data = { x: step[0], y: step[1], z: getState().z };
-    parent.brain.pushGoal(moveGoal);
+    const moveToGoal = createGoal(MoveToGoal, "Move To Goal");
+    moveToGoal.data = { x: step[0], y: step[1], z: getState().z };
+    parent.brain.pushGoal(moveToGoal);
   });
 
   parent.appearance.color =
