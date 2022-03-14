@@ -7,7 +7,8 @@ import { world } from "../ecs/index";
 import { aStar } from "../lib/pathfinding";
 import { getState } from "../index";
 import { createGoal } from "../lib/ecsHelpers";
-import * as MoveToGoal from "../ai/moveTo.goal";
+import * as MoveToGoal from "./moveTo.goal";
+import * as KillSomethingGoal from "./killSomething.goal";
 
 export const isFinished = () => {
   return false;
@@ -26,20 +27,16 @@ export const takeAction = (goal) => {
   const player = entsInSight.find((x) => x.pc);
 
   if (player) {
-    path = aStar(parent.position, player.position);
+    const killSomethingGoal = createGoal(
+      KillSomethingGoal,
+      "Kill Something Goal"
+    );
+    killSomethingGoal.data = { target: player };
+    parent.brain.pushGoal(killSomethingGoal);
   }
 
-  // this is just a test
-  // find a door on the dungeon floor
-  // const doors = [...world.getEntities()].filter((entity) => entity.door);
-  // const door = sample(doors);
-  // const path = aStar(parent.position, door.position);
-
-  path.reverse().forEach((step) => {
-    const moveToGoal = createGoal(MoveToGoal, "Move To Goal");
-    moveToGoal.data = { x: step[0], y: step[1], z: getState().z };
-    parent.brain.pushGoal(moveToGoal);
-  });
+  // do idle actions if there is nothing to kill.
+  // smoke a hookah, or draw a picture with your shit.
 
   parent.appearance.color =
     // https://stackoverflow.com/questions/1484506/random-color-generator

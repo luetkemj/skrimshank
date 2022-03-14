@@ -40,9 +40,9 @@ export default class Brain extends Component {
 
       // don't remove the last goal on the stack
       // it's ok to be bored!
-      if (currentGoal.display.name !== "Bored Goal") {
-        this.removeGoal(currentGoal);
-      }
+      // if (currentGoal.display.name !== "Bored Goal") {
+      //   this.removeGoal(currentGoal);
+      // }
     }
 
     evt.handle();
