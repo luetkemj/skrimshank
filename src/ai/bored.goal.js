@@ -16,14 +16,24 @@ export const isFinished = () => {
 export const takeAction = (goal) => {
   const { parent } = goal;
 
-  // detect hostiles
-  parent.fireEvent("tryDetectHostiles");
+  // percieve nearby entities
+  const perception = parent.fireEvent("tryPerception", { entities: [] });
+  const entsInSight = perception.data.entities;
+
+  let path = [];
+
+  // do I want to kill something?
+  const player = entsInSight.find((x) => x.pc);
+
+  if (player) {
+    path = aStar(parent.position, player.position);
+  }
 
   // this is just a test
   // find a door on the dungeon floor
-  const doors = [...world.getEntities()].filter((entity) => entity.door);
-  const door = sample(doors);
-  const path = aStar(parent.position, door.position);
+  // const doors = [...world.getEntities()].filter((entity) => entity.door);
+  // const door = sample(doors);
+  // const path = aStar(parent.position, door.position);
 
   path.reverse().forEach((step) => {
     const moveToGoal = createGoal(MoveToGoal, "Move To Goal");

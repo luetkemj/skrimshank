@@ -53,6 +53,12 @@ const isOnTop = (eid, eAtPos) => {
 };
 
 const renderIfOnTop = (entity, revealed = false) => {
+  // in debug mode we attempt to render EVERYTHING
+  // so we have to check for position so things don't blowup
+  if (!entity.position) {
+    return;
+  }
+
   const { x, y } = entity.position;
   const { maps, currentMapId } = getState();
   const entitiesAtPosition = maps[currentMapId][y][x];
@@ -169,10 +175,10 @@ export const renderSystem = () => {
 
     // DEBUG:
     // Uncomment to render everything at 100% alpha.
-    // appearanceQuery.get().forEach((entity) => {
-    //   entity.appearance.alpha = 1;
-    //   renderIfOnTop(entity);
-    // });
+    appearanceQuery.get().forEach((entity) => {
+      entity.appearance.alpha = 1;
+      renderIfOnTop(entity);
+    });
   }
 
   if (getState().turn === "WORLD") {

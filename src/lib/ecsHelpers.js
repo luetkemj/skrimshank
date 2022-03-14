@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { getState } from "../index";
-import { getNeighborIds, toCell } from "./grid";
+import { circle, getNeighborIds, toCell } from "./grid";
 import { world } from "../ecs/index";
 
 export const createGoal = (goal, goalName) =>
@@ -20,6 +20,14 @@ export const getEAtPos = (cellOrPosId) => {
 
 export const getEntitiesAt = (cellOrPosid) => {
   return getEAtPos(cellOrPosid).map((eid) => world.getEntity(eid));
+};
+
+export const getEntitiesInRange = (center, range) => {
+  const locationsInRange = circle(center, range);
+  const entities = locationsInRange.flatMap((loc) =>
+    getEAtPos(loc).map((eid) => world.getEntity(eid))
+  );
+  return entities;
 };
 
 // pretty sure this works - although it is untested.
