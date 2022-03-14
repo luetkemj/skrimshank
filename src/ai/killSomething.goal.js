@@ -32,5 +32,6 @@ export const takeAction = (goal) => {
   if (isNeighbor(parent.position, target.position)) {
     // for now we just punch the target
     console.log(`${parent.display.name} is hitting ${target.display.name}`);
+    target.fireEvent("ApplyDamage", { value: 5 });
   }
 };

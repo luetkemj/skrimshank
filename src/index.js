@@ -40,7 +40,7 @@ const state = {
   legendPositionsIndex: 0,
   logsToProcess: [],
   maps: { "0,0,0": [] },
-  mode: "GAME", // GAME || LOOKING || INTERACTING
+  mode: "GAME", // GAME || LOOKING || INTERACTING || GAME_OVER
   recalcLighting: false,
   rerender: new Set(),
   tick: 0,
@@ -50,7 +50,7 @@ const state = {
 };
 
 // for debugging
-// window.state = state;
+window.state = state;
 // window.world = world;
 
 export const setState = (callback) => {
@@ -154,9 +154,11 @@ function initGame() {
 
   gameLoop();
 
-  document.addEventListener("keydown", (ev) => {
-    setState((state) => {
-      state.userInput = ev;
+  if (state.mode !== "GAME_OVER") {
+    document.addEventListener("keydown", (ev) => {
+      setState((state) => {
+        state.userInput = ev;
+      });
     });
-  });
+  }
 }

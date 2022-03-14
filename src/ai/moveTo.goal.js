@@ -19,5 +19,7 @@ export const takeAction = (goal) => {
   const { parent, data } = goal;
   if (parent.has(Motor)) {
     parent.fireEvent("tryMove", { position: data });
+    // todo:
+    // if this fails - the goal should pop off the stack
   }
 };
