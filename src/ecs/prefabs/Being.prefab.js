@@ -5,10 +5,10 @@ export const Being = {
     { type: "Astar", properties: { wt: 2 } },
     { type: "Bumpable" },
     { type: "Display" },
+    { type: "Health" },
     { type: "Inventory" },
+    { type: "Legend" },
     { type: "Position" },
     { type: "ZIndex", properties: { z: 300 } },
-    { type: "Legend" },
-    { type: "Health" },
   ],
 };
