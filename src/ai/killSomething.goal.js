@@ -21,17 +21,30 @@ export const takeAction = (goal) => {
   if (!isNeighbor(parent.position, target.position)) {
     const path = aStar(parent.position, target.position);
 
-    path.reverse().forEach((step) => {
-      const moveToGoal = createGoal(MoveToGoal, "Move To Goal");
-      moveToGoal.data = { x: step[0], y: step[1], z: getState().z };
-      parent.brain.pushGoal(moveToGoal);
-    });
+    const step = path[0];
+    const moveToGoal = createGoal(MoveToGoal, "Move To Goal");
+    moveToGoal.data = { x: step[0], y: step[1], z: getState().z };
+    parent.brain.pushGoal(moveToGoal);
+
+    parent.fireEvent("take-action");
+
+    // optionally add many steps - but this causes other issues...
+    // a good choice for things that happen out of view or against NPC entities
+    // path.reverse().forEach((step) => {
+    //   const moveToGoal = createGoal(MoveToGoal, "Move To Goal");
+    //   moveToGoal.data = { x: step[0], y: step[1], z: getState().z };
+    //   parent.brain.pushGoal(moveToGoal);
+    // });
+
+    return;
   }
 
   // try melee
   if (isNeighbor(parent.position, target.position)) {
     // for now we just punch the target
     console.log(`${parent.display.name} is hitting ${target.display.name}`);
-    target.fireEvent("ApplyDamage", { value: 5 });
+    target.fireEvent("ApplyDamage", { value: 1 });
+
+    return;
   }
 };
