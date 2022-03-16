@@ -73,10 +73,14 @@ function initGame() {
   const hero = world.createPrefab("Player");
   const goblin = world.createPrefab("Goblin");
   const dungeon = generateDungeonFloor({ world });
+
+  const lockpick = world.createPrefab("Lockpick");
   hero.fireEvent("update-position", dungeon.rooms[0].center);
   // get neighbor position
   const neighbors = getNeighbors(dungeon.rooms[0].center);
   goblin.fireEvent("update-position", neighbors[0]);
+  goblin.fireEvent("try-equip", { entity: lockpick, slot: "leftHand" });
+  // goblin.fireEvent("try-unequip", { slot: "leftHand" });
 
   // this shoudl go somewhere else eventually
   // likely when we get z-levels it will go there...

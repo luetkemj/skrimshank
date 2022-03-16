@@ -17,5 +17,13 @@ export const Goblin = {
     { type: "Inventory" },
     { type: "Motor" },
     { type: "Eyes" },
+    {
+      type: "EquipmentSlot",
+      properties: {
+        name: "Left Hand",
+        key: "leftHand",
+        isPrimary: true,
+      },
+    },
   ],
 };

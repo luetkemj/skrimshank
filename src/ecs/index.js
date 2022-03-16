@@ -11,6 +11,7 @@ import CombustibleComponent from "./components/Combustible.component";
 import DiscoverableComponent from "./components/Discoverable.component";
 import DisplayComponent from "./components/Display.component";
 import DoorComponent from "./components/Door.component";
+import EquipmentSlotComponent from "./components/EquipmentSlot.component";
 import EyesComponent from "./components/Eyes.component";
 import FireComponent from "./components/Fire.component";
 import GoalComponent from "./components/Goal.component";
@@ -29,6 +30,7 @@ import PCComponent from "./components/PC.component";
 import PositionComponent from "./components/Position.component";
 import RevealedComponent from "./components/Revealed.component";
 import ShadowcasterComponent from "./components/Shadowcaster.component";
+import WieldableComponent from "./components/Wieldable.component";
 import ZIndexComponent from "./components/ZIndex.component";
 
 import { Being as BeingPrefab } from "./prefabs/Being.prefab";
@@ -56,6 +58,7 @@ engine.registerComponent(CombustibleComponent);
 engine.registerComponent(DiscoverableComponent);
 engine.registerComponent(DisplayComponent);
 engine.registerComponent(DoorComponent);
+engine.registerComponent(EquipmentSlotComponent);
 engine.registerComponent(EyesComponent);
 engine.registerComponent(FireComponent);
 engine.registerComponent(GoalComponent);
@@ -74,6 +77,7 @@ engine.registerComponent(PCComponent);
 engine.registerComponent(PositionComponent);
 engine.registerComponent(RevealedComponent);
 engine.registerComponent(ShadowcasterComponent);
+engine.registerComponent(WieldableComponent);
 engine.registerComponent(ZIndexComponent);
 
 // register prefabs
