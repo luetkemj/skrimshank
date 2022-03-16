@@ -10,12 +10,8 @@ export default class Health extends Component {
   };
 
   onApplyDamage(evt) {
-    console.log("applying damage", evt);
-
     this.current -= evt.data.value;
-
     if (this.current <= 0) {
-      console.log(`${this.entity.display.name} is dead!`);
       this.entity.fireEvent("ChangeChar", { value: gfx.chars.corpse });
       this.entity.add(IsDead);
       if (this.entity.pc) {

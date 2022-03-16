@@ -1,3 +1,13 @@
+on try melee
+
+- get attacking weapon
+- look at equipmentSlots for "Primary"
+- fire getDamage event on the attacking weapon
+- collect the damage types
+- fire calcDamage on target
+- calcDamgage in health component
+- remove calculated damage from health
+
 I want available actions to be obvious. The fun is in the variety of things you could do. Picking strange things should be rewarding. You shouldn't ever get "You can't do that!"
 
 GetAction types

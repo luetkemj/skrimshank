@@ -42,7 +42,11 @@ export const takeAction = (goal) => {
   // try melee
   if (isNeighbor(parent.position, target.position)) {
     // for now we just punch the target
+    // this should log to adv log...
     console.log(`${parent.display.name} is hitting ${target.display.name}`);
+
+    // get weapon
+
     target.fireEvent("ApplyDamage", { value: 1 });
 
     return;
