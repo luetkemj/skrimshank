@@ -4,6 +4,7 @@ import { isNeighbor } from "../lib/grid";
 import { createGoal } from "../lib/ecsHelpers";
 import * as MoveToGoal from "./moveTo.goal";
 import { getState } from "../index";
+import { world } from "../ecs/index";
 
 export const isFinished = (goal) => {
   const { parent, data } = goal;
@@ -41,13 +42,23 @@ export const takeAction = (goal) => {
 
   // try melee
   if (isNeighbor(parent.position, target.position)) {
-    // for now we just punch the target
-    // this should log to adv log...
-    console.log(`${parent.display.name} is hitting ${target.display.name}`);
+    // check if entity is wielding something
+    const primaryWeaponId = parent?.equipmentSlot?.leftHand?.contentId || null;
 
-    // get weapon
+    if (primaryWeaponId) {
+      const weapon = world.getEntity(primaryWeaponId);
 
-    target.fireEvent("ApplyDamage", { value: 1 });
+      // get damage types and apply damage
+      if (weapon) {
+        const evt = weapon.fireEvent("get-damage-types", { damageTypes: [] });
+        target.fireEvent("ApplyDamage", {
+          attacker: parent,
+          defender: target,
+          weapon,
+          damageTypes: evt.data.damageTypes,
+        });
+      }
+    }
 
     return;
   }
