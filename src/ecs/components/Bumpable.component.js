@@ -3,6 +3,10 @@ import { log } from "../../lib/logger";
 
 export default class Bumpable extends Component {
   onBump(data) {
+    if (this.entity.fightable) {
+      console.log(data);
+    }
+
     if (this.entity.display) {
       log({ data, source: this.entity });
     }

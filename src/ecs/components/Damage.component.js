@@ -5,7 +5,7 @@ export const PIERCING = "PIERCING";
 export default class Damage extends Component {
   static properties = {
     type: PIERCING,
-    value: 10,
+    value: 1,
   };
 
   onGetDamageTypes(evt) {

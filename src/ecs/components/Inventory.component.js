@@ -8,6 +8,8 @@ export default class Inventory extends Component {
   };
 
   addLoot(loot) {
+    console.log(this.entity);
+
     if (this.contentIds.includes(loot.id)) {
       return;
     }

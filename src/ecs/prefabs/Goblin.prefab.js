@@ -12,11 +12,8 @@ export const Goblin = {
         baseColor: colors.goblin,
       },
     },
-    { type: "Display", properties: { name: "Goblin" } },
     { type: "Brain" },
-    { type: "Inventory" },
-    { type: "Motor" },
-    { type: "Eyes" },
+    { type: "Display", properties: { name: "Goblin" } },
     {
       type: "EquipmentSlot",
       properties: {
@@ -25,5 +22,10 @@ export const Goblin = {
         isPrimary: true,
       },
     },
+    { type: "Eyes" },
+    { type: "Fightable" },
+
+    { type: "Inventory" },
+    { type: "Motor" },
   ],
 };
