@@ -50,8 +50,8 @@ const state = {
 };
 
 // for debugging
-window.state = state;
-// window.world = world;
+window.st8 = state;
+window.wrld = world;
 
 export const setState = (callback) => {
   callback(state);
@@ -71,15 +71,15 @@ function initGame() {
 
   // testing:
   const hero = world.createPrefab("Player");
-  const goblin = world.createPrefab("Goblin");
   const dungeon = generateDungeonFloor({ world });
 
-  const lockpick = world.createPrefab("Lockpick");
   hero.fireEvent("update-position", dungeon.rooms[0].center);
   // get neighbor position
-  const neighbors = getNeighbors(dungeon.rooms[0].center);
-  goblin.fireEvent("update-position", neighbors[0]);
-  goblin.fireEvent("try-equip", { entity: lockpick, slot: "leftHand" });
+  // const neighbors = getNeighbors(dungeon.rooms[0].center);
+  // const goblin = world.createPrefab("Goblin");
+  // goblin.fireEvent("update-position", neighbors[0]);
+  // const lockpick = world.createPrefab("Lockpick");
+  // goblin.fireEvent("try-equip", { entity: lockpick, slot: "leftHand" });
   // goblin.fireEvent("try-unequip", { slot: "leftHand" });
 
   // this shoudl go somewhere else eventually

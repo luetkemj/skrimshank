@@ -47,10 +47,10 @@ export default class Inventory extends Component {
     if (loot.lightSource) {
       setState((state) => (state.recalcLighting = true));
     }
-    // for when we start to equip things...
-    // ent.fireEvent("dropped", {
-    //   dropper: this.entity,
-    // });
+
+    ent.fireEvent("dropped", {
+      dropper: this.entity,
+    });
 
     return ent;
   }

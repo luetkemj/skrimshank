@@ -21,7 +21,7 @@ export const Goblin = {
       type: "EquipmentSlot",
       properties: {
         name: "Left Hand",
-        key: "leftHand",
+        slotKey: "leftHand",
         isPrimary: true,
       },
     },

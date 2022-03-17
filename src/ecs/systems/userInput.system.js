@@ -4,6 +4,7 @@ import { grid, getDirection, getNeighbors } from "../../lib/grid";
 import { getEntitiesAt } from "../../lib/ecsHelpers";
 import { clearContainer } from "../../lib/canvas";
 import { interactionKeys } from "./interacting.system";
+import { world } from "../../ecs/index";
 
 import { pcQuery } from "../queries";
 
@@ -116,6 +117,16 @@ export const userInputSystem = () => {
           name: "Drop",
           interactor: player,
         });
+      }
+    }
+
+    if (key === "e") {
+      if (selectedItem) {
+        if (selectedItem.equipped) {
+          player.equipmentSlot.leftHand.unequip();
+        } else {
+          player.equipmentSlot.leftHand.equip(selectedItem);
+        }
       }
     }
   }
