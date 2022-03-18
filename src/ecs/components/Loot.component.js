@@ -14,7 +14,6 @@ export default class Loot extends Component {
   }
 
   take(newOwner) {
-    console.log(newOwner);
     newOwner.inventory.addLoot(this.entity);
     return true;
   }

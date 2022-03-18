@@ -6,6 +6,7 @@ import { world } from "./ecs/index";
 import { aiSystem } from "./ecs/systems/ai.system";
 import { ambianceSystem } from "./ecs/systems/ambiance.system";
 import { applyingSystem } from "./ecs/systems/applying.system";
+import { coronerSystem } from "./ecs/systems/coroner.system";
 import { fovSystem } from "./ecs/systems/fov.system";
 import { interactingSystem } from "./ecs/systems/interacting.system";
 import { lightingSystem } from "./ecs/systems/lighting.system";
@@ -113,6 +114,7 @@ function initGame() {
       interactingSystem();
       applyingSystem();
       loggerSystem();
+      coronerSystem();
       renderSystem();
       setState((state) => (state.turn = "WORLD"));
     }
@@ -125,6 +127,7 @@ function initGame() {
       // interactingSystem();
       // applyingSystem();
       // loggerSystem();
+      coronerSystem();
       renderSystem();
 
       setState((state) => (state.turn = "PLAYER"));

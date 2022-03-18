@@ -34,9 +34,9 @@ export default class Motor extends Component {
         interactions: [],
       });
 
-      evt.data.interactions.forEach((e) =>
-        bumpableEnt.fireEvent(e.evt, { interactor: this.entity })
-      );
+      evt.data.interactions.forEach((e) => {
+        bumpableEnt.fireEvent(e.evt, { interactor: this.entity });
+      });
 
       canMove = false;
     }

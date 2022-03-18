@@ -1,10 +1,8 @@
 import { aStar } from "../lib/pathfinding";
-import Motor from "../ecs/components/Motor.component";
 import { isNeighbor } from "../lib/grid";
-import { createGoal } from "../lib/ecsHelpers";
+import { createGoal, getEntity } from "../lib/ecsHelpers";
 import * as MoveToGoal from "./moveTo.goal";
 import { getState } from "../index";
-import { world } from "../ecs/index";
 
 export const isFinished = (goal) => {
   const { parent, data } = goal;
@@ -46,7 +44,7 @@ export const takeAction = (goal) => {
     const primaryWeaponId = parent?.equipmentSlot?.leftHand?.contentId || null;
 
     if (primaryWeaponId) {
-      const weapon = world.getEntity(primaryWeaponId);
+      const weapon = getEntity(primaryWeaponId);
 
       // get damage types and apply damage
       if (weapon) {
