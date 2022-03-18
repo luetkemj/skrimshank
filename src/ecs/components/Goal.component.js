@@ -5,6 +5,7 @@ export default class Goal extends Component {
     isFinished: () => true,
     takeAction: () => false,
     originalIntent: null,
+    data: {},
   };
 
   onAttached() {

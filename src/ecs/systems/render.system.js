@@ -7,7 +7,7 @@ import Revealed from "../components/Revealed.component";
 import { world } from "../index";
 import { clearContainer, printCell, printTile } from "../../lib/canvas";
 import { getState, setState } from "../../index";
-import { getEntitiesAtPos, getNeighborEntities } from "../../lib/ecsHelpers";
+import { getEntitiesAt, getNeighborEntities } from "../../lib/ecsHelpers";
 import { renderAdventureLog } from "../../ui/adventureLog";
 import { renderAmbiance } from "../../ui/ambiance";
 import { renderContextMenu } from "../../ui/contextMenu";
@@ -53,6 +53,12 @@ const isOnTop = (eid, eAtPos) => {
 };
 
 const renderIfOnTop = (entity, revealed = false) => {
+  // in debug mode we attempt to render EVERYTHING
+  // so we have to check for position so things don't blowup
+  if (!entity.position) {
+    return;
+  }
+
   const { x, y } = entity.position;
   const { maps, currentMapId } = getState();
   const entitiesAtPosition = maps[currentMapId][y][x];
@@ -147,7 +153,7 @@ export const renderSystem = () => {
           // Only get lux from neighboring entities that are on top, have lux, are in fov, and NOT shadowcasters
           const onTopEntity = isOnTopEntity(
             ent,
-            getEntitiesAtPos(ent.position).filter((e) => e.has(Shadowcaster))
+            getEntitiesAt(ent.position).filter((e) => e.has(Shadowcaster))
           );
           if (onTopEntity && ent.has(Lux) && ent.has(InFov)) {
             const candidate = ent.lux.ambient + ent.lux.current;
@@ -182,7 +188,7 @@ export const renderSystem = () => {
     visibleQuery.get().forEach((entity) => {
       if (entity.brain) {
         // get the alpha of any other tile at loc set entity to that alpha
-        const eAtPos = getEntitiesAtPos(entity.position);
+        const eAtPos = getEntitiesAt(entity.position);
         // this may not work if otherEnt is a newly placed item
         const otherEntAtPos = eAtPos.find(
           (e) => e.appearance && e.id !== entity.id
@@ -197,7 +203,7 @@ export const renderSystem = () => {
 
   // rerender cells
   [...getState().rerender].forEach((x) => {
-    getEntitiesAtPos(x).forEach((ent) => {
+    getEntitiesAt(x).forEach((ent) => {
       renderIfOnTop(ent);
     });
   });

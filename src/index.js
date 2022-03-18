@@ -6,6 +6,7 @@ import { world } from "./ecs/index";
 import { aiSystem } from "./ecs/systems/ai.system";
 import { ambianceSystem } from "./ecs/systems/ambiance.system";
 import { applyingSystem } from "./ecs/systems/applying.system";
+import { coronerSystem } from "./ecs/systems/coroner.system";
 import { fovSystem } from "./ecs/systems/fov.system";
 import { interactingSystem } from "./ecs/systems/interacting.system";
 import { lightingSystem } from "./ecs/systems/lighting.system";
@@ -40,7 +41,7 @@ const state = {
   legendPositionsIndex: 0,
   logsToProcess: [],
   maps: { "0,0,0": [] },
-  mode: "GAME", // GAME || LOOKING || INTERACTING
+  mode: "GAME", // GAME || LOOKING || INTERACTING || GAME_OVER
   recalcLighting: false,
   rerender: new Set(),
   tick: 0,
@@ -49,8 +50,9 @@ const state = {
   z: 0,
 };
 
-window.state = state;
-window.world = world;
+// for debugging
+window.st8 = state;
+window.wrld = world;
 
 export const setState = (callback) => {
   callback(state);
@@ -70,12 +72,17 @@ function initGame() {
 
   // testing:
   const hero = world.createPrefab("Player");
-  const goblin = world.createPrefab("Goblin");
   const dungeon = generateDungeonFloor({ world });
+
   hero.fireEvent("update-position", dungeon.rooms[0].center);
   // get neighbor position
   const neighbors = getNeighbors(dungeon.rooms[0].center);
+
+  const goblin = world.createPrefab("Goblin");
   goblin.fireEvent("update-position", neighbors[0]);
+  // const lockpick = world.createPrefab("Lockpick");
+  // goblin.fireEvent("try-equip", { entity: lockpick, slot: "leftHand" });
+  // goblin.fireEvent("try-unequip", { slot: "leftHand" });
 
   // this shoudl go somewhere else eventually
   // likely when we get z-levels it will go there...
@@ -107,6 +114,7 @@ function initGame() {
       interactingSystem();
       applyingSystem();
       loggerSystem();
+      coronerSystem();
       renderSystem();
       setState((state) => (state.turn = "WORLD"));
     }
@@ -119,11 +127,10 @@ function initGame() {
       // interactingSystem();
       // applyingSystem();
       // loggerSystem();
+      coronerSystem();
       renderSystem();
 
       setState((state) => (state.turn = "PLAYER"));
-
-      console.log(aStar(goblin.position, hero.position));
     }
 
     // calculate FPS
@@ -155,9 +162,11 @@ function initGame() {
 
   gameLoop();
 
-  document.addEventListener("keydown", (ev) => {
-    setState((state) => {
-      state.userInput = ev;
+  if (state.mode !== "GAME_OVER") {
+    document.addEventListener("keydown", (ev) => {
+      setState((state) => {
+        state.userInput = ev;
+      });
     });
-  });
+  }
 }

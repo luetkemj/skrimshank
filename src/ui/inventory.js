@@ -44,7 +44,7 @@ export const renderInventory = (player) => {
           y: 3 + index,
           template: [
             {
-              str: `  ${isSelected ? "*" : " "} ${item.display.simple}`,
+              str: `  ${isSelected ? "*" : " "} ${item.display.detailed}`,
             },
           ],
         });
@@ -52,10 +52,15 @@ export const renderInventory = (player) => {
 
       // print description
       const selectedItem = items[inventoryIndex];
-
-      // gonna need to add descriptions
-      const description = `${selectedItem.display.description}`;
+      const { description, detailed } = selectedItem.display;
       const content = wrapAnsi(description, width - 4).split("\n");
+
+      printTemplate({
+        container,
+        y: 1,
+        x: width,
+        template: [{ str: `  * ${detailed}` }],
+      });
 
       content.forEach((line, index) => {
         printTemplate({

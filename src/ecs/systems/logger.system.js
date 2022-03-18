@@ -1,6 +1,8 @@
 import { addLog } from "../../lib/logger";
 import { getState, setState } from "../../index";
 
+// todo: improve the hell out of this
+// not great coming back to this later. ugh!
 export const loggerSystem = () => {
   const { logsToProcess } = getState();
 

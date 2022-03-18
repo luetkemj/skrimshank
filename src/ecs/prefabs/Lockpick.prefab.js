@@ -12,6 +12,7 @@ export const Lockpick = {
         baseColor: colors.tool,
       },
     },
+    { type: "Damage" },
     { type: "Discoverable" },
     {
       type: "Display",
@@ -22,5 +23,6 @@ export const Lockpick = {
       },
     },
     { type: "LockPick" },
+    { type: "Wieldable" },
   ],
 };

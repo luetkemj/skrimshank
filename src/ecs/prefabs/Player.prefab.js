@@ -24,5 +24,14 @@ export const Player = {
     { type: "ZIndex", properties: { z: 310 } },
     { type: "Display", properties: { name: "Player" } },
     { type: "Motor" },
+
+    {
+      type: "EquipmentSlot",
+      properties: {
+        name: "Left Hand",
+        slotKey: "leftHand",
+        isPrimary: true,
+      },
+    },
   ],
 };

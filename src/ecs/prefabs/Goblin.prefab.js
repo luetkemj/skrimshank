@@ -12,8 +12,19 @@ export const Goblin = {
         baseColor: colors.goblin,
       },
     },
-    { type: "Display", properties: { name: "Goblin" } },
     { type: "Brain" },
+    { type: "Display", properties: { name: "Goblin" } },
+    {
+      type: "EquipmentSlot",
+      properties: {
+        name: "Left Hand",
+        slotKey: "leftHand",
+        isPrimary: true,
+      },
+    },
+    { type: "Eyes" },
+    { type: "Fightable" },
+
     { type: "Inventory" },
     { type: "Motor" },
   ],

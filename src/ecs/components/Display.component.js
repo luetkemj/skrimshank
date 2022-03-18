@@ -23,6 +23,9 @@ export default class Display extends Component {
     const isOnFire = this.entity.fire;
     if (isOnFire) return `a burning ${this.name}`;
 
+    const isEquipped = this.entity.equipped;
+    if (isEquipped) return `${this.name} [equipped]`;
+
     return this.simple;
   }
 }

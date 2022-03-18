@@ -1,3 +1,5 @@
+// todo: can I iterate over imports somehow? Sucks to have to keep repeating myself here
+
 import { Engine } from "geotic";
 
 import AppearanceComponent from "./components/Appearance.component";
@@ -6,13 +8,20 @@ import ImpassableComponent from "./components/Impassable.component";
 import BrainComponent from "./components/Brain.component";
 import BumpableComponent from "./components/Bumpable.component";
 import CombustibleComponent from "./components/Combustible.component";
+import DamageComponent from "./components/Damage.component";
 import DiscoverableComponent from "./components/Discoverable.component";
 import DisplayComponent from "./components/Display.component";
 import DoorComponent from "./components/Door.component";
+import EquipmentSlotComponent from "./components/EquipmentSlot.component";
+import EquippedComponent from "./components/Equipped.component";
+import EyesComponent from "./components/Eyes.component";
+import FightableComponent from "./components/Fightable.component";
 import FireComponent from "./components/Fire.component";
 import GoalComponent from "./components/Goal.component";
+import HealthComponent from "./components/Health.component";
 import InFovComponent from "./components/InFov.component";
 import InventoryComponent from "./components/Inventory.component";
+import IsDeadComponent from "./components/IsDead.component";
 import LegendComponent from "./components/Legend.component";
 import LightSourceComponent from "./components/LightSource.component";
 import LockComponent from "./components/Lock.component";
@@ -30,7 +39,7 @@ import { Being as BeingPrefab } from "./prefabs/Being.prefab";
 import { Brazier as BrazierPrefab } from "./prefabs/Brazier.prefab";
 import { Door as DoorPrefab } from "./prefabs/Door.prefab";
 import { Floor as FloorPrefab } from "./prefabs/Floor.prefab";
-import { GoalBored } from "./prefabs/GoalBored.prefab";
+import { Goal } from "./prefabs/Goal.prefab";
 import { Goblin as GoblinPrefab } from "./prefabs/Goblin.prefab";
 import { Item as ItemPrefab } from "./prefabs/Item.prefab";
 import { Lockpick as LockpickPrefab } from "./prefabs/Lockpick.prefab";
@@ -48,13 +57,20 @@ engine.registerComponent(ImpassableComponent);
 engine.registerComponent(BrainComponent);
 engine.registerComponent(BumpableComponent);
 engine.registerComponent(CombustibleComponent);
+engine.registerComponent(DamageComponent);
 engine.registerComponent(DiscoverableComponent);
 engine.registerComponent(DisplayComponent);
 engine.registerComponent(DoorComponent);
+engine.registerComponent(EquipmentSlotComponent);
+engine.registerComponent(EquippedComponent);
+engine.registerComponent(EyesComponent);
+engine.registerComponent(FightableComponent);
 engine.registerComponent(FireComponent);
 engine.registerComponent(GoalComponent);
+engine.registerComponent(HealthComponent);
 engine.registerComponent(InFovComponent);
 engine.registerComponent(InventoryComponent);
+engine.registerComponent(IsDeadComponent);
 engine.registerComponent(LegendComponent);
 engine.registerComponent(LightSourceComponent);
 engine.registerComponent(LockComponent);
@@ -82,5 +98,4 @@ engine.registerPrefab(LockpickPrefab);
 engine.registerPrefab(PlayerPrefab);
 engine.registerPrefab(WallPrefab);
 
-// AI GOALS
-engine.registerPrefab(GoalBored);
+engine.registerPrefab(Goal);

@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { getState, setState } from "../../index";
-import { getEntitiesAtPos } from "../../lib/ecsHelpers";
+import { getEntitiesAt } from "../../lib/ecsHelpers";
 import { pcQuery } from "../queries";
 import { world } from "../index";
 
@@ -10,7 +10,7 @@ export const applyingSystem = () => {
 
   const playerEnt = pcQuery.get()[0];
   const cursorPos = getState().cursor;
-  const eAtPos = getEntitiesAtPos(cursorPos);
+  const eAtPos = getEntitiesAt(cursorPos);
   const stack = _.orderBy([...eAtPos], (entity) => entity.zIndex.z, "desc");
   const entity = stack[0];
 

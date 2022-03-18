@@ -1,9 +1,10 @@
 import _ from "lodash";
 import { getState, setState } from "../../index";
 import { grid, getDirection, getNeighbors } from "../../lib/grid";
-import { getEntitiesAtPos } from "../../lib/ecsHelpers";
+import { getEntitiesAt } from "../../lib/ecsHelpers";
 import { clearContainer } from "../../lib/canvas";
 import { interactionKeys } from "./interacting.system";
+import { world } from "../../ecs/index";
 
 import { pcQuery } from "../queries";
 
@@ -37,7 +38,7 @@ export const userInputSystem = () => {
       const neighborPos = getNeighbors(player.position);
       // for each, get interactions
       neighborPos.forEach((pos) => {
-        const eAtPos = getEntitiesAtPos(pos);
+        const eAtPos = getEntitiesAt(pos);
         const stack = _.orderBy(
           [...eAtPos],
           (entity) => entity.zIndex.z,
@@ -116,6 +117,16 @@ export const userInputSystem = () => {
           name: "Drop",
           interactor: player,
         });
+      }
+    }
+
+    if (key === "e") {
+      if (selectedItem) {
+        if (selectedItem.equipped) {
+          player.equipmentSlot.leftHand.unequip();
+        } else {
+          player.equipmentSlot.leftHand.equip(selectedItem);
+        }
       }
     }
   }

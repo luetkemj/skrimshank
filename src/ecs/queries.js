@@ -3,6 +3,7 @@ import Appearance from "./components/Appearance.component";
 import Brain from "./components/Brain.component";
 import Discoverable from "./components/Discoverable.component";
 import InFov from "./components/InFov.component";
+import IsDead from "./components/IsDead.component";
 import Legend from "./components/Legend.component";
 import LightSource from "./components/LightSource.component";
 import Lux from "./components/Lux.component";
@@ -16,6 +17,8 @@ export const aiQuery = world.createQuery({ all: [Brain] });
 export const appearanceQuery = world.createQuery({
   all: [Appearance],
 });
+
+export const coronerQuery = world.createQuery({ all: [IsDead] });
 
 export const fovQuery = world.createQuery({ all: [InFov] });
 

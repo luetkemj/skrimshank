@@ -1,14 +1,15 @@
 import { Component } from "geotic";
 import { setState } from "../../index";
-import { getEntitiesAtPos } from "../../lib/ecsHelpers";
+import { getEntitiesAt } from "../../lib/ecsHelpers";
 import { log } from "../../lib/logger";
 import { getNeighbors, grid } from "../../lib/grid";
 
 export default class Motor extends Component {
   onTryMove(evt) {
     let canMove = false;
+
     const { position } = evt.data;
-    const entsAtPos = getEntitiesAtPos(position);
+    const entsAtPos = getEntitiesAt(position);
 
     const { x, y, z } = position;
 
@@ -33,9 +34,9 @@ export default class Motor extends Component {
         interactions: [],
       });
 
-      evt.data.interactions.forEach((e) =>
-        bumpableEnt.fireEvent(e.evt, { interactor: this.entity })
-      );
+      evt.data.interactions.forEach((e) => {
+        bumpableEnt.fireEvent(e.evt, { interactor: this.entity });
+      });
 
       canMove = false;
     }
@@ -48,6 +49,8 @@ export default class Motor extends Component {
       });
       this.entity.fireEvent("update-position", { x, y, z });
     }
+
+    evt.handle();
   }
 
   onTryWander(evt) {

@@ -7,7 +7,16 @@ export default class Inventory extends Component {
     contentIds: [],
   };
 
+  // hack to get around geotic bug where the contentIds array is a shared reference across entities
+  onAttached() {
+    this.contentIds = [];
+  }
+
   addLoot(loot) {
+    if (this.contentIds.includes(loot.id)) {
+      return;
+    }
+
     if (loot.position) {
       loot.remove(loot.position);
     }
@@ -43,10 +52,10 @@ export default class Inventory extends Component {
     if (loot.lightSource) {
       setState((state) => (state.recalcLighting = true));
     }
-    // for when we start to equip things...
-    // ent.fireEvent("dropped", {
-    //   dropper: this.entity,
-    // });
+
+    ent.fireEvent("dropped", {
+      dropper: this.entity,
+    });
 
     return ent;
   }

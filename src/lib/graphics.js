@@ -26,6 +26,7 @@ export const colors = {
 };
 
 export const chars = {
+  corpse: "%",
   default: "?",
   doorOpen: "'",
   doorClosed: "+",
