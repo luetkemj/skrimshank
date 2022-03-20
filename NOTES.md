@@ -1,3 +1,9 @@
+220319
+Notes should not rename evt to data
+Evt notes will have an evt and a source
+notes with an evt can be process as such in the system
+notes without can just be a template and process simply
+
 on try melee
 
 - get attacking weapon

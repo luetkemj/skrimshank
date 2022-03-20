@@ -27,7 +27,7 @@ export default class Bumpable extends Component {
     }
 
     if (this.entity.display) {
-      log({ data: evt, source: this.entity });
+      log({ evt, source: this.entity });
     }
   }
 

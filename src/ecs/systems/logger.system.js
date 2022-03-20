@@ -7,11 +7,11 @@ export const loggerSystem = () => {
   const { logsToProcess } = getState();
 
   logsToProcess.forEach((log) => {
-    const interactor = log.data.data.interactor;
+    const interactor = log.evt.data.interactor;
     if (!interactor) return false;
 
-    const interactee = log.data.data.interactee || log.source;
-    const name = _.get(log, "data.data.interaction.name") || log.data.name;
+    const interactee = log.evt.data.interactee || log.source;
+    const name = _.get(log, "evt.data.interaction.name") || log.evt.name;
 
     const subject = interactor.display.simple;
     const verb = name.toLowerCase();

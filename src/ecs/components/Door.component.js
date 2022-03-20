@@ -51,7 +51,7 @@ export default class Door extends Component {
   onTryCloseDoor(evt) {
     if (this.closeDoor()) {
       setState((state) => (state.recalcLighting = true));
-      log({ data: evt, source: this.entity });
+      log({ evt, source: this.entity });
     }
     evt.handle();
   }
@@ -59,7 +59,7 @@ export default class Door extends Component {
   onTryOpenDoor(evt) {
     if (this.openDoor()) {
       setState((state) => (state.recalcLighting = true));
-      log({ data: evt, source: this.entity });
+      log({ evt, source: this.entity });
     }
     evt.handle();
   }

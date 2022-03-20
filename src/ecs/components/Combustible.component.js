@@ -9,7 +9,7 @@ export default class Combustible extends Component {
 
   onTryIgnite(evt) {
     this.entity.add(Fire);
-    log({ data: evt, source: this.entity });
+    log({ evt, source: this.entity });
   }
 
   onGetInteractions(evt) {
