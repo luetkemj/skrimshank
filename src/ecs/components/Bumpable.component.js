@@ -17,8 +17,8 @@ export default class Bumpable extends Component {
         if (weapon) {
           const evt = weapon.fireEvent("get-damage-types", { damageTypes: [] });
           this.entity.fireEvent("ApplyDamage", {
-            attacker: interactor,
-            defender: this.entity,
+            interactor,
+            interactee: this.entity,
             weapon,
             damageTypes: evt.data.damageTypes,
           });

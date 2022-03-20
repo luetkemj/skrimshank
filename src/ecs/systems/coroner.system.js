@@ -6,9 +6,9 @@ export const coronerSystem = () => {
 
   ents.forEach((ent) => {
     ent.fireEvent("ChangeChar", { value: gfx.chars.corpse });
-    ent.bumpable.destroy();
-    ent.brain.destroy();
-    ent.isDead.destroy();
-    // add a corpse component for use in rasing the dead?
+    if (ent.bumpable) ent.bumpable.destroy();
+    if (ent.brain) ent.brain.destroy();
+    if (ent.isDead) ent.isDead.destroy();
+    // add a corpse component for use in raising the dead?
   });
 };

@@ -23,8 +23,6 @@ export const Goblin = {
       },
     },
     { type: "Eyes" },
-    { type: "Fightable" },
-
     { type: "Inventory" },
     { type: "Motor" },
   ],
