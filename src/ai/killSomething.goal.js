@@ -41,6 +41,11 @@ export const takeAction = (goal) => {
   // try melee
   if (isNeighbor(parent.position, target.position)) {
     // check if entity is wielding something
+    // if no weapon, check if entity can wield something
+    // if can wield something check if there is a weapon nearby
+    // if nearby weapon, fire getLoot goal with weapon as target, once an item has been aquired, continue
+    // if no weapon is nearby, user natural ability (punch, claw, bite, etc)
+
     const primaryWeaponId = parent?.equipmentSlot?.leftHand?.contentId || null;
 
     if (primaryWeaponId) {
@@ -50,8 +55,8 @@ export const takeAction = (goal) => {
       if (weapon) {
         const evt = weapon.fireEvent("get-damage-types", { damageTypes: [] });
         target.fireEvent("ApplyDamage", {
-          attacker: parent,
-          defender: target,
+          interactor: parent,
+          interactee: target,
           weapon,
           damageTypes: evt.data.damageTypes,
         });

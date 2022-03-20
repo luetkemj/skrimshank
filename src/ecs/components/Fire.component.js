@@ -18,7 +18,7 @@ export default class Fire extends Component {
   }
 
   onTryExtinguish(evt) {
-    log({ data: evt, source: this.entity });
+    log({ evt, source: this.entity });
     this.destroy();
   }
 

@@ -80,8 +80,8 @@ function initGame() {
 
   const goblin = world.createPrefab("Goblin");
   goblin.fireEvent("update-position", neighbors[0]);
-  // const lockpick = world.createPrefab("Lockpick");
-  // goblin.fireEvent("try-equip", { entity: lockpick, slot: "leftHand" });
+  const lockpick = world.createPrefab("Lockpick");
+  goblin.fireEvent("try-equip", { entity: lockpick, slot: "leftHand" });
   // goblin.fireEvent("try-unequip", { slot: "leftHand" });
 
   // this shoudl go somewhere else eventually

@@ -5,6 +5,7 @@ export const Being = {
     { type: "Astar", properties: { wt: 2 } },
     { type: "Bumpable" },
     { type: "Display" },
+    { type: "Fightable" },
     { type: "Health" },
     { type: "Inventory" },
     { type: "Legend" },

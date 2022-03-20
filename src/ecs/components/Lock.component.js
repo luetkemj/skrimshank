@@ -28,7 +28,7 @@ export default class Lock extends Component {
     if (this.lock()) {
       console.log("this lock is locked");
     } else {
-      log({ data: evt, source: this.entity });
+      log({ evt, source: this.entity });
     }
   }
 
@@ -36,7 +36,7 @@ export default class Lock extends Component {
     if (this.unlock()) {
       console.log("the lock is unlocked");
     } else {
-      log({ data: evt, source: this.entity });
+      log({ evt, source: this.entity });
     }
   }
 

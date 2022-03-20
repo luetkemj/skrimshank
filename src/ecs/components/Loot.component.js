@@ -33,7 +33,7 @@ export default class Loot extends Component {
 
   onTryDrop(evt) {
     if (this.drop(evt.data.interactor)) {
-      log({ data: evt, source: this.entity });
+      log({ evt, source: this.entity });
     } else {
       console.log("You can't drop that");
     }
@@ -42,7 +42,7 @@ export default class Loot extends Component {
   onTryPickUp(evt) {
     this.take(evt.data.interactor);
 
-    log({ data: evt, source: this.entity });
+    log({ evt, source: this.entity });
 
     evt.handle();
   }
