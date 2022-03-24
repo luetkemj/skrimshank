@@ -10,9 +10,11 @@ import { createGoal } from "../lib/ecsHelpers";
 import * as MoveToGoal from "./moveTo.goal";
 import * as KillSomethingGoal from "./killSomething.goal";
 
-export const isFinished = () => {
-  return false;
-};
+export const isBored = true;
+
+export const isInvalid = () => false;
+
+export const isFinished = () => false;
 
 export const takeAction = (goal) => {
   const { parent } = goal;
@@ -32,6 +34,7 @@ export const takeAction = (goal) => {
       "Kill Something Goal"
     );
     killSomethingGoal.data = { target: player };
+    killSomethingGoal.originalIntent = killSomethingGoal.id;
     parent.brain.pushGoal(killSomethingGoal);
   }
 

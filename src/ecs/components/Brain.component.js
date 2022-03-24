@@ -25,24 +25,41 @@ export default class Brain extends Component {
     });
   }
 
-  onTakeAction(evt) {
+  removeFinishedGoals() {
     while (
       this.peekGoal() &&
       this.peekGoal().goal.isFinished(this.peekGoal())
     ) {
       this.popGoal().destroy();
     }
+  }
+
+  fallBackToOriginalIntent(eId) {
+    console.log("fallback!");
+    while (this.peekGoal() && this.peekGoal().goal.id !== eId) {
+      if (this.peekGoal().goal.isBored) break;
+
+      this.popGoal().destroy();
+    }
+
+    return this.peekGoal();
+  }
+
+  onTakeAction(evt) {
+    this.removeFinishedGoals();
 
     const currentGoal = this.peekGoal();
 
     if (currentGoal) {
-      currentGoal.goal.takeAction(currentGoal);
+      let currentValidGoal = currentGoal;
+      // if INVALID, destroy all goals until we get to an original intent goal, or the base bored goal
+      if (currentValidGoal.goal.isInvalid(currentValidGoal)) {
+        currentValidGoal = this.fallBackToOriginalIntent(
+          currentValidGoal.goal.id
+        );
+      }
 
-      // don't remove the last goal on the stack
-      // it's ok to be bored!
-      // if (currentGoal.display.name !== "Bored Goal") {
-      //   this.removeGoal(currentGoal);
-      // }
+      currentValidGoal.goal.takeAction(currentValidGoal);
     }
 
     evt.handle();

@@ -3,10 +3,11 @@ import { getState } from "../index";
 import { circle, getNeighborIds, toCell } from "./grid";
 import { world } from "../ecs/index";
 
-export const createGoal = (goal, goalName) =>
+export const createGoal = (goal, goalName, originalIntent) =>
   world.createPrefab("Goal", {
     goal,
     display: { name: goalName },
+    originalIntent,
   });
 
 export const getEntity = (eid) => world.getEntity(eid);
