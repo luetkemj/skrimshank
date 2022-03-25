@@ -3,12 +3,28 @@ import { getState } from "../index";
 import { circle, getNeighborIds, toCell } from "./grid";
 import { world } from "../ecs/index";
 
-export const createGoal = (goal, goalName, originalIntent) =>
-  world.createPrefab("Goal", {
+export const createGoal = ({ goal, name, originalIntent, data }) => {
+  const createdGoal = world.createPrefab("Goal", {
     goal,
-    display: { name: goalName },
-    originalIntent,
+    display: { name },
+    data,
   });
+
+  const ogIntent = originalIntent || createdGoal.id;
+
+  createdGoal.goal.originalIntent = ogIntent;
+  createdGoal.originalIntent = ogIntent;
+  createdGoal.data = data;
+
+  return createdGoal;
+};
+
+// export const createGoal = (goal, goalName, originalIntent) =>
+//   world.createPrefab("Goal", {
+//     goal,
+//     display: { name: goalName },
+//     originalIntent,
+//   });
 
 export const getEntity = (eid) => world.getEntity(eid);
 

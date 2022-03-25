@@ -13,8 +13,10 @@ export default class Brain extends Component {
   };
 
   onAttached() {
+    this.goalIds = [];
+
     if (!this.goalIds.length) {
-      const goal = createGoal(BoredGoal, "Bored Goal");
+      const goal = createGoal({ goal: BoredGoal, name: "Bored Goal" });
       this.pushGoal(goal);
     }
   }
@@ -30,16 +32,17 @@ export default class Brain extends Component {
       this.peekGoal() &&
       this.peekGoal().goal.isFinished(this.peekGoal())
     ) {
-      this.popGoal().destroy();
+      const goal = this.popGoal();
+      goal.destroy();
     }
   }
 
   fallBackToOriginalIntent(eId) {
-    console.log("fallback!");
     while (this.peekGoal() && this.peekGoal().goal.id !== eId) {
       if (this.peekGoal().goal.isBored) break;
 
-      this.popGoal().destroy();
+      const goal = this.popGoal();
+      goal.destroy();
     }
 
     return this.peekGoal();
@@ -55,7 +58,7 @@ export default class Brain extends Component {
       // if INVALID, destroy all goals until we get to an original intent goal, or the base bored goal
       if (currentValidGoal.goal.isInvalid(currentValidGoal)) {
         currentValidGoal = this.fallBackToOriginalIntent(
-          currentValidGoal.goal.id
+          currentValidGoal.goal.originalIntent
         );
       }
 

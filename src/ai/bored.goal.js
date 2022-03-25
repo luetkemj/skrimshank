@@ -28,13 +28,14 @@ export const takeAction = (goal) => {
   // do I want to kill something?
   const player = entsInSight.find((x) => x.pc);
 
-  if (player) {
-    const killSomethingGoal = createGoal(
-      KillSomethingGoal,
-      "Kill Something Goal"
-    );
-    killSomethingGoal.data = { target: player };
-    killSomethingGoal.originalIntent = killSomethingGoal.id;
+  // if we don't check if target to kill is still alive
+  // the brain will loop putting a kill something goal on the stack and invalidating it
+  if (player && player.health.current >= 0) {
+    const killSomethingGoal = createGoal({
+      goal: KillSomethingGoal,
+      name: "Kill Something Goal",
+      data: { target: player },
+    });
     parent.brain.pushGoal(killSomethingGoal);
   }
 

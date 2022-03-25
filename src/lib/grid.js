@@ -309,6 +309,10 @@ export const getNeighborIds = (cellOrId, direction = "CARDINAL") => {
   }
 };
 
+export const isAtSamePosition = (cell1, cell2) => {
+  return cell1.x === cell2.x && cell1.y === cell2.y && cell1.z === cell2.z;
+};
+
 export const isNeighbor = (cell1, cell2) => {
   const c1 = toCell(cell1);
   const c2 = toCell(cell2);
