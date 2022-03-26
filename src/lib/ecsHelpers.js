@@ -19,13 +19,6 @@ export const createGoal = ({ goal, name, originalIntent, data }) => {
   return createdGoal;
 };
 
-// export const createGoal = (goal, goalName, originalIntent) =>
-//   world.createPrefab("Goal", {
-//     goal,
-//     display: { name: goalName },
-//     originalIntent,
-//   });
-
 export const getEntity = (eid) => world.getEntity(eid);
 
 export const getEAtPos = (cellOrPosId) => {
