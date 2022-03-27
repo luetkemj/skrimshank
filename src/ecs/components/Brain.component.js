@@ -1,7 +1,6 @@
 import { Component } from "geotic";
 import { createGoal, getEntity } from "../../lib/ecsHelpers";
 import * as BoredGoal from "../../ai/bored.goal";
-import { world } from "../index";
 
 export default class Brain extends Component {
   // goals are entities with a goal component
@@ -27,13 +26,17 @@ export default class Brain extends Component {
     });
   }
 
+  popAndDestroyGoal() {
+    const goal = this.popGoal();
+    goal.destroy();
+  }
+
   removeFinishedGoals() {
     while (
       this.peekGoal() &&
       this.peekGoal().goal.isFinished(this.peekGoal())
     ) {
-      const goal = this.popGoal();
-      goal.destroy();
+      this.popAndDestroyGoal();
     }
   }
 
@@ -41,8 +44,7 @@ export default class Brain extends Component {
     while (this.peekGoal() && this.peekGoal().goal.id !== eId) {
       if (this.peekGoal().goal.isBored) break;
 
-      const goal = this.popGoal();
-      goal.destroy();
+      this.popAndDestroyGoal();
     }
 
     return this.peekGoal();
@@ -56,13 +58,17 @@ export default class Brain extends Component {
     if (currentGoal) {
       let currentValidGoal = currentGoal;
       // if INVALID, destroy all goals until we get to an original intent goal, or the base bored goal
-      if (currentValidGoal.goal.isInvalid(currentValidGoal)) {
+      const isInvalid = currentValidGoal.goal.isInvalid(currentValidGoal);
+      if (isInvalid) {
         currentValidGoal = this.fallBackToOriginalIntent(
           currentValidGoal.goal.originalIntent
         );
       }
 
-      currentValidGoal.goal.takeAction(currentValidGoal);
+      const result = currentValidGoal.goal.takeAction(currentValidGoal);
+      if (["SUCCESS", "FAILED", "INVALID"].includes(result)) {
+        this.popAndDestroyGoal();
+      }
     }
 
     evt.handle();

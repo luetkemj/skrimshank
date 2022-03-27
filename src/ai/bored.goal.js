@@ -23,8 +23,6 @@ export const takeAction = (goal) => {
   const perception = parent.fireEvent("tryPerception", { entities: [] });
   const entsInSight = perception.data.entities;
 
-  let path = [];
-
   // do I want to kill something?
   const player = entsInSight.find((x) => x.pc);
 
@@ -37,6 +35,10 @@ export const takeAction = (goal) => {
       data: { target: player },
     });
     parent.brain.pushGoal(killSomethingGoal);
+
+    parent.fireEvent("take-action");
+
+    return killSomethingGoal;
   }
 
   // do idle actions if there is nothing to kill.

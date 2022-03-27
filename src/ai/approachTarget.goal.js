@@ -1,5 +1,5 @@
 import { aStar } from "../lib/pathfinding";
-import { isNeighbor } from "../lib/grid";
+import { isAtSamePosition, isNeighbor } from "../lib/grid";
 import { createGoal, getEntity } from "../lib/ecsHelpers";
 import * as MoveToGoal from "./moveTo.goal";
 import { getState } from "../index";
@@ -7,16 +7,13 @@ import { getState } from "../index";
 export const isInvalid = (goal) => {
   const { data, parent } = goal;
   // invalid if approach target has moved
-  if (data.target.position.x !== data.x && data.target.position.y !== data.y) {
-    return true;
+  if (!isAtSamePosition(data.target.position, data)) {
+    return "INVALID";
   }
 
   // invalid if approach target is at the same position as parent
-  if (
-    parent.position.x === data.target.position.x &&
-    parent.position.y === data.target.position.y
-  ) {
-    return true;
+  if (isAtSamePosition(parent.position, data.target.position)) {
+    return "INVALID";
   }
 
   return false;
@@ -27,16 +24,13 @@ export const isFinished = (goal) => {
   const { parent, data } = goal;
   const { target } = data;
   if (isNeighbor(parent.position, target.position)) {
-    return true;
-  } else {
-    return false;
+    return "FINISHED";
   }
 };
 
 export const takeAction = (goal) => {
   const { parent, data } = goal;
   const { target } = data;
-
   const path = aStar(parent.position, target.position);
 
   path.reverse().forEach((step) => {
@@ -44,11 +38,12 @@ export const takeAction = (goal) => {
       goal: MoveToGoal,
       name: "Move To Goal",
       data: { x: step[0], y: step[1], z: getState().z },
+      originalIntent: goal.id,
     });
     parent.brain.pushGoal(moveToGoal);
   });
 
   parent.fireEvent("take-action");
 
-  return;
+  return "SUCCESS";
 };

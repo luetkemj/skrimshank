@@ -3,15 +3,16 @@ import { createGoal, getEntity } from "../lib/ecsHelpers";
 import * as ApproachTargetGoal from "./approachTarget.goal";
 
 export const isInvalid = (goal) => {
-  return isFinished(goal);
+  const { parent, data } = goal;
+  if (data.target.health && data.target.health.current <= 0) {
+    return "INVALID";
+  }
 };
 
 export const isFinished = (goal) => {
   const { parent, data } = goal;
   if (data.target.health && data.target.health.current <= 0) {
-    return true;
-  } else {
-    return false;
+    return "FINISHED";
   }
 };
 
@@ -29,13 +30,13 @@ export const takeAction = (goal) => {
       name: "Approach Target Goal",
       ogIntent: goal.originalIntent,
       // x,y because we want to cache the target position at time of create so we can test if it has moved
-      data: { target, x: target.position.x, y: target.position.y },
+      data: { target, ...target.position },
     });
 
     parent.brain.pushGoal(approachTargetGoal);
     parent.fireEvent("take-action");
 
-    return;
+    return "SUCCESS";
   }
 
   // try melee
@@ -63,6 +64,6 @@ export const takeAction = (goal) => {
       }
     }
 
-    return;
+    return "SUCCESS";
   }
 };

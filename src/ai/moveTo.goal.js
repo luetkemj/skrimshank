@@ -1,9 +1,19 @@
 import Motor from "../ecs/components/Motor.component";
 import { isNeighbor } from "../lib/grid";
+import { getEntity } from "../lib/ecsHelpers";
 
 export const isInvalid = (goal) => {
   const { parent, data } = goal;
-  if (!isNeighbor(parent.position, data)) return true;
+
+  if (goal.originalIntent !== goal.id) {
+    const ogIntentGoal = getEntity(goal.originalIntent);
+
+    if (ogIntentGoal.goal.isInvalid(ogIntentGoal)) {
+      return "INVALID";
+    }
+  }
+
+  if (!isNeighbor(parent.position, data)) return "INVALID";
 
   return false;
 };
