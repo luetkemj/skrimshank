@@ -34,8 +34,10 @@ export default class Loot extends Component {
   onTryDrop(evt) {
     if (this.drop(evt.data.interactor)) {
       log({ evt, source: this.entity });
+      return true;
     } else {
       console.log("You can't drop that");
+      return false;
     }
   }
 
