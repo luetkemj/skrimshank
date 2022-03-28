@@ -8,12 +8,12 @@ export const isInvalid = (goal) => {
   const { data, parent } = goal;
   // invalid if approach target has moved
   if (!isAtSamePosition(data.target.position, data)) {
-    return "INVALID";
+    return true;
   }
 
   // invalid if approach target is at the same position as parent
   if (isAtSamePosition(parent.position, data.target.position)) {
-    return "INVALID";
+    return true;
   }
 
   return false;
@@ -24,7 +24,7 @@ export const isFinished = (goal) => {
   const { parent, data } = goal;
   const { target } = data;
   if (isNeighbor(parent.position, target.position)) {
-    return "FINISHED";
+    return true;
   }
 };
 
@@ -45,5 +45,5 @@ export const takeAction = (goal) => {
 
   parent.fireEvent("take-action");
 
-  return "SUCCESS";
+  return true;
 };

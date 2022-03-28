@@ -5,14 +5,14 @@ import * as ApproachTargetGoal from "./approachTarget.goal";
 export const isInvalid = (goal) => {
   const { parent, data } = goal;
   if (data.target.health && data.target.health.current <= 0) {
-    return "INVALID";
+    return true;
   }
 };
 
 export const isFinished = (goal) => {
   const { parent, data } = goal;
   if (data.target.health && data.target.health.current <= 0) {
-    return "FINISHED";
+    return true;
   }
 };
 
@@ -36,7 +36,7 @@ export const takeAction = (goal) => {
     parent.brain.pushGoal(approachTargetGoal);
     parent.fireEvent("take-action");
 
-    return "SUCCESS";
+    return true;
   }
 
   // try melee
@@ -64,6 +64,6 @@ export const takeAction = (goal) => {
       }
     }
 
-    return "SUCCESS";
+    return true;
   }
 };

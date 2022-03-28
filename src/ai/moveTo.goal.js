@@ -9,11 +9,11 @@ export const isInvalid = (goal) => {
     const ogIntentGoal = getEntity(goal.originalIntent);
 
     if (ogIntentGoal.goal.isInvalid(ogIntentGoal)) {
-      return "INVALID";
+      return true;
     }
   }
 
-  if (!isNeighbor(parent.position, data)) return "INVALID";
+  if (!isNeighbor(parent.position, data)) return true;
 
   return false;
 };
@@ -32,7 +32,7 @@ export const takeAction = (goal) => {
   const { parent, data } = goal;
   if (parent.has(Motor)) {
     const success = parent.fireEvent("tryMove", { position: data });
-    if (success) return "SUCCESS";
-    return "FAILED";
+    if (success) return true;
+    return true;
   }
 };

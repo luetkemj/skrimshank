@@ -12,7 +12,7 @@ import PC from "./components/PC.component";
 import Position from "./components/Position.component";
 import Revealed from "./components/Revealed.component";
 
-export const aiQuery = world.createQuery({ all: [Brain, InFov] });
+export const aiQuery = world.createQuery({ all: [Brain] });
 
 export const appearanceQuery = world.createQuery({
   all: [Appearance],

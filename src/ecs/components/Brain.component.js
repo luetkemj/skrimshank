@@ -65,8 +65,8 @@ export default class Brain extends Component {
         );
       }
 
-      const result = currentValidGoal.goal.takeAction(currentValidGoal);
-      if (["SUCCESS", "FAILED", "INVALID"].includes(result)) {
+      currentValidGoal.goal.takeAction(currentValidGoal);
+      if (!currentValidGoal.goal.isBored) {
         this.popAndDestroyGoal();
       }
     }
