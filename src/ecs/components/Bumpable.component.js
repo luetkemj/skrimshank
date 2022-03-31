@@ -1,3 +1,4 @@
+import { sample } from "lodash";
 import { Component } from "geotic";
 import { log } from "../../lib/logger";
 import { getEntity } from "../../lib/ecsHelpers";
@@ -11,18 +12,24 @@ export default class Bumpable extends Component {
         interactor?.equipmentSlot?.leftHand?.contentId || null;
 
       if (primaryWeaponId) {
-        const weapon = getEntity(primaryWeaponId);
+        const interactant = getEntity(primaryWeaponId);
+        // get melee interactions
+        const interactions = [];
+        interactant.fireEvent("get-melee-interactions", {
+          interactions,
+          interactee: this.entity,
+          interactor,
+        });
 
-        // get damage types and apply damage
-        if (weapon) {
-          const evt = weapon.fireEvent("get-damage-types", { damageTypes: [] });
-          this.entity.fireEvent("ApplyDamage", {
-            interactor,
-            interactee: this.entity,
-            weapon,
-            damageTypes: evt.data.damageTypes,
-          });
-        }
+        // select melee interaction
+        const interaction = sample(interactions);
+
+        // melee
+        interactant.fireEvent(interaction.evt, {
+          interactant,
+          interactee: this.entity,
+          interactor,
+        });
       }
     }
 

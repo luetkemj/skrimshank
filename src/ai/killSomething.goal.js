@@ -1,3 +1,4 @@
+import { sample } from "lodash";
 import { isAtSamePosition, isNeighbor } from "../lib/grid";
 import { createGoal, getEntity } from "../lib/ecsHelpers";
 import * as ApproachTargetGoal from "./approachTarget.goal";
@@ -39,6 +40,10 @@ export const takeAction = (goal) => {
     return true;
   }
 
+  // components should have the tryMelee event
+  // then this should do the reach out
+  // and then call try melee on one of the entities nearby
+
   // try melee
   if (isNeighbor(parent.position, target.position)) {
     // check if entity is wielding something
@@ -47,22 +52,32 @@ export const takeAction = (goal) => {
     // if nearby weapon, fire getLoot goal with weapon as target, once an item has been aquired, continue
     // if no weapon is nearby, user natural ability (punch, claw, bite, etc)
 
-    const primaryWeaponId = parent?.equipmentSlot?.leftHand?.contentId || null;
+    // call this on parent AND on all items in inventory - also need to pass in interactor and interactee
+    const interactions = [];
 
-    if (primaryWeaponId) {
-      const weapon = getEntity(primaryWeaponId);
+    parent.fireEvent("get-melee-interactions", {
+      interactions,
+      interactee: target,
+      interactor: parent,
+    });
 
-      // get damage types and apply damage
-      if (weapon) {
-        const evt = weapon.fireEvent("get-damage-types", { damageTypes: [] });
-        target.fireEvent("ApplyDamage", {
-          interactor: parent,
+    if (parent.inventory) {
+      parent.inventory.contentIds.forEach((eId) => {
+        getEntity(eId).fireEvent("get-melee-interactions", {
+          interactions,
           interactee: target,
-          weapon,
-          damageTypes: evt.data.damageTypes,
+          interactor: parent,
         });
-      }
+      });
     }
+
+    const interaction = sample(interactions);
+    const { interactant, interactee, interactor } = interaction;
+    interactant.fireEvent(interaction.evt, {
+      interactant,
+      interactee,
+      interactor,
+    });
 
     return true;
   }
