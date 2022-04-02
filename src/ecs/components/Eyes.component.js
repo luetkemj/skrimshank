@@ -6,7 +6,7 @@ import { world } from "../index";
 
 export default class Eyes extends Component {
   static properties = {
-    range: 10,
+    range: 5,
   };
 
   canSee(entity) {

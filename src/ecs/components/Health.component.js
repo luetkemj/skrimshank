@@ -10,7 +10,7 @@ export default class Health extends Component {
   };
 
   onApplyDamage(evt) {
-    const { damageTypes, interactee, interactor, weapon } = evt.data;
+    const { damageTypes, interactee, interactor, interactant, verb } = evt.data;
     let damageTotal = 0;
 
     // todo: user interactee and interactor stats and equipment mods to calc the final damageTotal
@@ -21,7 +21,7 @@ export default class Health extends Component {
       log({
         log: [
           {
-            str: `The ${interactor.display.name} attacks the ${interactee.display.name} with the ${weapon.display.name} for ${damageTotal} damage!`,
+            str: `The ${interactor.display.name} ${verb} the ${interactee.display.name} with the ${interactant.display.name} for ${damageTotal} damage!`,
           },
         ],
       });

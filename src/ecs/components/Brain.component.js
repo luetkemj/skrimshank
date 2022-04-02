@@ -1,7 +1,6 @@
 import { Component } from "geotic";
 import { createGoal, getEntity } from "../../lib/ecsHelpers";
 import * as BoredGoal from "../../ai/bored.goal";
-import { world } from "../index";
 
 export default class Brain extends Component {
   // goals are entities with a goal component
@@ -13,8 +12,10 @@ export default class Brain extends Component {
   };
 
   onAttached() {
+    this.goalIds = [];
+
     if (!this.goalIds.length) {
-      const goal = createGoal(BoredGoal, "Bored Goal");
+      const goal = createGoal({ goal: BoredGoal, name: "Bored Goal" });
       this.pushGoal(goal);
     }
   }
@@ -25,24 +26,49 @@ export default class Brain extends Component {
     });
   }
 
-  onTakeAction(evt) {
+  popAndDestroyGoal() {
+    const goal = this.popGoal();
+    goal.destroy();
+  }
+
+  removeFinishedGoals() {
     while (
       this.peekGoal() &&
       this.peekGoal().goal.isFinished(this.peekGoal())
     ) {
-      this.popGoal().destroy();
+      this.popAndDestroyGoal();
     }
+  }
+
+  fallBackToOriginalIntent(eId) {
+    while (this.peekGoal() && this.peekGoal().goal.id !== eId) {
+      if (this.peekGoal().goal.isBored) break;
+
+      this.popAndDestroyGoal();
+    }
+
+    return this.peekGoal();
+  }
+
+  onTakeAction(evt) {
+    this.removeFinishedGoals();
 
     const currentGoal = this.peekGoal();
 
     if (currentGoal) {
-      currentGoal.goal.takeAction(currentGoal);
+      let currentValidGoal = currentGoal;
+      // if INVALID, destroy all goals until we get to an original intent goal, or the base bored goal
+      const isInvalid = currentValidGoal.goal.isInvalid(currentValidGoal);
+      if (isInvalid) {
+        currentValidGoal = this.fallBackToOriginalIntent(
+          currentValidGoal.goal.originalIntent
+        );
+      }
 
-      // don't remove the last goal on the stack
-      // it's ok to be bored!
-      // if (currentGoal.display.name !== "Bored Goal") {
-      //   this.removeGoal(currentGoal);
-      // }
+      currentValidGoal.goal.takeAction(currentValidGoal);
+      if (!currentValidGoal.goal.isBored) {
+        this.popAndDestroyGoal();
+      }
     }
 
     evt.handle();

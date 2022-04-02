@@ -1,3 +1,11 @@
+220324
+fallback to original intent is working ish
+need to
+
+- check a goals original intent for validity before taking action
+- refactor createGoal func
+- pass an original intent eid to all goals somehow
+
 220319
 Notes should not rename evt to data
 Evt notes will have an evt and a source

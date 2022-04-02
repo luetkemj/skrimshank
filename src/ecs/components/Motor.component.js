@@ -48,9 +48,13 @@ export default class Motor extends Component {
         state.rerender.add({ x, y, z });
       });
       this.entity.fireEvent("update-position", { x, y, z });
-    }
 
-    evt.handle();
+      evt.handle();
+      return true;
+    } else {
+      evt.handle();
+      return false;
+    }
   }
 
   onTryWander(evt) {

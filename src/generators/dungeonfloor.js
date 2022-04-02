@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { grid, getNeighborIds } from "../lib/grid";
 import { buildDungeon } from "../procgen/dungeon";
-import { getEAtPos, getNeighborEntities } from "../lib/ecsHelpers";
+import { isPositionImpassable, getNeighborEntities } from "../lib/ecsHelpers";
 import * as gfx from "../lib/graphics";
 import LightSource from "../ecs/components/LightSource.component";
 import Discoverable from "../ecs/components/Discoverable.component";
@@ -19,6 +19,7 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
   });
 
   const wallEntities = [];
+  const floorEntities = [];
 
   Object.values(dungeon.tiles).forEach((tile) => {
     if (tile.sprite === "WALL") {
@@ -28,7 +29,10 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
     }
     if (tile.sprite === "FLOOR") {
       const { x, y } = tile;
-      world.createPrefab("Floor", { position: { x, y, z } });
+      const floorEntity = world.createPrefab("Floor", {
+        position: { x, y, z },
+      });
+      floorEntities.push(floorEntity);
     }
   });
 
@@ -116,6 +120,21 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
       world.createPrefab("Door", {
         position: { x: tile.x, y: tile.y, z },
       });
+    }
+  });
+
+  // populate dungeon with baddies
+  // get neighbor position
+  _.times(10, () => {
+    // get possible location
+    const candidate = _.sample(floorEntities);
+
+    // if location is not blocked
+    if (!isPositionImpassable(candidate.position)) {
+      const goblin = world.createPrefab("Goblin");
+      goblin.fireEvent("update-position", candidate.position);
+      const lockpick = world.createPrefab("Lockpick");
+      goblin.fireEvent("try-equip", { entity: lockpick, slot: "leftHand" });
     }
   });
 

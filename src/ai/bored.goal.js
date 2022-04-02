@@ -10,9 +10,11 @@ import { createGoal } from "../lib/ecsHelpers";
 import * as MoveToGoal from "./moveTo.goal";
 import * as KillSomethingGoal from "./killSomething.goal";
 
-export const isFinished = () => {
-  return false;
-};
+export const isBored = true;
+
+export const isInvalid = () => false;
+
+export const isFinished = () => false;
 
 export const takeAction = (goal) => {
   const { parent } = goal;
@@ -21,18 +23,22 @@ export const takeAction = (goal) => {
   const perception = parent.fireEvent("tryPerception", { entities: [] });
   const entsInSight = perception.data.entities;
 
-  let path = [];
-
   // do I want to kill something?
   const player = entsInSight.find((x) => x.pc);
 
-  if (player) {
-    const killSomethingGoal = createGoal(
-      KillSomethingGoal,
-      "Kill Something Goal"
-    );
-    killSomethingGoal.data = { target: player };
+  // if we don't check if target to kill is still alive
+  // the brain will loop putting a kill something goal on the stack and invalidating it
+  if (player && player.health.current >= 0) {
+    const killSomethingGoal = createGoal({
+      goal: KillSomethingGoal,
+      name: "Kill Something Goal",
+      data: { target: player },
+    });
     parent.brain.pushGoal(killSomethingGoal);
+
+    parent.fireEvent("take-action");
+
+    return killSomethingGoal;
   }
 
   // do idle actions if there is nothing to kill.

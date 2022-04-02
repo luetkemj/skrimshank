@@ -92,6 +92,7 @@ export const userInputSystem = () => {
 
     const { inventoryIndex } = getState();
     const inventoryLength = player.inventory.contentIds.length;
+    const inventoryContentsLength = player.inventory.contentIds.length;
     const selectedItemId = player.inventory.contentIds[inventoryIndex];
     const selectedItem = world.getEntity(selectedItemId);
 
@@ -113,10 +114,16 @@ export const userInputSystem = () => {
 
     if (key === "d") {
       if (selectedItem) {
-        selectedItem.fireEvent("try-drop", {
+        const success = selectedItem.fireEvent("try-drop", {
           name: "Drop",
           interactor: player,
         });
+
+        if (success) {
+          if (inventoryIndex >= inventoryContentsLength - 1) {
+            setState((state) => (state.inventoryIndex = 0));
+          }
+        }
       }
     }
 

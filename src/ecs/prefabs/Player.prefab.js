@@ -33,5 +33,13 @@ export const Player = {
         isPrimary: true,
       },
     },
+
+    {
+      type: "Health",
+      properties: {
+        max: 1000,
+        current: 1000,
+      },
+    },
   ],
 };
