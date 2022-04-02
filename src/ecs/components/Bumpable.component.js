@@ -8,6 +8,7 @@ export default class Bumpable extends Component {
     if (this.entity.fightable) {
       const { interactor } = evt.data;
 
+      // This whole thing should be a in a floating window (baddies use their brains and don't bump)
       const primaryWeaponId =
         interactor?.equipmentSlot?.leftHand?.contentId || null;
 

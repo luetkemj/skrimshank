@@ -34,11 +34,34 @@ export default class LockPick extends Component {
     });
   }
 
+  onTrySlash(evt) {
+    const { interactee, interactor } = evt.data;
+    const damageBucket = this.entity.fireEvent("get-damage-types", {
+      damageTypes: [],
+    });
+
+    interactee.fireEvent("ApplyDamage", {
+      interactor,
+      interactee,
+      interactant: this.entity,
+      damageTypes: damageBucket.data.damageTypes,
+      verb: "slashes",
+    });
+  }
+
   onGetMeleeInteractions(evt) {
     const { interactions, interactee, interactor } = evt.data;
     interactions.push({
       name: "Stab",
       evt: "try-stab",
+      interactor,
+      interactee,
+      interactant: this.entity,
+    });
+
+    interactions.push({
+      name: "Slash",
+      evt: "try-slash",
       interactor,
       interactee,
       interactant: this.entity,
