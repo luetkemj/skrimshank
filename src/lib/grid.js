@@ -17,8 +17,8 @@ export const grid = {
     name: "interactions",
     width: 12,
     height: 41,
-    x: 0,
-    y: 88,
+    x: 88,
+    y: 0,
     halfWidth: true,
   },
 

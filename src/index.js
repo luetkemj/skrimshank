@@ -34,6 +34,11 @@ const state = {
   cursor: { x: 0, y: 0 },
   fps: 0,
   interactions: [],
+  // interactions: {
+  //   interact: [],
+  //   melee: [],
+  //   apply: []
+  // },
   interactee: null,
   interactor: null,
   inventoryIndex: 0,

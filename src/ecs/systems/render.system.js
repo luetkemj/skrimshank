@@ -13,6 +13,7 @@ import { renderAmbiance } from "../../ui/ambiance";
 import { renderContextMenu } from "../../ui/contextMenu";
 import { renderInventory } from "../../ui/inventory";
 import { renderLegend } from "../../ui/legend";
+import { renderInteractionsMenu } from "../../ui/interactions";
 
 import {
   pcQuery,
@@ -220,4 +221,5 @@ export const renderSystem = () => {
   renderAmbiance();
   renderContextMenu(pcQuery.get()[0].position);
   renderInventory(pcQuery.get()[0]);
+  renderInteractionsMenu();
 };
