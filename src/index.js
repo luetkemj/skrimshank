@@ -5,7 +5,6 @@ import { world } from "./ecs/index";
 
 import { aiSystem } from "./ecs/systems/ai.system";
 import { ambianceSystem } from "./ecs/systems/ambiance.system";
-import { applyingSystem } from "./ecs/systems/applying.system";
 import { coronerSystem } from "./ecs/systems/coroner.system";
 import { fovSystem } from "./ecs/systems/fov.system";
 import { interactingSystem } from "./ecs/systems/interacting.system";
@@ -33,12 +32,11 @@ const state = {
   currentMapId: "0,0,0",
   cursor: { x: 0, y: 0 },
   fps: 0,
-  interactions: [],
-  // interactions: {
-  //   interact: [],
-  //   melee: [],
-  //   apply: []
-  // },
+  interactions: {
+    interact: [],
+    melee: [],
+    apply: [],
+  },
   interactee: null,
   interactor: null,
   inventoryIndex: 0,
@@ -109,7 +107,6 @@ function initGame() {
       fovSystem();
       ambianceSystem();
       interactingSystem();
-      applyingSystem();
       loggerSystem();
       coronerSystem();
       renderSystem();

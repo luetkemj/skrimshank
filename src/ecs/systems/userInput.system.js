@@ -225,7 +225,20 @@ export const userInputSystem = () => {
     if (interactionKeys.includes(key)) {
       const index = _.findIndex(interactionKeys, (k) => k === key);
       const { interactions, interactor, interactee } = getState();
-      const interaction = interactions[index];
+
+      const allInteractions = [
+        ...interactions.interact,
+        ...interactions.apply,
+        ...interactions.melee,
+      ];
+
+      const interaction = allInteractions[index];
+      if (!interaction) {
+        setState((state) => (state.mode = "GAME"));
+        clearContainer("mapOverlay");
+        return;
+      }
+
       // if interaction has an interactee use that (cause it's an item) else use the interactee in state
       const caller = interaction.interactee || interactee;
 

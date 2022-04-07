@@ -17,29 +17,49 @@ export const renderInteractionsMenu = () => {
       ],
     });
 
+    let y = 2;
+    let keyBinding = 0;
+
     const { interactions } = getState();
-    console.log(interactions);
 
-    let bindings = "";
-
-    interactions.forEach((interaction, index) => {
-      bindings += `(${interactionKeys[index]})${interaction.name} `;
-    });
-
-    const templates = interactions.map((interaction, index) => {
-      return {
-        str: `(${interactionKeys[index]})${interaction.name}`,
+    const interactTemplates = interactions.interact.map((interaction) => {
+      const template = {
+        str: `(${interactionKeys[keyBinding]})${interaction.name}`,
       };
+      keyBinding++;
+
+      return template;
     });
 
-    console.log(templates);
+    const applyTemplates = interactions.apply.map((interaction) => {
+      const template = {
+        str: `(${interactionKeys[keyBinding]})${interaction.name}`,
+      };
+      keyBinding++;
 
-    templates.forEach((tmpl, i) => {
+      return template;
+    });
+
+    interactTemplates.forEach((tmpl) => {
       printTemplate({
         container,
         template: [tmpl],
-        y: i + 2,
+        y,
       });
+
+      y++;
+    });
+
+    y++;
+
+    applyTemplates.forEach((tmpl) => {
+      printTemplate({
+        container,
+        template: [tmpl],
+        y,
+      });
+
+      y++;
     });
   }
 };
