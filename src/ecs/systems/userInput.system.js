@@ -235,7 +235,6 @@ export const userInputSystem = () => {
       const interaction = allInteractions[index];
       if (!interaction) {
         setState((state) => (state.mode = "GAME"));
-        clearContainer("mapOverlay");
         return;
       }
 
@@ -249,7 +248,6 @@ export const userInputSystem = () => {
           interactee,
         });
         setState((state) => (state.mode = "GAME"));
-        clearContainer("mapOverlay");
       }
     }
   }
