@@ -40,6 +40,15 @@ export const renderInteractionsMenu = () => {
       return template;
     });
 
+    const meleeTemplates = interactions.melee.map((interaction) => {
+      const template = {
+        str: `(${interactionKeys[keyBinding]})${interaction.name}`,
+      };
+      keyBinding++;
+
+      return template;
+    });
+
     interactTemplates.forEach((tmpl) => {
       printTemplate({
         container,
@@ -53,6 +62,18 @@ export const renderInteractionsMenu = () => {
     y++;
 
     applyTemplates.forEach((tmpl) => {
+      printTemplate({
+        container,
+        template: [tmpl],
+        y,
+      });
+
+      y++;
+    });
+
+    y++;
+
+    meleeTemplates.forEach((tmpl) => {
       printTemplate({
         container,
         template: [tmpl],

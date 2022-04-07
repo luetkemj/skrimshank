@@ -30,13 +30,13 @@ export const userInputSystem = () => {
     if (key === "i") {
       setState((state) => (state.mode = "INTERACTING"));
 
-      // get available interactions from neighbor tiles and set cursor to first available position
+      // todo: prioritize stack for inital selection - enemies > loot > else
 
       const positions = { N: null, S: null, E: null, W: null };
 
       // get neighbors (cardinal)
       const neighborPos = getNeighbors(player.position);
-      // for each, get interactions
+
       neighborPos.forEach((pos) => {
         const eAtPos = getEntitiesAt(pos);
         const stack = _.orderBy(
@@ -46,15 +46,8 @@ export const userInputSystem = () => {
         );
         const entity = stack[0];
 
-        const evt = entity.fireEvent("get-interactions", {
-          interactor: player,
-          interactions: [],
-        });
-
-        if (evt.data.interactions.length) {
-          const direction = getDirection(entity.position, player.position);
-          positions[direction.dir] = entity.position;
-        }
+        const direction = getDirection(entity.position, player.position);
+        positions[direction.dir] = entity.position;
       });
       const cursorPosition = _.find(positions, (position) => position);
       if (cursorPosition) {
@@ -224,6 +217,7 @@ export const userInputSystem = () => {
 
     if (interactionKeys.includes(key)) {
       const index = _.findIndex(interactionKeys, (k) => k === key);
+      // why do I need to get this off state again?
       const { interactions, interactor, interactee } = getState();
 
       const allInteractions = [
@@ -240,13 +234,16 @@ export const userInputSystem = () => {
       }
 
       // if interaction has an interactee use that (cause it's an item) else use the interactee in state
-      const caller = interaction.interactee || interactee;
+      // maybe interactee in state is just the interactant?
+      const caller =
+        interaction.interactant || interaction.interactee || interactee;
 
       if (interaction && interactee) {
         caller.fireEvent(interaction.evt, {
           interaction,
           interactor,
           interactee,
+          interactant: interaction.interactant,
         });
         setState((state) => (state.mode = "GAME"));
         clearContainer("mapOverlay");

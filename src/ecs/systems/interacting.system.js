@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { getState, setState } from "../../index";
-import { getEntitiesAt } from "../../lib/ecsHelpers";
+import { getEntitiesAt, getEntity } from "../../lib/ecsHelpers";
 import { pcQuery } from "../queries";
 import { world } from "../index";
 
@@ -79,9 +79,27 @@ export const interactingSystem = () => {
     });
   }
 
+  // get melee
+  const meleeEvts = [];
+  const primaryWeaponId = playerEnt?.equipmentSlot?.leftHand?.contentId || null;
+
+  if (primaryWeaponId) {
+    const interactant = getEntity(primaryWeaponId);
+    // get melee interactions
+    const evtMelees = interactant.fireEvent("get-melee-interactions", {
+      interactions: [],
+      interactee: entity,
+      interactor: playerEnt,
+    });
+    if (evtMelees) {
+      meleeEvts.push(evtMelees);
+    }
+  }
+
   setState((state) => {
     state.interactions.interact = evtInteractions.data.interactions;
     state.interactions.apply = _.flatMap(applyEvts, (e) => e.data.interactions);
+    state.interactions.melee = _.flatMap(meleeEvts, (e) => e.data.interactions);
     state.interactor = evtInteractions.data.interactor;
     state.interactee = entity;
   });
