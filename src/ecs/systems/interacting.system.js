@@ -39,8 +39,6 @@ export const interactingSystem = () => {
   if (!isInteractingMode) {
     // reset state
     setState((state) => {
-      state.interactee = null;
-      state.interactor = null;
       state.interactions = {
         interact: [],
         melee: [],
@@ -100,12 +98,5 @@ export const interactingSystem = () => {
     state.interactions.interact = evtInteractions.data.interactions;
     state.interactions.apply = _.flatMap(applyEvts, (e) => e.data.interactions);
     state.interactions.melee = _.flatMap(meleeEvts, (e) => e.data.interactions);
-    state.interactor = evtInteractions.data.interactor;
-    state.interactee = entity;
   });
-  setState(
-    (state) => (state.interactions.interact = evtInteractions.data.interactions)
-  );
-  setState((state) => (state.interactor = evtInteractions.data.interactor));
-  setState((state) => (state.interactee = entity));
 };

@@ -41,10 +41,16 @@ export default class Lock extends Component {
   }
 
   onGetInteractions(evt) {
+    const { interactor, interactee, interactant } = evt.data;
+
     if (!this.isLocked) {
       evt.data.interactions.push({
         name: "Lock",
         evt: "try-lock",
+        interactor,
+        interactee: this.entity,
+        interactant,
+        caller: "interactee",
       });
     }
   }

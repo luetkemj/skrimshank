@@ -28,6 +28,9 @@ export default class Loot extends Component {
     evt.data.interactions.push({
       name: "Pick up",
       evt: "try-pick-up",
+      interactor,
+      interactee: this.entity,
+      caller: "interactee",
     });
   }
 

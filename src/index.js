@@ -37,8 +37,6 @@ const state = {
     melee: [],
     apply: [],
   },
-  interactee: null,
-  interactor: null,
   inventoryIndex: 0,
   legendPositions: [],
   legendPositionsIndex: 0,

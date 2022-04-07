@@ -217,8 +217,7 @@ export const userInputSystem = () => {
 
     if (interactionKeys.includes(key)) {
       const index = _.findIndex(interactionKeys, (k) => k === key);
-      // why do I need to get this off state again?
-      const { interactions, interactor, interactee } = getState();
+      const { interactions } = getState();
 
       const allInteractions = [
         ...interactions.interact,
@@ -233,21 +232,15 @@ export const userInputSystem = () => {
         return;
       }
 
-      // if interaction has an interactee use that (cause it's an item) else use the interactee in state
-      // maybe interactee in state is just the interactant?
-      const caller =
-        interaction.interactant || interaction.interactee || interactee;
-
-      if (interaction && interactee) {
-        caller.fireEvent(interaction.evt, {
-          interaction,
-          interactor,
-          interactee,
-          interactant: interaction.interactant,
-        });
-        setState((state) => (state.mode = "GAME"));
-        clearContainer("mapOverlay");
-      }
+      const { caller, interactor, interactee, interactant } = interaction;
+      interaction[caller].fireEvent(interaction.evt, {
+        interaction,
+        interactor,
+        interactee,
+        interactant,
+      });
+      setState((state) => (state.mode = "GAME"));
+      clearContainer("mapOverlay");
     }
   }
 

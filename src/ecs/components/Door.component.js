@@ -79,15 +79,25 @@ export default class Door extends Component {
   }
 
   onGetInteractions(evt) {
+    const { interactor, interactee, interactant } = evt.data;
+
     if (this.isOpen) {
       evt.data.interactions.push({
         name: "Close door",
         evt: "try-close-door",
+        interactor,
+        interactee: this.entity,
+        interactant,
+        caller: "interactee",
       });
     } else {
       evt.data.interactions.push({
         name: "Open door",
         evt: "try-open-door",
+        interactor,
+        interactee: this.entity,
+        interactant,
+        caller: "interactee",
       });
     }
   }
