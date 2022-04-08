@@ -1,7 +1,8 @@
 import _ from "lodash";
 import { getState, setState } from "../../index";
-import { getEntitiesAt } from "../../lib/ecsHelpers";
+import { getEntitiesAt, getEntity } from "../../lib/ecsHelpers";
 import { pcQuery } from "../queries";
+import { world } from "../index";
 
 export const interactionKeys = [
   "a",
@@ -37,9 +38,13 @@ export const interactingSystem = () => {
 
   if (!isInteractingMode) {
     // reset state
-    setState((state) => (state.interactee = null));
-    setState((state) => (state.interactor = null));
-    setState((state) => (state.interactions = []));
+    setState((state) => {
+      state.interactions = {
+        interact: [],
+        melee: [],
+        apply: [],
+      };
+    });
     return;
   }
 
@@ -49,12 +54,49 @@ export const interactingSystem = () => {
   const stack = _.orderBy([...eAtPos], (entity) => entity.zIndex.z, "desc");
   const entity = stack[0];
 
-  const evt = entity.fireEvent("get-interactions", {
+  // get interactions
+  const evtInteractions = entity.fireEvent("get-interactions", {
     interactor: playerEnt,
     interactions: [],
   });
 
-  setState((state) => (state.interactions = evt.data.interactions));
-  setState((state) => (state.interactor = evt.data.interactor));
-  setState((state) => (state.interactee = entity));
+  // get applications
+  const applyEvts = [];
+  if (playerEnt.inventory) {
+    playerEnt.inventory.contentIds.forEach((eid) => {
+      const ent = world.getEntity(eid);
+
+      const evtApplications = ent.fireEvent("get-applications", {
+        interactor: ent,
+        interactions: [],
+        interactee: entity,
+      });
+      if (evtApplications) {
+        applyEvts.push(evtApplications);
+      }
+    });
+  }
+
+  // get melee
+  const meleeEvts = [];
+  const primaryWeaponId = playerEnt?.equipmentSlot?.leftHand?.contentId || null;
+
+  if (primaryWeaponId) {
+    const interactant = getEntity(primaryWeaponId);
+    // get melee interactions
+    const evtMelees = interactant.fireEvent("get-melee-interactions", {
+      interactions: [],
+      interactee: entity,
+      interactor: playerEnt,
+    });
+    if (evtMelees) {
+      meleeEvts.push(evtMelees);
+    }
+  }
+
+  setState((state) => {
+    state.interactions.interact = evtInteractions.data.interactions;
+    state.interactions.apply = _.flatMap(applyEvts, (e) => e.data.interactions);
+    state.interactions.melee = _.flatMap(meleeEvts, (e) => e.data.interactions);
+  });
 };

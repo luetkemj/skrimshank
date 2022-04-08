@@ -52,21 +52,5 @@ export const renderContextMenu = (position) => {
         },
       ],
     });
-
-    // all the rest relating to the float menu can probably go somewhere else. but for now...
-    clearContainer("float");
-    const { interactions } = getState();
-    let bindings = "";
-
-    interactions.forEach((interaction, index) => {
-      bindings += `(${interactionKeys[index]})${interaction.name} `;
-    });
-
-    const templates = interactions.map((interaction, index) => {
-      return {
-        str: `(${interactionKeys[index]})${interaction.name}`,
-      };
-    });
-    showFloat("float", position, templates, 0x0c444e);
   }
 };

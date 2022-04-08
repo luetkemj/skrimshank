@@ -13,12 +13,12 @@ export const grid = {
     halfWidth: true,
   },
 
-  fps: {
-    name: "fps",
+  interactions: {
+    name: "interactions",
     width: 12,
-    height: 1,
-    x: 0,
-    y: 42,
+    height: 41,
+    x: 88,
+    y: 0,
     halfWidth: true,
   },
 
@@ -33,7 +33,7 @@ export const grid = {
 
   mapOverlay: {
     name: "mapOverlay",
-    width: 87,
+    width: 74,
     height: 39,
     x: 13,
     y: 3,
@@ -42,30 +42,21 @@ export const grid = {
 
   map: {
     name: "map",
-    width: 87,
+    width: 74,
     height: 39,
     x: 13,
     y: 3,
     halfWidth: false,
   },
 
-  // withinReach: {
-  //   name: "withinReach",
-  //   width: 3,
-  //   height: 3,
-  //   x: 97,
-  //   y: 0,
-  //   halfWidth: false,
-  // },
-
-  // withinReachBelow: {
-  //   name: "withinReachBelow",
-  //   width: 3,
-  //   height: 3,
-  //   x: 97,
-  //   y: 0,
-  //   halfWidth: false,
-  // },
+  fps: {
+    name: "fps",
+    width: 12,
+    height: 1,
+    x: 0,
+    y: 42,
+    halfWidth: true,
+  },
 
   adventureLog: {
     name: "adventureLog",
@@ -78,7 +69,7 @@ export const grid = {
 
   ambiance: {
     name: "ambiance",
-    width: 87,
+    width: 74,
     height: 1,
     x: 13,
     y: 42,
@@ -87,7 +78,7 @@ export const grid = {
 
   contextMenu: {
     name: "contextMenu",
-    width: 87,
+    width: 74,
     height: 1,
     x: 13,
     y: 43,
@@ -105,7 +96,7 @@ export const grid = {
 
   menu: {
     name: "menu",
-    width: 87,
+    width: 74,
     height: 38,
     x: 13,
     y: 3,

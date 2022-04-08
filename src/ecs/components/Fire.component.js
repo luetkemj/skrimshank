@@ -23,9 +23,15 @@ export default class Fire extends Component {
   }
 
   onGetInteractions(evt) {
+    const { interactor, interactee, interactant } = evt.data;
+
     evt.data.interactions.push({
       name: "Extinguish",
       evt: "try-extinguish",
+      interactor,
+      interactant,
+      interactee: this.entity,
+      caller: "interactee",
     });
   }
 }

@@ -9,39 +9,16 @@ export default class LockPick extends Component {
   }
 
   onGetApplications(evt) {
-    const { interactee } = evt.data;
+    const { interactee, interactor } = evt.data;
     if (interactee.lock && interactee.lock.isLocked) {
       evt.data.interactions.push({
-        name: "Pick Lock",
+        name: "Pick",
         evt: "try-pick-lock",
-        interactee: this.entity,
+        interactee,
+        interactor,
+        interactant: this.entity,
+        caller: "interactant",
       });
     }
-  }
-
-  onTryStab(evt) {
-    const { interactee, interactor } = evt.data;
-    const damageBucket = this.entity.fireEvent("get-damage-types", {
-      damageTypes: [],
-    });
-
-    interactee.fireEvent("ApplyDamage", {
-      interactor,
-      interactee,
-      interactant: this.entity,
-      damageTypes: damageBucket.data.damageTypes,
-      verb: "stabs",
-    });
-  }
-
-  onGetMeleeInteractions(evt) {
-    const { interactions, interactee, interactor } = evt.data;
-    interactions.push({
-      name: "Stab",
-      evt: "try-stab",
-      interactor,
-      interactee,
-      interactant: this.entity,
-    });
   }
 }
