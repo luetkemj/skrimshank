@@ -26,9 +26,13 @@ export default class Health extends Component {
         ],
       });
     } else {
-      console.log(
-        `The ${interactor.display.name} deals a glancing blow for no damage. `
-      );
+      log({
+        log: [
+          {
+            str: `The ${interactor.display.name} deals a glancing blow for no damage. `,
+          },
+        ],
+      });
     }
 
     if (this.current <= 0) {

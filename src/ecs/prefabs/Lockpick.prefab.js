@@ -24,5 +24,7 @@ export const Lockpick = {
     },
     { type: "LockPick" },
     { type: "Wieldable" },
+    { type: "MeleeStab" },
+    { type: "MeleeSlash" },
   ],
 };
