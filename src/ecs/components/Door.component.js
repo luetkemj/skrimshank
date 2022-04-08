@@ -83,7 +83,7 @@ export default class Door extends Component {
 
     if (this.isOpen) {
       evt.data.interactions.push({
-        name: "Close door",
+        name: "Close",
         evt: "try-close-door",
         interactor,
         interactee: this.entity,
@@ -92,7 +92,7 @@ export default class Door extends Component {
       });
     } else {
       evt.data.interactions.push({
-        name: "Open door",
+        name: "Open",
         evt: "try-open-door",
         interactor,
         interactee: this.entity,

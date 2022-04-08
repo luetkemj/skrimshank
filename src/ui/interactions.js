@@ -12,7 +12,7 @@ export const renderInteractionsMenu = () => {
       container,
       template: [
         {
-          str: "Interactions (esc)Back",
+          str: "Actions (esc)Back",
         },
       ],
     });
@@ -24,7 +24,7 @@ export const renderInteractionsMenu = () => {
 
     const interactTemplates = interactions.interact.map((interaction) => {
       const template = {
-        str: `(${interactionKeys[keyBinding]})${interaction.name}`,
+        str: `(${interactionKeys[keyBinding]})${interaction.name} ${interaction.interactee.display.name}`,
       };
       keyBinding++;
 
@@ -32,8 +32,9 @@ export const renderInteractionsMenu = () => {
     });
 
     const applyTemplates = interactions.apply.map((interaction) => {
+      console.log(interaction);
       const template = {
-        str: `(${interactionKeys[keyBinding]})${interaction.name}`,
+        str: `(${interactionKeys[keyBinding]})${interaction.name} with ${interaction.interactant.display.name}`,
       };
       keyBinding++;
 
@@ -42,45 +43,74 @@ export const renderInteractionsMenu = () => {
 
     const meleeTemplates = interactions.melee.map((interaction) => {
       const template = {
-        str: `(${interactionKeys[keyBinding]})${interaction.name}`,
+        str: `(${interactionKeys[keyBinding]})${interaction.name} with ${interaction.interactant.display.name}`,
       };
       keyBinding++;
 
       return template;
     });
 
-    interactTemplates.forEach((tmpl) => {
+    if (interactTemplates.length) {
       printTemplate({
         container,
-        template: [tmpl],
+        template: [{ str: "Interact" }],
         y,
+      });
+      y++;
+
+      interactTemplates.forEach((tmpl) => {
+        printTemplate({
+          container,
+          template: [tmpl],
+          y,
+          x: 1,
+        });
+        y++;
       });
 
       y++;
-    });
+    }
 
-    y++;
-
-    applyTemplates.forEach((tmpl) => {
+    if (applyTemplates.length) {
       printTemplate({
         container,
-        template: [tmpl],
+        template: [{ str: "Apply" }],
         y,
+      });
+      y++;
+
+      applyTemplates.forEach((tmpl) => {
+        printTemplate({
+          container,
+          template: [tmpl],
+          y,
+          x: 1,
+        });
+
+        y++;
       });
 
       y++;
-    });
+    }
 
-    y++;
-
-    meleeTemplates.forEach((tmpl) => {
+    if (meleeTemplates.length) {
       printTemplate({
         container,
-        template: [tmpl],
+        template: [{ str: "Melee" }],
         y,
       });
-
       y++;
-    });
+
+      meleeTemplates.forEach((tmpl) => {
+        printTemplate({
+          container,
+          template: [tmpl],
+          y,
+          x: 1,
+        });
+
+        y++;
+      });
+    }
   }
 };
