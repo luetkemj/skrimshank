@@ -1,5 +1,6 @@
 import { Component } from "geotic";
 import { log } from "../../lib/logger";
+import { dmgTypes } from "./Damage.component";
 
 export default class MeleeStab extends Component {
   onTryStab(evt) {
@@ -15,6 +16,7 @@ export default class MeleeStab extends Component {
       interactant: this.entity,
       damageTypes: damageBucket.data.damageTypes,
       verb: "stabs",
+      dmgType: dmgTypes.PIERCING,
     });
 
     if (!event.handled) {

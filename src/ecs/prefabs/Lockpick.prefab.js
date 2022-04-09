@@ -1,4 +1,5 @@
 import { chars, colors } from "../../lib/graphics";
+import { dmgTypes } from "../components/Damage.component";
 
 export const Lockpick = {
   name: "Lockpick",
@@ -12,7 +13,8 @@ export const Lockpick = {
         baseColor: colors.tool,
       },
     },
-    { type: "Damage" },
+    { type: "Damage", properties: { type: dmgTypes.SLASHING, value: 10 } },
+    { type: "Damage", properties: { type: dmgTypes.PIERCING, value: 5 } },
     { type: "Discoverable" },
     {
       type: "Display",

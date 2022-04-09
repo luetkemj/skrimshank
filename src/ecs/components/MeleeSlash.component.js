@@ -1,5 +1,6 @@
 import { Component } from "geotic";
 import { log } from "../../lib/logger";
+import { dmgTypes } from "./Damage.component";
 
 export default class MeleeSlash extends Component {
   onTrySlash(evt) {
@@ -15,6 +16,7 @@ export default class MeleeSlash extends Component {
       interactant: this.entity,
       damageTypes: damageBucket.data.damageTypes,
       verb: "slashes",
+      dmgType: dmgTypes.SLASHING,
     });
 
     if (!event.handled) {
