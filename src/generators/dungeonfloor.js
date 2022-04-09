@@ -5,6 +5,7 @@ import { isPositionImpassable, getNeighborEntities } from "../lib/ecsHelpers";
 import * as gfx from "../lib/graphics";
 import LightSource from "../ecs/components/LightSource.component";
 import Discoverable from "../ecs/components/Discoverable.component";
+import { weaponNames } from "../ecs/prefabs/MeleeWeapon.prefabs";
 
 export const generateDungeonFloor = ({ world, z = 0 }) => {
   const dungeon = buildDungeon({
@@ -68,7 +69,7 @@ export const generateDungeonFloor = ({ world, z = 0 }) => {
       if (roll > 5) {
         world.createPrefab("Brazier", { position: { x, y, z } });
       } else {
-        world.createPrefab("Lockpick", { position: { x, y, z } });
+        world.createPrefab(_.sample(weaponNames), { position: { x, y, z } });
       }
     });
   });

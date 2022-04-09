@@ -2,6 +2,7 @@ import { Component } from "geotic";
 import IsDead from "./IsDead.component";
 import { setState } from "../../index";
 import { log } from "../../lib/logger";
+import { roll } from "../../lib/dice";
 
 import { meleeDmgTypes, magicDmgTypes } from "./Damage.component";
 
@@ -12,7 +13,7 @@ const getDamage = ({
   immunities = [],
 }) => {
   const { type, value } = damage;
-  let finalValue = value;
+  let finalValue = roll(value);
 
   if (resistances.includes(type)) {
     finalValue /= 2;
@@ -26,7 +27,7 @@ const getDamage = ({
     finalValue = 0;
   }
 
-  return finalValue;
+  return Math.round(finalValue);
 };
 
 export default class Health extends Component {
@@ -50,8 +51,6 @@ export default class Health extends Component {
       ...applicableMagicDmgTypes,
     ];
 
-    let damageTotal = 0;
-
     const {
       data: { resistances },
     } = interactee.fireEvent("get-resistances", {
@@ -70,15 +69,27 @@ export default class Health extends Component {
       vulnerabilities: [],
     });
 
+    let damageTotal = 0;
+
+    console.log({
+      damageTypes,
+      applicableDmgTypes,
+      resistances,
+      vulnerabilities,
+      immunities,
+    });
+
     // todo: user interactee and interactor stats and equipment mods to calc the final damageTotal
     damageTypes.forEach((dt) => {
       if (applicableDmgTypes.includes(dt.type)) {
-        damageTotal += getDamage({
+        const dTotal = getDamage({
           damage: dt,
           resistances,
           vulnerabilities,
           immunities,
         });
+
+        damageTotal += dTotal;
       }
     });
 
@@ -97,7 +108,7 @@ export default class Health extends Component {
       log({
         log: [
           {
-            str: `The ${interactor.display.name} deals a glancing blow for no damage. `,
+            str: `The ${interactor.display.name} deals a glancing blow for no damage. ${damageTotal} ${verb}`,
           },
         ],
       });

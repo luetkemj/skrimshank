@@ -13,8 +13,8 @@ export const Lockpick = {
         baseColor: colors.tool,
       },
     },
-    { type: "Damage", properties: { type: dmgTypes.SLASHING, value: 10 } },
-    { type: "Damage", properties: { type: dmgTypes.PIERCING, value: 5 } },
+    { type: "Damage", properties: { type: dmgTypes.SLASHING, value: "1d4" } },
+    { type: "Damage", properties: { type: dmgTypes.PIERCING, value: "1d4" } },
     { type: "Discoverable" },
     {
       type: "Display",
