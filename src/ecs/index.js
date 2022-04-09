@@ -31,6 +31,7 @@ import LockComponent from "./components/Lock.component";
 import LockPickComponent from "./components/LockPick.component";
 import LootComponent from "./components/Loot.component";
 import LuxComponent from "./components/Lux.component";
+import MeleeBash from "./components/MeleeBash.component";
 import MeleeSlash from "./components/MeleeSlash.component";
 import MeleeStab from "./components/MeleeStab.component";
 import MotorComponent from "./components/Motor.component";
@@ -51,6 +52,8 @@ import { Lockpick as LockpickPrefab } from "./prefabs/Lockpick.prefab";
 import { Player as PlayerPrefab } from "./prefabs/Player.prefab";
 import { Tile as TilePrefab } from "./prefabs/Tile.prefab";
 import { Wall as WallPrefab } from "./prefabs/Wall.prefab";
+
+import { MeleeWeaponPrefabs } from "./prefabs/MeleeWeapon.prefabs";
 
 export const engine = new Engine();
 export const world = engine.createWorld();
@@ -85,6 +88,7 @@ engine.registerComponent(LockComponent);
 engine.registerComponent(LockPickComponent);
 engine.registerComponent(LootComponent);
 engine.registerComponent(LuxComponent);
+engine.registerComponent(MeleeBash);
 engine.registerComponent(MeleeSlash);
 engine.registerComponent(MeleeStab);
 engine.registerComponent(MotorComponent);
@@ -109,3 +113,6 @@ engine.registerPrefab(PlayerPrefab);
 engine.registerPrefab(WallPrefab);
 
 engine.registerPrefab(Goal);
+
+// generatedPrefabs
+MeleeWeaponPrefabs.forEach((prefab) => engine.registerPrefab(prefab));
