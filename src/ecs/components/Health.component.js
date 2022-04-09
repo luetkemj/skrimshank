@@ -2,6 +2,7 @@ import { Component } from "geotic";
 import IsDead from "./IsDead.component";
 import { setState } from "../../index";
 import { log } from "../../lib/logger";
+import { roll } from "../../lib/dice";
 
 import { meleeDmgTypes, magicDmgTypes } from "./Damage.component";
 
@@ -12,7 +13,7 @@ const getDamage = ({
   immunities = [],
 }) => {
   const { type, value } = damage;
-  let finalValue = value;
+  let finalValue = roll(value);
 
   if (resistances.includes(type)) {
     finalValue /= 2;
@@ -26,7 +27,7 @@ const getDamage = ({
     finalValue = 0;
   }
 
-  return finalValue;
+  return Math.round(finalValue);
 };
 
 export default class Health extends Component {
