@@ -1,4 +1,5 @@
 import { chars, colors } from "../../lib/graphics";
+import { dmgTypes } from "../components/Damage.component";
 
 export const Player = {
   name: "Player",
@@ -41,5 +42,9 @@ export const Player = {
         current: 1000,
       },
     },
+    // for testing purposes only
+    { type: "DamageResistance", properties: { type: dmgTypes.PIERCING } },
+    { type: "DamageVulnerability", properties: { type: dmgTypes.SLASHING } },
+    // { type: "DamageImmunity", properties: { type: dmgTypes.SLASHING } },
   ],
 };

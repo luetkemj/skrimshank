@@ -1,3 +1,10 @@
+220408
+
+# how to make a weapon
+
+- place damage components (one for each damage type)
+- place melee components for each available attack
+
 220324
 fallback to original intent is working ish
 need to
