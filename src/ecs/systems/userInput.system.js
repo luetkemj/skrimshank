@@ -125,7 +125,10 @@ export const userInputSystem = () => {
         if (selectedItem.equipped) {
           player.equipmentSlot.leftHand.unequip();
         } else {
-          player.equipmentSlot.leftHand.equip(selectedItem);
+          player.fireEvent("try-equip", {
+            entity: selectedItem,
+            slot: "leftHand",
+          });
         }
       }
     }

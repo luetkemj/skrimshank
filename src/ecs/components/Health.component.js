@@ -71,14 +71,6 @@ export default class Health extends Component {
 
     let damageTotal = 0;
 
-    console.log({
-      damageTypes,
-      applicableDmgTypes,
-      resistances,
-      vulnerabilities,
-      immunities,
-    });
-
     // todo: user interactee and interactor stats and equipment mods to calc the final damageTotal
     damageTypes.forEach((dt) => {
       if (applicableDmgTypes.includes(dt.type)) {
