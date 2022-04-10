@@ -37,18 +37,8 @@ export default class EquipmentSlot extends Component {
         return false;
       }
 
-      // probably don't want to check if wieldable...
-      // maybe the item needs appropriate slots it's can be used...
-      // if (!entity.wieldable) {
-      //   console.log("Cannot be wielded");
-      //   evt.handle();
-      //   return false;
-      // }
-
       if (this.contentId) {
-        console.log("Cannot equip, slot is full");
-        evt.handle();
-        return false;
+        this.unequip();
       }
 
       this.equip(entity);
