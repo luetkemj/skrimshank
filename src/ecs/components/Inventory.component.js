@@ -8,9 +8,9 @@ export default class Inventory extends Component {
   };
 
   // hack to get around geotic bug where the contentIds array is a shared reference across entities
-  onAttached() {
-    this.contentIds = [];
-  }
+  // onAttached() {
+  //   this.contentIds = [];
+  // }
 
   addLoot(loot) {
     if (this.contentIds.includes(loot.id)) {

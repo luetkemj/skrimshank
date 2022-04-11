@@ -33,8 +33,8 @@ export const fovSystem = () => {
   // clear out and unrender stale fov
   // todo: remove this hack
   // hack: spreading the query to get past a caching bug in geotic
-  [...fovQuery.get()].forEach((entity) => {
-    // fovQuery.get().forEach((entity) => {
+  // [...fovQuery.get()].forEach((entity) => {
+  fovQuery.get().forEach((entity) => {
     entity.remove(entity.inFov);
   });
 
