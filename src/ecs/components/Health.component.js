@@ -11,10 +11,16 @@ const getDamage = ({
   vulnerabilities = [],
   resistances = [],
   immunities = [],
+  interactee,
+  interactor,
+  interactant,
 }) => {
   const { type, value } = damage;
+
+  // get inital base damage
   let finalValue = roll(value);
 
+  // calc any RVIs
   if (resistances.includes(type)) {
     finalValue /= 2;
   }
@@ -27,7 +33,25 @@ const getDamage = ({
     finalValue = 0;
   }
 
+  // add strength mod
+  finalValue += interactor.abilities.strMod;
+  console.log(interactor.abilities.strMod);
+
   return Math.round(finalValue);
+};
+
+const attack = ({ interactee, interactor, interactant }) => {
+  // todo: add any to hit mods
+  const attackRoll = roll("1d20");
+  const ac = interactee.abilities.dexMod + 10;
+
+  console.log({ attackRoll, ac });
+
+  if (attackRoll > ac) {
+    console.log("HIT!");
+  } else {
+    console.log("MISS");
+  }
 };
 
 export default class Health extends Component {
@@ -36,9 +60,11 @@ export default class Health extends Component {
     current: 10,
   };
 
-  onApplyDamage(evt) {
+  onTryAttack(evt) {
     const { damageTypes, interactee, interactor, interactant, verb, dmgType } =
       evt.data;
+
+    attack({ interactee, interactor, interactant });
 
     const applicableMeleeDmgTypes = Object.keys(meleeDmgTypes).filter(
       (dt) => dt === dmgType
@@ -79,6 +105,9 @@ export default class Health extends Component {
           resistances,
           vulnerabilities,
           immunities,
+          interactee,
+          interactor,
+          interactant,
         });
 
         damageTotal += dTotal;

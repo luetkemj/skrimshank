@@ -9,7 +9,7 @@ export default class MeleeBash extends Component {
       damageTypes: [],
     });
 
-    const event = interactee.fireEvent("ApplyDamage", {
+    const event = interactee.fireEvent("try-attack", {
       interactor,
       interactee,
       interactant: this.entity,

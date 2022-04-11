@@ -2,6 +2,7 @@
 
 import { Engine } from "geotic";
 
+import AbilitiesComponent from "./components/Abilities.component";
 import AppearanceComponent from "./components/Appearance.component";
 import AstarComponent from "./components/Astar.component";
 import ImpassableComponent from "./components/Impassable.component";
@@ -59,6 +60,7 @@ export const engine = new Engine();
 export const world = engine.createWorld();
 
 // register components
+engine.registerComponent(AbilitiesComponent);
 engine.registerComponent(AppearanceComponent);
 engine.registerComponent(AstarComponent);
 engine.registerComponent(ImpassableComponent);

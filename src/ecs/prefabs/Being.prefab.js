@@ -11,5 +11,6 @@ export const Being = {
     { type: "Legend" },
     { type: "Position" },
     { type: "ZIndex", properties: { z: 300 } },
+    { type: "Abilities" },
   ],
 };

@@ -43,8 +43,8 @@ export const Player = {
       },
     },
     // for testing purposes only
-    { type: "DamageResistance", properties: { type: dmgTypes.PIERCING } },
-    { type: "DamageVulnerability", properties: { type: dmgTypes.SLASHING } },
+    // { type: "DamageResistance", properties: { type: dmgTypes.PIERCING } },
+    // { type: "DamageVulnerability", properties: { type: dmgTypes.SLASHING } },
     // { type: "DamageImmunity", properties: { type: dmgTypes.SLASHING } },
   ],
 };

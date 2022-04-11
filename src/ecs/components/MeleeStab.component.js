@@ -10,7 +10,7 @@ export default class MeleeStab extends Component {
     });
 
     // should have some sort of flag passed along that can be flipped on success. If successful log something. (or maybe that should happen in the listener? IDK)
-    const event = interactee.fireEvent("ApplyDamage", {
+    const event = interactee.fireEvent("try-attack", {
       interactor,
       interactee,
       interactant: this.entity,

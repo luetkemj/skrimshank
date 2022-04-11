@@ -73,6 +73,8 @@ function initGame() {
 
   // testing:
   const hero = world.createPrefab("Player");
+  hero.abilities.strength = 16;
+
   const dungeon = generateDungeonFloor({ world });
 
   hero.fireEvent("update-position", dungeon.rooms[0].center);
